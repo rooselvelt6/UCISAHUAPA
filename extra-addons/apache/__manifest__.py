@@ -9,6 +9,9 @@
     'description': """
         Sistema de gravedad Apache II, es un índice que mide la gravedad de un paciente y estima la mortalidad del mismo
         cada 24H es una UCI basado en parámetros fisiológicos del paciente
+            - Cálculo de la gravedad de un paciente en UCI
+            - Estimación de la mortalidad de un paciente en UCI
+            - APS de un paciente en UCI
     """,
 
     'author': "Rooselvelt Angulo",
