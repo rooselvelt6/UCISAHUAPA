@@ -2,22 +2,34 @@
 {
     'name': "Apache",
 
-    'summary': """
-
-        Sistema de gravedad de la UCI del SAHUAPA
-
-        """,
+    'summary': """ Sistema de gravedad de la UCI del SAHUAPA""",
 
     'description': """
-        Sistema de gravedad Apache II, es un índice que mide la gravedad de un paciente y estima la mortalidad del mismo
-        cada 24H es una UCI basado en parámetros fisiológicos del paciente
-            - Cálculo de la gravedad de un paciente en UCI
-            - Estimación de la mortalidad de un paciente en UCI
-            - APS de un paciente en UCI
+
+        Sistema APACHE II:
+        
+            El score: Acute Physiology and Chronic Health Evaluation II 
+            (APACHE II), es un sistema de valoración pronostica de mortalidad, 
+            que consiste en detectar los trastornos fisiológicos agudos 
+            que atentan contra la vida del paciente y se fundamenta en la 
+            determinación de las alteraciones de variables fisiológicas y de 
+            parámetros de laboratorio, cuya puntuación es un factor 
+            predictivo de mortalidad, siendo este índice válido para un amplio 
+            rango de diagnósticos, fácil de usar y que puede sustentarse en datos 
+            disponibles en la mayor parte de las UCI (Knaus et al., 1985).
+            
+            El índice APACHE II es calculado en el momento de ingreso o al final 
+            del día de internación del paciente, por lo tanto la misma, brinda un 
+            perfil momentáneo del estado del internado, no pudiendo 
+            aportar información dinámica.
+
+                - Cálculo de la gravedad de un paciente en UCI
+                - Estimación de la mortalidad de un paciente en UCI
+                - APS de un paciente en UCI
     """,
 
     'author': "Rooselvelt Angulo",
-    'website': "",
+    'website': "https://github.com/rooselvelt6/UCISAHUAPA",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
