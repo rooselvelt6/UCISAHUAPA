@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_apache_apache,apache.apache,model_apache_apache,,1,0,0,0
+access_sga2_sga2,sga2.sga2,model_sga2_sga2,,1,0,0,0

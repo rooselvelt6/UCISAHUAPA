@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Apache",
+    'name': "APACHE II",
 
-    'summary': """ Sistema de gravedad de la UCI del SAHUAPA""",
+    'summary': """Acute Physiology and Chronic Health Evaluation II (APACHE II)""",
 
     'description': """
-
         Sistema APACHE II:
-        
             El score: Acute Physiology and Chronic Health Evaluation II 
             (APACHE II), es un sistema de valoración pronostica de mortalidad, 
             que consiste en detectar los trastornos fisiológicos agudos 
@@ -22,19 +20,15 @@
             del día de internación del paciente, por lo tanto la misma, brinda un 
             perfil momentáneo del estado del internado, no pudiendo 
             aportar información dinámica.
-
-                - Cálculo de la gravedad de un paciente en UCI
-                - Estimación de la mortalidad de un paciente en UCI
-                - APS de un paciente en UCI
     """,
 
     'author': "Rooselvelt Angulo",
-    'website': "https://github.com/rooselvelt6/UCISAHUAPA",
+    'website': "https://github.com/rooselvelt6/UCISAHUAPA/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Sistema de gravedad de la UCI',
+    'category': 'UCI',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -50,6 +44,6 @@
     'demo': [
         'demo/demo.xml',
     ],
-
+    
     'application': True,
 }
