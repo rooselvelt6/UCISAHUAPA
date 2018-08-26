@@ -88,13 +88,15 @@ class Apache(models.Model):
 	# SISTEMA GLASGOW
 
 	# APERTURA OCULAR
-	apertura_ocular = fields.Integer(string="Apertura Ocular del paciente", help='Valor de apertura ocular. Rango:(1-4)')
+	apertura_ocular = fields.Integer(string="Apertura Ocular", help='Valor de apertura ocular. Rango:(1-4)')
 
 	# RESPUESTA MOTORA.
-	respuesta_motora = fields.Integer(string="Respuesta Motora del paciente", help='Valor de la respuesta motora. Rango:(1-6)')
+	respuesta_motora = fields.Integer(string="Respuesta Motora", help='Valor de la respuesta motora. Rango:(1-6)')
 
 	# RESPUESTA VERBAL.
-	respuesta_verbal = fields.Integer(string="Respuesta verbal del paciente", help='Valor de la respuesta verbal. Rango:(1-5)')
+	respuesta_verbal = fields.Integer(string="Respuesta verbal", help='Valor de la respuesta verbal. Rango:(1-5)')
+
+
 
 
 # class sga2(models.Model):

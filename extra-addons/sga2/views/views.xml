@@ -1,60 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- CADA ID ES UNICO Y SIEMPRE EN MINUSCULA-->
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="sga2.list">
-      <field name="name">sga2 list</field>
-      <field name="model">sga2.sga2</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
-    -->
+  <!-- Form view -->
+  <record id="apache_form_view" model="ir.ui.view">
+    <field name="name">apache.apache.form.view</field>
+    <field name="model">apache.apache</field>
+    <field name="arch" type="xml">
+      <form string="Apache Form">
+        <header>
+          <button string="Limpiar" name="limpiar" type="object"></button>
+          <button string="Calcular" name="calcular" type="object"></button>
+        </header>
+        <sheet>
+          <group col="2" string="Variables Fisiológicas">
+            <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
+            <field name="pam" help="Presión arterial media (mmHg)"></field>
+            <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
+            <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
+            <field name="ph" help="pH arterial (Preferido)"></field>
+            <field name="hco3" help="HCO3 SÉRICO (Venoso mEq/l)"></field>
+            <field name="na" help="Sodio Sérico (mEq/l)"></field>
+            <field name="k" help="Potasio Sérico (mEq/l)"></field>
+            <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
+            <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
+            <field name="hematocrito" help="Hematocrito (%)"></field>
+            <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
+            <field name="fio2" help="Oxigenación FIO2"></field>
+            <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
+          </group>
 
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="sga2.action_window">
-      <field name="name">sga2 window</field>
-      <field name="res_model">sga2.sga2</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    -->
+          <group col="2" string="Escala de coma de Glasgow">
+            <field name="apertura_ocular" help='Valor de apertura ocular. Rango:(1-4)'></field>
+            <field name="respuesta_motora" help='Valor de la respuesta motora. Rango:(1-6)'></field>
+            <field name="respuesta_verbal" help='Valor de la respuesta verbal. Rango:(1-5)'></field>
+          </group>
 
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="sga2.action_server">
-      <field name="name">sga2 server</field>
-      <field name="model_id" ref="model_sga2_sga2"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
+        </sheet>
+      </form>
+    </field>
+  </record>
 
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="sga2" id="sga2.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="sga2.menu_1" parent="sga2.menu_root"/>
-    <menuitem name="Menu 2" id="sga2.menu_2" parent="sga2.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="sga2.menu_1_list" parent="sga2.menu_1"
-              action="sga2.action_window"/>
-    <menuitem name="Server to list" id="sga2" parent="sga2.menu_2"
-              action="sga2.action_server"/>
-    -->
-  </data>
+   <!-- Tree view -->
+   <record id="apache_tree_view" model="ir.ui.view">
+    <field name="name">apache.apache.form.view</field>
+    <field name="model">apache.apache</field>
+    <field name="arch" type="xml">
+      <tree limit="30">
+            <field name="temperatura"></field>
+            <field name="pam"></field>
+            <field name="fc"></field>
+            <field name="fr"></field>
+            <field name="ph"></field>
+            <field name="hco3"></field>
+            <field name="na"></field>
+            <field name="k"></field>
+            <field name="creatinina"></field>
+            <field name="hematocrito"></field>
+            <field name="leucocitos"></field>
+            <field name="oxigenacion"></field>
+      </tree>
+    </field>
+  </record>
+  
+  <!-- Search views -->
+
+  <!-- actions opening views on models -->
+  <record id="action_apache" model="ir.actions.act_window">
+    <field name="name">Índice de Gravedad APACHE II</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">apache.apache</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <!-- Menú -->
+  <menuitem id="apache_menu_root" name="Apache II" sequence="1"></menuitem>
+  <menuitem id="apache_menu_category" name="APACHE" sequence="1" parent="apache_menu_root"></menuitem>
+  <menuitem id="action_apache_menu" name="APACHE" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
 </odoo>
