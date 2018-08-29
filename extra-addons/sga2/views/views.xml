@@ -8,18 +8,25 @@
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <form string="Apache Form">
+
         <header>
-          <button string="Limpiar" name="limpiar" type="object"></button>
           <button string="Calcular" name="calcular" type="object"></button>
+          <button string="Valores controlados" name="limpiar" type="object"></button>
         </header>
+
         <sheet>
+
+          <group string="Fecha de cálculo"> 
+            <field string="Fecha" name="fecha_actual"></field>
+          </group>
+
           <group col="2" string="Variables Fisiológicas">
             <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
             <field name="pam" help="Presión arterial media (mmHg)"></field>
             <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
             <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
             <field name="ph" help="pH arterial (Preferido)"></field>
-            <field name="hco3" help="HCO3 SÉRICO (Venoso mEq/l)"></field>
+            <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
             <field name="na" help="Sodio Sérico (mEq/l)"></field>
             <field name="k" help="Potasio Sérico (mEq/l)"></field>
             <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
@@ -36,6 +43,12 @@
             <field name="respuesta_verbal" help='Valor de la respuesta verbal. Rango:(1-5)'></field>
           </group>
 
+          <group string="Resultados">
+            <field name="aps" help="Sumatoria de todas las variables fisiológicas del paciente"/>
+            <field name="apache" help="Estado de gravedad del paciente"/>
+            <field name="mortalidad" help="Estimación del porcentaje de mortalidad"/>
+          </group>
+
         </sheet>
       </form>
     </field>
@@ -47,6 +60,7 @@
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <tree limit="30">
+            <field name="fecha_actual"></field>
             <field name="temperatura"></field>
             <field name="pam"></field>
             <field name="fc"></field>
@@ -59,12 +73,28 @@
             <field name="hematocrito"></field>
             <field name="leucocitos"></field>
             <field name="oxigenacion"></field>
+            <field name="aps"></field>
+            <field name="apache"></field>
+            <field name="mortalidad"></field>
       </tree>
     </field>
   </record>
   
   <!-- Search views -->
-
+  <record id="views_filter_apache" model="ir.ui.view">
+    <field name="name">Filtro APACHE</field>
+    <field name="model">apache.apache</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="aps"></field>
+        <field name="apache"></field>
+        <field name="mortalidad"></field>
+        <filter string="Pacientes con fallas renales" domain="[('fallo_renal','=',True)]"></filter>
+        <filter string="Pacientes sin fallas renales" domain="[('fallo_renal','=',False)]"></filter>
+      </search>
+    </field>
+  </record>
+  
   <!-- actions opening views on models -->
   <record id="action_apache" model="ir.actions.act_window">
     <field name="name">Índice de Gravedad APACHE II</field>

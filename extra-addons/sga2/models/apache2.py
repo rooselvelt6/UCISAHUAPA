@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 
 class Apache(models.Model):
+
 	""" Indice de gravedad APACHE II 
 
 	Args:
@@ -15,7 +16,9 @@ class Apache(models.Model):
 
 			# INSTANCIA
 				ap = Apache()
-			# CALCULO DE VARIABLES
+			# SOLICITUD DE LAS VARIABLES
+
+			# CALCULO DEL PUNTAJE DE LAS VARIABLES INGRESADAS
 				ap.temperatura()
 				ap.presionArterialMedia()
 				ap.frecuenciaCardiaca()
@@ -40,6 +43,9 @@ class Apache(models.Model):
 				pprint(ap.getReporte())
 	"""
 	_name = 'apache.apache'
+
+	# FECHA DEL SISTEMA
+	fecha_actual = fields.Date()
 
 	# VARIABLES FISIOLOGICAS DEL PACIENTE SOLICITADAS AL USUARIO
 	
@@ -96,13 +102,50 @@ class Apache(models.Model):
 	# RESPUESTA VERBAL.
 	respuesta_verbal = fields.Integer(string="Respuesta verbal", help='Valor de la respuesta verbal. Rango:(1-5)')
 
+	# CONTROL DE INDICADORES
+	
+	# APS
+	aps = fields.Integer(string='APS')
+	
+	# APACHE
+	apache = fields.Integer(string='APACHE')
+	
+	# MORTALIDAD
+	mortalidad = fields.Integer(string='Mortalidad')
+
+	# CONTROL DE BOTONES DEL SIMULADOR APACHE II
+
+	@api.multi
+	def limpiar(self):
+		for x in self:
+			# PACIENTE EN PERFECTO ESTADO DE SALUD
+			x.temperatura = 37
+			x.pam = 70
+			x.fc = 70
+			x.fr = 12
+			x.ph = 7.33
+			x.hco3 = 22
+			x.na = 130
+			x.k = 3.5
+			x.creatinina = 0.6
+			x.fallo_renal = False
+			x.hematocrito = 30.0
+			x.leucocitos = 3
+			x.fio2 = 0.6
+			x.oxigenacion = 71
+			# INDIVIDUO SANO
+			x.apertura_ocular = 4
+			x.respuesta_motora = 5
+			x.respuesta_verbal = 6
+		return True
+
+	@api.multi
+	def calcular(self):
+		pass
 
 
 
 # class sga2(models.Model):
-#     _name = 'sga2.sga2'
-
-#     name = fields.Char()
 #     value = fields.Integer()
 #     value2 = fields.Float(compute="_value_pc", store=True)
 #     description = fields.Text()
