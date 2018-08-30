@@ -815,4 +815,4 @@ class Apache(glasgow.Glasgow):
 		except ValueError as e:
 			 print("No pude convertir el valor")
 
-		self.mortalidad= datos
+		self.mortalidad= dato

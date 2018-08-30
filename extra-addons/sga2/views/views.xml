@@ -15,14 +15,14 @@
         </header>
 
         <sheet>
-
+          
           <group string="Fecha de cálculo"> 
             <field string="Fecha" name="fecha_actual"></field>
           </group>
 
           <group col="2" string="Variables Fisiológicas">
             <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
-            <field name="pam" help="Presión arterial media (mmHg)"></field>
+            <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
             <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
             <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
             <field name="ph" help="pH arterial (Preferido)"></field>
@@ -94,7 +94,7 @@
       </search>
     </field>
   </record>
-  
+
   <!-- actions opening views on models -->
   <record id="action_apache" model="ir.actions.act_window">
     <field name="name">Índice de Gravedad APACHE II</field>
