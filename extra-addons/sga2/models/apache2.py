@@ -89,7 +89,7 @@ class Apache(models.Model):
 	fio2 = fields.Float("Fi02", help='Oxigenación')
 
 	# OXIGENACIÓN
-	oxigenacion = fields.Float("Valor de Oxigenación", help='Oxigenación')
+	oxigenacion = fields.Integer("Valor de Oxigenación", help='Oxigenación')
 
 	# SISTEMA GLASGOW
 
@@ -116,7 +116,7 @@ class Apache(models.Model):
 	# CONTROL DE BOTONES DEL SIMULADOR APACHE II
 
 	@api.multi
-	def limpiar(self):
+	def controlados(self):
 		for x in self:
 			# PACIENTE EN PERFECTO ESTADO DE SALUD
 			x.temperatura = 37
@@ -148,7 +148,7 @@ class Apache(models.Model):
 		self._frecuenciaRespiratoria()
 		self._phArterial()
 		self._hco3Serico()
-		self._naSerico() # EN REPARACIÓN
+		self._naSerico() 
 		self._kSerico()
 		self._creatininaSerica()
 		self._hematocrito()
@@ -653,7 +653,7 @@ class Apache(models.Model):
 	
 	# OXIGENACION
 	@api.depends('aps')
-	def _oxigenacion(self, Fi02=0.6, valor=71):
+	def _oxigenacion(self):
 		
 		# Registro de variables
 		datos = dict()
@@ -702,7 +702,7 @@ class Apache(models.Model):
 					datos["puntos"] = int(3)
 					datos["rango"] = "ALTO"
 
-				elif(datos["valor_actual"] > 500):
+				elif(datos["valor_actual"] >= 500):
 					datos["puntos"] = int(4)
 					datos["rango"] = "ALTO"
 				else:

@@ -11,7 +11,7 @@
 
         <header>
           <button string="Calcular" name="calcular" type="object"></button>
-          <button string="Valores controlados" name="limpiar" type="object"></button>
+          <button string="Valores controlados" name="controlados" type="object"></button>
         </header>
 
         <sheet>
