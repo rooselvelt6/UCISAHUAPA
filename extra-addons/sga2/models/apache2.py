@@ -68,7 +68,7 @@ class Apache(models.Model):
 	hco3 = fields.Float(string='HCO3 SÉRICO', help='Venoso mEq/l')
 
 	# NA SERICO
-	na = fields.Float(string="Sodio Sérico", help='Na sérico (mEq/l)')
+	na = fields.Integer(string="Sodio Sérico", help='Na sérico (mEq/l)')
 
 	# K SERICO
 	k = fields.Float(string="Potasio Sérico", help="K sérico (mEq/l)")
@@ -148,7 +148,7 @@ class Apache(models.Model):
 		self._frecuenciaRespiratoria()
 		self._phArterial()
 		self._hco3Serico()
-		self._naSerico()
+		self._naSerico() # EN REPARACIÓN
 		self._kSerico()
 		self._creatininaSerica()
 		self._hematocrito()
@@ -433,7 +433,7 @@ class Apache(models.Model):
 			datos["valor_actual"] = int(x.na)
 
 			# Evaluar Rango y valor del rango
-			if(datos["valor_actual"] < 110):
+			if(datos["valor_actual"] <= 110):
 				datos["rango"] = "BAJO"
 				datos["puntos"] = int(4)
 
@@ -466,8 +466,6 @@ class Apache(models.Model):
 				datos["puntos"] = int(4)
 			else:
 				datos["error"] = "Valor fuera del rango de valores"
-
-			# AUMENTAR APS	
 			x.aps += datos["puntos"]
 	# K
 	@api.depends('aps')
