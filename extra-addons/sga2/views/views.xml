@@ -15,40 +15,43 @@
         </header>
 
         <sheet>
-          
-          <group string="Fecha de cálculo"> 
-            <field string="Fecha" name="fecha_actual"></field>
-          </group>
+         <group string="APACHE II" name="group_top" col="6" colspan="2"> 
 
-          <group col="2" string="Variables Fisiológicas">
-            <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
-            <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
-            <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
-            <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
-            <field name="ph" help="pH arterial (Preferido)"></field>
-            <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
-            <field name="na" help="Sodio Sérico (mEq/l)"></field>
-            <field name="k" help="Potasio Sérico (mEq/l)"></field>
-            <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
-            <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
-            <field name="hematocrito" help="Hematocrito (%)"></field>
-            <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
-            <field name="fio2" help="Oxigenación FIO2"></field>
-            <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
+          <!--Grupo 1 Cabecera -->
+          <group col="2" colspan="2">
+            <field name="fecha_actual" string="Fecha"></field>
           </group>
-
-          <group col="2" string="Escala de coma de Glasgow">
+          <!--Grupo 2 Controles -->
+          <group col="2" colspan="2" string="Variables Fisiológicas">
+              <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
+              <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
+              <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
+              <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
+              <field name="ph" help="pH arterial (Preferido)"></field>
+              <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
+              <field name="na" help="Sodio Sérico (mEq/l)"></field>
+              <field name="k" help="Potasio Sérico (mEq/l)"></field>
+              <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
+              <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
+              <field name="hematocrito" help="Hematocrito (%)"></field>
+              <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
+              <field name="fio2" help="Oxigenación FIO2"></field>
+              <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
+          </group>
+          <!-- Grupo 3 Controles -->
+          <group col="2" colspan="2" string="Escala de coma de Glasgow">
             <field name="apertura_ocular" help='Valor de apertura ocular. Rango:(1-4)'></field>
             <field name="respuesta_motora" help='Valor de la respuesta motora. Rango:(1-6)'></field>
             <field name="respuesta_verbal" help='Valor de la respuesta verbal. Rango:(1-5)'></field>
+            <!-- Grupo 4 resultados -->
+            <group col="2" colspan="2" string="Resultados">
+              <field name="aps" help="Sumatoria de todas las variables fisiológicas del paciente"/>
+              <field name="apache" help="Estado de gravedad del paciente"/>
+              <field name="mortalidad" help="Estimación del porcentaje de mortalidad"/>
+            </group>
           </group>
-
-          <group string="Resultados">
-            <field name="aps" help="Sumatoria de todas las variables fisiológicas del paciente"/>
-            <field name="apache" help="Estado de gravedad del paciente"/>
-            <field name="mortalidad" help="Estimación del porcentaje de mortalidad"/>
-          </group>
-
+          
+         </group>
         </sheet>
       </form>
     </field>
