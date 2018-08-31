@@ -94,15 +94,40 @@ class Apache(models.Model):
 	# SISTEMA GLASGOW
 
 	# APERTURA OCULAR
-	apertura_ocular = fields.Integer(string="Apertura Ocular", help='Valor de apertura ocular. Rango:(1-4)')
+	apertura_ocular = fields.Selection([(1,"No responde"),
+										(2,"Dolor"),
+										(3,"Orden verbal"),
+										(4,"Espontánea")])
+
+	# RESPUESTA VERBAL.	
+	respuesta_verbal = fields.Selection([(1,"Ninguna respuesta"),
+										(2,"Sonidos incomprensibles"),
+										(3,"Palabras inapropiadas"),
+										(4,"Desorientado y hablando"),
+										(5,"Orientado y conversando")
+										])
 
 	# RESPUESTA MOTORA.
-	respuesta_motora = fields.Integer(string="Respuesta Motora", help='Valor de la respuesta motora. Rango:(1-6)')
+	respuesta_motora = fields.Selection([(1,"Ninguna respuesta"),
+										(2,"Extensión"),
+										(3,"Flexión anormal"),
+										(4,"Retirada y flexión"),
+										(5,"Localiza el dolor"),
+										(6,"Obedece ordenes verbales")
+										])
 
-	# RESPUESTA VERBAL.
-	respuesta_verbal = fields.Integer(string="Respuesta verbal", help='Valor de la respuesta verbal. Rango:(1-5)')
+	
 
-	# CONTROL DE INDICADORES
+	# EDAD DEL PACIENTE.
+	edad = fields.Integer(string="Edad del paciente", help='Edad del paciente')
+
+	# ENFERMEDADES CRONICAS.
+	enfermedades = fields.Selection([(0,'NINGUNA'), 
+									 (2,'ELECTIVA'), 
+									 (5,"NO-QUIRURGICA"), 
+									 (5,"URGENTE")])
+
+	# INDICADORES DE GRAVEDAD Y MORTALIDAD
 	
 	# APS
 	aps = fields.Integer(string='APS')
@@ -113,8 +138,7 @@ class Apache(models.Model):
 	# MORTALIDAD
 	mortalidad = fields.Integer(string='Mortalidad')
 
-	# CONTROL DE BOTONES DEL SIMULADOR APACHE II
-
+	# CONTROL DE BOTONES
 	@api.multi
 	def controlados(self):
 		for x in self:
@@ -133,15 +157,18 @@ class Apache(models.Model):
 			x.leucocitos = 3
 			x.fio2 = 0.6
 			x.oxigenacion = 71
+			x.aps = 0
+			x.apache = 0
+			x.mortalidad = 0
 			# INDIVIDUO SANO
-			x.apertura_ocular = 1
-			x.respuesta_motora = 1
-			x.respuesta_verbal = 1
+			x.apertura_ocular = 4
+			x.respuesta_verbal = 5
+			x.respuesta_motora = 6
 		return True
 	
 	@api.multi
 	def calcular(self):
-		# Ejecución de procesos aplicados a las variables medidas al paciente
+		# OBTENCIÓN DEL PUNTAJE POR VARIABLES FISIOLOGICAS
 		self._temperatura(); 
 		self._presionArterialMedia() 
 		self._frecuenciaCardiaca() 
@@ -154,6 +181,12 @@ class Apache(models.Model):
 		self._hematocrito()
 		self._leucocitos()
 		self._oxigenacion()
+		self._calcularGlasgow()
+		# PUNTAJE CRONICO DE ENFERMEDADES PARA EL CÁLCULO DEL APACHE II
+		self._puntajeCronico()
+		self._puntajeEdad()
+		# ESTIMACIÓN DEL PORCENTAJE DE MORTALIDAD.
+		self._calcularMortalidad()
 
 	# FUNCIONES DE CALCULO DEL SISTEMA	
 	@api.depends('aps') # variables dependientes
@@ -709,5 +742,111 @@ class Apache(models.Model):
 					datos["error"] = "Valor fuera del rango de valores"
 				# AUMENTAR APS	
 				x.aps += datos["puntos"]
-		
 	
+	# GLASGOW 
+	@api.depends('aps')
+	def _calcularGlasgow(self):
+		glasgow = 0 # CONTADOR
+		for x in self: # RECORRER EL FORMULARIO Y OBTENER LOS VALORES
+			# SUMAR LAS VARIABLES DEL GLASGOW
+			glasgow = 15 - (x.apertura_ocular + x.respuesta_verbal + x.respuesta_motora);
+			# SUMAR AL APACHE EL RESULTADO DEL GLASGOW
+			x.aps += glasgow;
+
+	# PUNTAJE POR ENFERMEDAD 
+	@api.depends('apache', 'aps')
+	def _puntajeCronico(self):
+		# REGISTRo
+		datos = dict()
+		for x in self:
+			datos["nombre"] = "Enfermedad Cronica"
+					
+			datos["descripcion"] = {"Cardiovascular":"NYHA IV",
+										"RENAL":"Hemodialisis",
+										"RESPIRATORIO":["EPOC, enfermedad restictiva o vascular que limita actividad funcional",
+														"Hipoxia cronica y/o hipercapnia; dependencia respiratoria",
+														"Policitemia o hipertension pulmonar severa (40>mmHg)"
+														],
+										"HEPATICO":["Cirrosis (por biopsia)",
+													"Encefalopatia previa",
+													"Hipertension portal documentada",
+													"Historia de hemorragia digestiva debidaa hipertension portal",
+													],
+													"INMUNOSUPRESION":["Farmacologico:quimioterapia, radioterapia, esteroides", "SIDA, linfoma, leucemias"]
+										}
+			#datos["opciones"] = {"NINGUNA":0, "ELECTIVA":2, "NO-QUIRURGICA":5, "URGENTE":5}
+			datos["valor"] = x.enfermedades
+			#datos["puntos"] = datos["opciones"][datos["valor"]]
+			x.apache = (x.aps + datos["valor"])
+	
+	# PUNTAJE POR LA EDAD DEL PACIENTE
+	@api.depends('apache','aps')
+	def _puntajeEdad(self):
+		""" Evaluar puntaje en base a la edad """
+
+		# Registro de variables
+		datos = dict()
+		for x in self:
+			datos["nombre"] = "Puntaje por edad"
+
+			datos["valor_actual"] = int(x.edad)
+
+			# Evaluar Rango y valor del rango
+			if(datos["valor_actual"] <= 44):
+				datos["puntos"] = int(0)
+
+			elif(datos["valor_actual"] >= 45 and datos["valor_actual"] <= 54):
+				datos["puntos"] = int(2)
+
+			elif(datos["valor_actual"] >= 55 and datos["valor_actual"] <= 64):
+				datos["puntos"] = int(3)
+
+			elif(datos["valor_actual"] >= 65 and datos["valor_actual"] <= 74):
+				datos["puntos"] = int(5)
+
+			elif(datos["valor_actual"] >= 75):
+				datos["puntos"] = int(6)
+			else:
+				datos["error"] = "Valor fuera del rango de valores"
+			# AUMENTO DEL APACHE EN BASE A LA EDAD DEL PACIENTE
+			x.apache += datos["puntos"] 
+
+	# ESTIMACIÓN DE LA MORTALIDAD
+	@api.depends('apache')
+	def _calcularMortalidad(self):
+		""" Evaluar el porcentaje de mortalidad basado en la gravedad """
+		# Registro de variables
+		datos = dict()
+		for x in self:
+			datos["nombre"] = "Prediccion de mortalidad"
+
+			datos["valor_actual"] = int(x.apache)
+
+			# Evaluar Rango y valor del rango
+			if(datos["valor_actual"] >= 0 and datos["valor_actual"] <= 4):
+				datos["puntos"] = int(4)
+
+			elif(datos["valor_actual"] >= 5 and datos["valor_actual"] <= 9):
+				datos["puntos"] = int(8)
+
+			elif(datos["valor_actual"] >= 10 and datos["valor_actual"] <= 14):
+				datos["puntos"] = int(15)
+
+			elif(datos["valor_actual"] >= 15 and datos["valor_actual"] <= 19):
+				datos["puntos"] = int(25)
+
+			elif(datos["valor_actual"] >= 20 and datos["valor_actual"] <= 24):
+				datos["puntos"] = int(40)
+
+			elif(datos["valor_actual"] >= 25 and datos["valor_actual"] <= 29):
+				datos["puntos"] = int(55)
+
+			elif(datos["valor_actual"] >= 30 and datos["valor_actual"] <= 34):
+				datos["puntos"] = int(75)
+
+			elif(datos["valor_actual"] >= 34):
+				datos["puntos"] = int(85)
+			else:
+				datos["error"] = "Valor fuera del rango de valores"
+			
+			x.mortalidad = datos["puntos"]

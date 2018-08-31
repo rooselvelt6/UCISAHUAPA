@@ -669,6 +669,7 @@ class Apache(glasgow.Glasgow):
 
 		# Agregar datos al memoria
 		self.memoria.append(datos)
+	
 	# COMA GLASGOW
 	def glasgow(self, aperturaOcular=1, respuestaMotora=1, respuestaVerbal=1):
 		""" Escala de coma Glasgow """

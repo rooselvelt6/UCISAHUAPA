@@ -10,19 +10,19 @@
       <form string="Apache Form">
 
         <header>
-          <button string="Calcular" name="calcular" type="object"></button>
-          <button string="Valores controlados" name="controlados" type="object"></button>
+          <button string="Generar valores" name="controlados" type="object"></button>
+          <button string="Obtener resultados" name="calcular" type="object"></button>
         </header>
-
         <sheet>
-         <group string="APACHE II" name="group_top" col="6" colspan="2"> 
-
-          <!--Grupo 1 Cabecera -->
-          <group col="2" colspan="2">
+          <!-- Datos del paciente 2c -->
+          <group string="Datos del paciente" col="2" colspan="2">
             <field name="fecha_actual" string="Fecha"></field>
+            <field name="edad" string="Edad del paciente"></field>
+            <field name="enfermedades" help="Enfermedad crónica"></field>
           </group>
-          <!--Grupo 2 Controles -->
-          <group col="2" colspan="2" string="Variables Fisiológicas">
+          <group name="contenedor" col="6" colspan="2">
+            <!-- Controles fisiológicos 2c--> 
+            <group string="Variables Fisiológicas" col="2" colspan="2" >
               <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
               <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
               <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
@@ -37,21 +37,21 @@
               <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
               <field name="fio2" help="Oxigenación FIO2"></field>
               <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
-          </group>
-          <!-- Grupo 3 Controles -->
-          <group col="2" colspan="2" string="Escala de coma de Glasgow">
-            <field name="apertura_ocular" help='Valor de apertura ocular. Rango:(1-4)'></field>
-            <field name="respuesta_motora" help='Valor de la respuesta motora. Rango:(1-6)'></field>
-            <field name="respuesta_verbal" help='Valor de la respuesta verbal. Rango:(1-5)'></field>
-            <!-- Grupo 4 resultados -->
+            </group>
+            <!-- Glasgow 2c--> 
+            <group string="Escala de coma de Glasgow" col="2" colspan="2">
+              <field name="apertura_ocular" help='Apertura ocular.'></field>
+              <field name="respuesta_motora" help='Respuesta motora.'></field>
+              <field name="respuesta_verbal" help='Respuesta verbal.'></field>
+            </group>
+              <!-- REsultados--> 
             <group col="2" colspan="2" string="Resultados">
               <field name="aps" help="Sumatoria de todas las variables fisiológicas del paciente"/>
               <field name="apache" help="Estado de gravedad del paciente"/>
               <field name="mortalidad" help="Estimación del porcentaje de mortalidad"/>
             </group>
           </group>
-          
-         </group>
+
         </sheet>
       </form>
     </field>
