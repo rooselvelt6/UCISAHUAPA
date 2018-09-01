@@ -97,10 +97,10 @@
       </search>
     </field>
   </record>
-
+ 
   <!-- actions opening views on models -->
   <record id="action_apache" model="ir.actions.act_window">
-    <field name="name">Índice de Gravedad APACHE II</field>
+    <field name="name">Fisiología aguda y evaluación de salud crónica II</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">apache.apache</field>
     <field name="view_mode">tree,form</field>
@@ -108,6 +108,8 @@
 
   <!-- Menú -->
   <menuitem id="apache_menu_root" name="Apache II" sequence="1"></menuitem>
-  <menuitem id="apache_menu_category" name="APACHE" sequence="1" parent="apache_menu_root"></menuitem>
-  <menuitem id="action_apache_menu" name="APACHE" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
+  <menuitem id="apache_menu_category" name="Apache II" sequence="1" parent="apache_menu_root"></menuitem>
+  <menuitem id="action_apache_menu" name="Documentación" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
+
+  <!-- Acciones de ventana -->
 </odoo>

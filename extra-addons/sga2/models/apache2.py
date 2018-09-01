@@ -164,6 +164,7 @@ class Apache(models.Model):
 			x.apertura_ocular = 4
 			x.respuesta_verbal = 5
 			x.respuesta_motora = 6
+			x.edad = 1
 		return True
 	
 	@api.multi
