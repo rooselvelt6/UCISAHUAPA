@@ -15,7 +15,7 @@ class Evaluacion(models.Model):
 	color_piel = fields.Selection([(0,"Morena"),(1,"Blanca")])
 
 	# SERVICIO DE PROCEDENCIA
-	procedencia = fields.Char(string="Servicio de procedencia")
+	procedencia = fields.Char(string="Servicio de procedencia", help='Servicio de procedencia', translate=True)
 
 	# PRESENCIA DE INTERVENCIONES QUIRURGICAS
 	intervenciones_quirurgicas = fields.Selection([(0,"No"), (1,"Si")])

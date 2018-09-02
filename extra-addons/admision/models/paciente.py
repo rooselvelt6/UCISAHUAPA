@@ -16,7 +16,7 @@ class Paciente(models.Model):
 	fecha_nacimiento  = fields.Date(string='Fecha de nacimiento')
 	
 	# NOMBRE
-	nombre = fields.Char(string='Nombre')
+	nombre = fields.Char(string='Nombre', translate=True)
 
 	# SEXO.
 	sexo = fields.Selection([(0,"Femenino"),(1,"Masculino")])
@@ -25,16 +25,16 @@ class Paciente(models.Model):
 	ci = fields.Char(string='Cédula de identidad', size = 9)
 	
 	# LUGAR DE NACIMIENTO
-	lugar_nacimiento = fields.Char(string="Lugar de nacimiento")
+	lugar_nacimiento = fields.Char(string="Lugar de nacimiento", translate=True)
 
 	# DIRECCIÓN ACTUAL
-	direccion = fields.Text(string="Dirección actual")
+	direccion = fields.Text(string="Dirección actual", translate=True)
 
 	# FECHA DE INGRESO AL HOSPITAL
 	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA')
 
 	# OCUPACIÓN
-	ocupacion = fields.Char(string="Ocupación")
+	ocupacion = fields.Char(string="Ocupación", translate=True)
 
 	# PESO CORPORAL
 	peso_corporal = fields.Float(string='Peso corporal')
@@ -55,4 +55,4 @@ class Paciente(models.Model):
 	)
 
 	# ANTECEDENTES DE INGRESO
-	antecedentes = fields.Html()
+	antecedentes = fields.Html(translate=True)

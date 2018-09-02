@@ -6,7 +6,7 @@ class Admision(models.Model):
 	_name = "admision.admision"
 
 	# FOTO DEL PACIENTE
-	foto  = fields.Binary()
+	foto  = fields.Binary(string="Imagen del paciente")
 	
 	# FECHA INGRESO A UCI
 	fecha_ingreso_uci = fields.Date()
@@ -19,7 +19,7 @@ class Admision(models.Model):
 
 	# RESUMEN DE INGRESO A UCI
 	resumen_ingreso  = fields.Html(
-	    string='Resumen general de ingreso',
+	    string='Resumen general de ingreso', translate=True
 	)
 
 	# EXAMEN FISICO DE INGRESO A UCI

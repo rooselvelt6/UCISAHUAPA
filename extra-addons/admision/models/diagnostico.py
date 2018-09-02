@@ -7,9 +7,13 @@ class Diagnostico(models.Model):
 
 	# RESUMEN
 	resumen = fields.Html(
-	    string='Resumen del diagnóstico'
+	    string='Resumen del diagnóstico',
+	    help='Resumen del diagnóstico', 
+	    translate=True
 	)
 	# DESCRIPCIÓN
 	descripcion = fields.Html(
 	    string='Descripción del diagnóstico',
+	    help='Descripción del diagnóstico', 
+	    translate=True
 	)

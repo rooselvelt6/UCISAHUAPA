@@ -16,7 +16,7 @@
                 <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI"></field>
               </group>
               <group string="Datos del paciente" col="4" colspan="2">
-                <field name="datos_paciente"  string='Datos del paciente'></field>
+                <field name="datos_paciente"  string='Datos del paciente' help="Datos generales del paciente admitido"></field>
               </group>
             </group>
 
