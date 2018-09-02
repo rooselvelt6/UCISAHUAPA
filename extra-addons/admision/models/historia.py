@@ -6,6 +6,4 @@ class Historia(models.Model):
 	_name = "admision.historia"
 
 	# RESUMEN
-	numero = fields.Integer(
-	    string='Número de historia'
-	)
+	numero = fields.Integer(string='Número de historia')

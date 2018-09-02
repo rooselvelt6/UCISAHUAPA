@@ -5,13 +5,16 @@ from odoo import models, fields, api
 class Admision(models.Model):
 	_name = "admision.admision"
 
+	# FOTO DEL PACIENTE
+	foto  = fields.Binary()
+	
 	# FECHA INGRESO A UCI
 	fecha_ingreso_uci = fields.Date()
 	
 	# DATOS DEL PACIENTE.
 	datos_paciente = fields.Many2one(
 	    'admision.paciente',
-	    string='Datos generales del paciente',
+	    'Paciente',
 	)
 
 	# RESUMEN DE INGRESO A UCI
@@ -22,11 +25,11 @@ class Admision(models.Model):
 	# EXAMEN FISICO DE INGRESO A UCI
 	examen_fisico_uci = fields.Many2one(
 	    'admision.examenfisico',
-	    string='Examen físico de ingreso a UCI',
+	    'Examen físico de ingreso a UCI',
 	)
 
 	# EVALUACION GENERAL DE INGRESO
 	evaluacion_general = fields.Many2one(
 	    'admision.evaluacion',
-	    string='Evaluación general de ingreso',
+	    'Evaluación',
 	)

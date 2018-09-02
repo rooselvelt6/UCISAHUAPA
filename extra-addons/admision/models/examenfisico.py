@@ -22,7 +22,7 @@ class ExamenFisico(models.Model):
 
 	# ABDOMEN
 	abdomen = fields.Html(
-	    string='Field Label',
+	    string='Abdomen',
 	)
 
 	# NEUROLOGICO

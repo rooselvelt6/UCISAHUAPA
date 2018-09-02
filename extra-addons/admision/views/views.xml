@@ -9,7 +9,8 @@
     <field name="arch" type="xml">
       <form string="Admisión">
         <sheet>
-
+            <field name="foto" widget="image"></field>
+            
             <group string="Control de ingreso de pacientes" col="4" colspan="2">
               <group string="Fecha de admisión" col="4" colspan="2">
                 <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI"></field>
