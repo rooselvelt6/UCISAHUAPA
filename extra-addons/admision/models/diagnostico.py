@@ -6,10 +6,10 @@ class Diagnostico(models.Model):
 	_name = "admision.diagnostico"
 
 	# RESUMEN
-	resumen = fields.Date(
-	    string='Resumen'
+	resumen = fields.Html(
+	    string='Resumen del diagnóstico'
 	)
 	# DESCRIPCIÓN
-	descripcion = fields.Text(
+	descripcion = fields.Html(
 	    string='Descripción del diagnóstico',
 	)

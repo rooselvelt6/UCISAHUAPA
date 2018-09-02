@@ -5,9 +5,6 @@ from odoo import models, fields, api
 class ExamenFisico(models.Model):
 	_name = "admision.examenfisico"
 
-	# FECHA EXAMEN
-	fecha = fiels.Date()
-
 	# RESUMEN DEL EXAMEN
 	resumen = fields.Html(
 	    string='Resumen',
