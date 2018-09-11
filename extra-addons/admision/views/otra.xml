@@ -87,5 +87,5 @@
   
   <menuitem id="admision_menu_category" name="Admisión" sequence="1" parent="admision_menu_root"></menuitem>
   
-  <menuitem id="action_apache_menu" name="Nuevo ingreso" sequence="1" parent="admision_menu_root" action="action_apache"></menuitem>
+  <menuitem id="action_apache_menu" name="Nuevo ingreso" sequence="1" parent="admision_menu_root" action="action_admision"></menuitem>
 </odoo>

@@ -124,7 +124,11 @@
   </record>
 
   <!-- Menú -->
-  <menuitem id="apache_menu_root" name="Apache II" sequence="1"></menuitem>
+  <menuitem 
+    id="apache_menu_root" 
+    name="Apache II" 
+    sequence="1"
+    web_icon="sga2,static/description/icon.png"></menuitem>
   <menuitem id="apache_menu_category" name="Apache II" sequence="1" parent="apache_menu_root"></menuitem>
   <menuitem id="action_apache_menu" name="Documentación" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
 

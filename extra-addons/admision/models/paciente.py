@@ -29,14 +29,18 @@ class Paciente(models.Model):
 
 	# FECHA DE INGRESO AL HOSPITAL
 	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital')
+	
+	@api.depends('fecha_nacimiento','fecha_ingreso_hospital')
+	def calcular_edad(self):
+		for x in self:
+			x.edad = int(x.fecha_nacimiento.year)
 
-	# DEF CALCULAR EDAD.
-	# EDAD
-	def calcularEdad(self):
-		edad_actual = fecha_nacimiento - fecha_ingreso_hospital;
-		return int(edad_actual/365)
-	edad = fields.Integer(calculate=calcularEdad)
-
+	edad = field_name = fields.Integer(
+	    string='Edad del paciente',
+	    calculate="calcular_edad",
+	    store=True,
+	    readonly=True, 
+	)
 	# PESO CORPORAL
 	peso_corporal = fields.Float(string='Peso corporal', help='Peso corporal del paciente')
 
@@ -48,3 +52,5 @@ class Paciente(models.Model):
 
 	# EXAMEN DE INGRESO AL HOSPITAL.
 	examen_hospital = fields.Many2one('admision.examenfisico', 'Examen físico HUAPA')
+
+	
