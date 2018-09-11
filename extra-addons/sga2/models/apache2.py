@@ -750,7 +750,7 @@ class Apache(models.Model):
 		glasgow = 0 # CONTADOR
 		for x in self: # RECORRER EL FORMULARIO Y OBTENER LOS VALORES
 			# SUMAR LAS VARIABLES DEL GLASGOW
-			glasgow = 15 - (x.apertura_ocular + x.respuesta_verbal + x.respuesta_motora);
+			glasgow = int(15) - int(x.apertura_ocular + x.respuesta_verbal + x.respuesta_motora);
 			# SUMAR AL APACHE EL RESULTADO DEL GLASGOW
 			x.aps += glasgow;
 

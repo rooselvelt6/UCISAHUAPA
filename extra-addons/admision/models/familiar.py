@@ -6,4 +6,6 @@ class Familiar(models.Model):
 	_name = "admision.familiar"
 
 	# PARENTESCO
-	parentesco = fields.Char(string="Parentesco con el paciente", translate=True)
+	parentesco = fields.Char(string="Parentesco con el paciente", 
+							translate=True, 
+							help='Parentesco del familiar con el paciente')
