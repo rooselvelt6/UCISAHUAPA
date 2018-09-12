@@ -7,7 +7,7 @@ class Paciente(models.Model):
 	_name = "admision.paciente"
 
 	# NUMERO DE HISTORIA CLINICA
-	id_historia = fields.Many2one('admision.historia', 'Historia')
+	id_historia = fields.Many2one('admision.historia', string='Historia', ondelete='cascade')
 
 	# FECHA DE NACIMIENTO
 	fecha_nacimiento  = fields.Date(string='Fecha de nacimiento', help='Fecha de nacimiento')
@@ -45,12 +45,12 @@ class Paciente(models.Model):
 	peso_corporal = fields.Float(string='Peso corporal', help='Peso corporal del paciente')
 
 	# FAMILIAR ENCARGADO
-	familiar_encargado = fields.Many2one('admision.familiar', 'Familiar')
+	familiar_encargado = fields.Many2one('admision.familiar', string='Familiar', ondelete='cascade')
 	
 	# DIAGNOSTICO DE INGRESO AL HOSPITAL.
-	diagnostico_hospital = fields.Many2one('admision.diagnostico', 'Diagnóstico HUAPA')
+	diagnostico_hospital = fields.Many2one('admision.diagnostico', string='Diagnóstico HUAPA', ondelete='cascade')
 
 	# EXAMEN DE INGRESO AL HOSPITAL.
-	examen_hospital = fields.Many2one('admision.examenfisico', 'Examen físico HUAPA')
+	examen_hospital = fields.Many2one('admision.examenfisico', string='Examen físico HUAPA', ondelete='cascade')
 
 	

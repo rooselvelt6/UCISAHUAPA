@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from . import familiar
-from . import examenfisico
+from . import admision
 from . import diagnostico
+from . import evaluacion
+from . import examenfisico
+from . import familiar
 from . import historia
 from . import paciente
-from . import admision
-from . import evaluacion

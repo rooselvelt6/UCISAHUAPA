@@ -7,5 +7,6 @@ class Familiar(models.Model):
 
 	# PARENTESCO
 	parentesco = fields.Char(string="Parentesco con el paciente", 
-							translate=True, 
+							translate=True,
+							index=True,
 							help='Parentesco del familiar con el paciente')

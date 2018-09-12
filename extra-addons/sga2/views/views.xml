@@ -2,17 +2,36 @@
 
 <!-- CADA ID ES UNICO Y SIEMPRE EN MINUSCULA-->
 <odoo>
+
+  
+  <record id="action_apache" model="ir.actions.act_window">
+    <field name="name">Fisiología aguda y evaluación de salud crónica II</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">apache.apache</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para realizar un nuevo cálculo de gravedad (APACHE II).
+          </p>
+    </field>
+  </record>
+
+
   <!-- Form view -->
   <record id="apache_form_view" model="ir.ui.view">
-    <field name="name">apache.apache.form.view</field>
+    <field name="name">Apache Formulario</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
-      <form string="Apache Form">
+      <form string="APACHE_II">
 
         <header>
           <button string="Generar valores" name="controlados" type="object"></button>
           <button string="Obtener resultados" name="calcular" type="object"></button>
+          <!-- Convertir en progressbar-->
         </header>
+
+
         <sheet>
           <!-- Datos del paciente 2c -->
           <group col="6" colspan="2" string="Resultados">
@@ -39,7 +58,7 @@
             <group string="Datos del paciente" col="2" colspan="2">
             <field name="fecha_actual" string="Fecha"></field>
             <field name="edad" string="Edad del paciente"></field>
-            <field name="enfermedades" help="Enfermedad crónica"></field>
+            <field name="enfermedades" help="documentacion"></field>
           </group>
 
             <!-- Controles fisiológicos 2c--> 
@@ -81,18 +100,6 @@
     <field name="arch" type="xml">
       <tree limit="30">
             <field name="fecha_actual"></field>
-            <field name="temperatura"></field>
-            <field name="pam"></field>
-            <field name="fc"></field>
-            <field name="fr"></field>
-            <field name="ph"></field>
-            <field name="hco3"></field>
-            <field name="na"></field>
-            <field name="k"></field>
-            <field name="creatinina"></field>
-            <field name="hematocrito"></field>
-            <field name="leucocitos"></field>
-            <field name="oxigenacion"></field>
             <field name="aps"></field>
             <field name="apache"></field>
             <field name="mortalidad"></field>
@@ -115,13 +122,7 @@
     </field>
   </record>
  
-  <!-- actions opening views on models -->
-  <record id="action_apache" model="ir.actions.act_window">
-    <field name="name">Fisiología aguda y evaluación de salud crónica II</field>
-    <field name="type">ir.actions.act_window</field>
-    <field name="res_model">apache.apache</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+ 
 
   <!-- Menú -->
   <menuitem 
@@ -129,8 +130,8 @@
     name="Apache II" 
     sequence="1"
     web_icon="sga2,static/description/icon.png"></menuitem>
-  <menuitem id="apache_menu_category" name="Apache II" sequence="1" parent="apache_menu_root"></menuitem>
-  <menuitem id="action_apache_menu" name="Documentación" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
+  <menuitem id="apache_menu_category" name="Nuevo" sequence="1" parent="apache_menu_root"></menuitem>
+ <!-- <menuitem id="action_apache_menu" name="Documentación" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
 
-  <!-- Acciones de ventana -->
+   Acciones de ventana -->
 </odoo>

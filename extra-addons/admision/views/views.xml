@@ -3,6 +3,18 @@
 <!-- CADA ID ES UNICO Y SIEMPRE EN MINUSCULA-->
 <odoo>
 
+  <record id="action_apache" model="ir.actions.act_window">
+    <field name="name">Control de admisión</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">admision.admision</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para añadir un nuevo paciente a la UCI del SAHUAPA
+          </p>
+    </field>
+  </record>
 
   <!-- Form view -->
   <record id="admision_form_view" model="ir.ui.view">
@@ -14,7 +26,7 @@
           <separator string="Control de Admisión de pacientes" colspan="2"/>  
           
           <group col="2" colspan="2">
-            <field name="foto" widget="image"></field>
+            <field name="foto" widget="image" class="oe_avatar"></field>
           </group>
 
           <group col="2" colspan="2">
@@ -71,12 +83,7 @@
   </record>
   
   <!-- actions opening views on models -->
-  <record id="action_apache" model="ir.actions.act_window">
-    <field name="name">Control de admisión</field>
-    <field name="type">ir.actions.act_window</field>
-    <field name="res_model">admision.admision</field>
-    <field name="view_mode">tree,form</field>
-  </record>
+  
   
   <!-- Menú -->
    <menuitem id="admision_menu_root" 

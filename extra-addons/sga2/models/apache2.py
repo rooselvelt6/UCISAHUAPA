@@ -121,12 +121,22 @@ class Apache(models.Model):
 	# EDAD DEL PACIENTE.
 	edad = fields.Integer(string="Edad del paciente", help='Edad del paciente')
 
+	# ENFERMEDAD CRONICA DOCUMENTACIÓN
+	"""documentacion = [
+		"CARDIOVASCULAR: NYHA IV",
+		"RENAL: Hemodialisis",
+		"RESPIRATORIO: EPOC, enfermedad restictiva o vascular que limita actividad funcional, Hipoxia cronica y/o hipercapnia; dependencia respiratoria, Policitemia o hipertension pulmonar severa (40>mmHg)",
+		"HEPATICO: Cirrosis (por biopsia), Encefalopatia previa, Hipertension portal documentada Historia de hemorragia digestiva debida hipertension portal",
+		"INMUNOSUPRESION: [Farmacologico:quimioterapia, radioterapia, esteroides, SIDA, linfoma, leucemias]",
+	]"""
+
 	# ENFERMEDADES CRONICAS.
 	enfermedades = fields.Selection([(0,'NINGUNA'), 
 									 (2,'ELECTIVA'), 
 									 (5,"NO-QUIRURGICA"), 
-									 (5,"URGENTE")])
-
+									 (5,"URGENTE")], 
+									 )
+									
 	# INDICADORES DE GRAVEDAD Y MORTALIDAD
 	
 	# APS
@@ -761,20 +771,6 @@ class Apache(models.Model):
 		datos = dict()
 		for x in self:
 			datos["nombre"] = "Enfermedad Cronica"
-					
-			datos["descripcion"] = {"Cardiovascular":"NYHA IV",
-										"RENAL":"Hemodialisis",
-										"RESPIRATORIO":["EPOC, enfermedad restictiva o vascular que limita actividad funcional",
-														"Hipoxia cronica y/o hipercapnia; dependencia respiratoria",
-														"Policitemia o hipertension pulmonar severa (40>mmHg)"
-														],
-										"HEPATICO":["Cirrosis (por biopsia)",
-													"Encefalopatia previa",
-													"Hipertension portal documentada",
-													"Historia de hemorragia digestiva debidaa hipertension portal",
-													],
-													"INMUNOSUPRESION":["Farmacologico:quimioterapia, radioterapia, esteroides", "SIDA, linfoma, leucemias"]
-										}
 			#datos["opciones"] = {"NINGUNA":0, "ELECTIVA":2, "NO-QUIRURGICA":5, "URGENTE":5}
 			datos["valor"] = x.enfermedades
 			#datos["puntos"] = datos["opciones"][datos["valor"]]
