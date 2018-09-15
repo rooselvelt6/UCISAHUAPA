@@ -20,7 +20,7 @@
 
   <!-- Form view -->
   <record id="apache_form_view" model="ir.ui.view">
-    <field name="name">Apache Formulario</field>
+    <field name="name">Vista Form</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <form string="APACHE_II">
@@ -95,7 +95,7 @@
 
    <!-- Tree view -->
    <record id="apache_tree_view" model="ir.ui.view">
-    <field name="name">apache.apache.form.view</field>
+    <field name="name">Vista Tree</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <tree limit="30">
@@ -109,7 +109,7 @@
   
   <!-- Search views -->
   <record id="views_filter_apache" model="ir.ui.view">
-    <field name="name">Filtro APACHE</field>
+    <field name="name">Vista Search</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <search>

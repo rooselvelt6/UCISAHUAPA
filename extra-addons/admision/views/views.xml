@@ -18,7 +18,7 @@
 
   <!-- Form view -->
   <record id="admision_form_view" model="ir.ui.view">
-    <field name="name">admision.admision.form.view</field>
+    <field name="name">Vista Form</field>
     <field name="model">admision.admision</field>
     <field name="arch" type="xml">
       <form string="Idea form">
@@ -72,7 +72,7 @@
 
    <!-- Tree view -->
    <record id="admision_tree_view" model="ir.ui.view">
-    <field name="name">admision.admision.form.view</field>
+    <field name="name">Vista Tree</field>
     <field name="model">admision.admision</field>
     <field name="arch" type="xml">
       <tree limit="10">

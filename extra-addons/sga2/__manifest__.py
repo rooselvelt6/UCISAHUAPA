@@ -46,4 +46,4 @@
     ],
     
     'application': True,
-}
+}    
