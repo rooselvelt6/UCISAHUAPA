@@ -8,6 +8,6 @@ from odoo import models, fields, api
 class rna(models.Model):
     _inherit = "admision.admision"
     estadia = fields.Integer(
-        string='Tiempo de estadía',
+        string='Estadía en UCI',
         help='Estimación del tiempo de la estadía del paciente', 
     )

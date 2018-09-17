@@ -28,7 +28,7 @@
         <header>
           <button string="Generar valores" name="controlados" type="object"></button>
           <button string="Obtener resultados" name="calcular" type="object"></button>
-          <!-- Convertir en progressbar-->
+          
         </header>
 
 

@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_admision_admision,admision.admision,model_admision_admision,,1,0,0,0
+access_admision_admision,admision.admision,model_admision_admision,,1,1,1,1

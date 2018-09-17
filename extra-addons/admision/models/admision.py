@@ -5,6 +5,9 @@ from odoo import models, fields, api
 class Admision(models.Model):
 	_name = "admision.admision"
 
+	estadia_hospitalaria = fields.Integer(
+	    string='Estadía hospitalaria', help='Diferencia entre la fecha de ingreso al HUAPA y la fecha de admisión a UCI', 
+	)
 	# FOTO DEL PACIENTE
 	foto  = fields.Binary(string="Imagen del paciente", help='Imagen del paciente admitido', attachment=True)
 

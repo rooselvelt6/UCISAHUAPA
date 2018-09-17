@@ -43,7 +43,7 @@ class Apache(models.Model):
 				pprint(ap.getReporte())
 	"""
 	_name = 'apache.apache'
-
+	mortalidad_max = fields.Integer(default=85)
 	# FECHA DEL SISTEMA
 	fecha_actual = fields.Date()
 

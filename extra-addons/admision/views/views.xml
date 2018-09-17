@@ -23,39 +23,33 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <sheet>
-          <separator string="Control de Admisión de pacientes" colspan="2"/>  
-          
-          <group col="2" colspan="2">
-            <field name="foto" widget="image" class="oe_avatar"></field>
-          </group>
-
-          <group col="2" colspan="2">
-            <separator string="Fecha de ingreso a UCI" colspan="2"/>
-            <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI" help="Fecha de ingreso a UCI" placeholder="Fecha de ingreso" widget='date'></field>
-          </group>
-
-          <group col="3" colspan="2">
+          <group colspan="4">
             <group>
-              <separator string="Examen físico" colspan="2"/>
-              <field name="examen_fisico_uci" string="Examen físico de ingreso a UCI" help="Examen físico de ingreso a UCI" placeholder="Examen físico"></field>
+              <field name="foto" widget="image" class="oe_avatar"></field>
             </group>
-
             <group>
-              <separator string="Diagnóstico" colspan="2"/>
+              <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI" help="Fecha de ingreso a UCI" placeholder="Fecha de ingreso" widget='date' ></field>
+            </group>
+          </group>
+          <separator string="Indicadores de admisión"></separator>
+          <field name="estadia_hospitalaria" widget="gauge" style="width:180px;height:110px;cursor:pointer;"></field>
+          <group colspan="4">
+            <field name="datos_paciente" string='Datos generales del paciente' help="Datos generales del paciente actual" placeholder="Datos generales del paciente"></field>
+          </group>
+          <group colspan="4">
+            <group>
               <field name="diagnostico_uci" string="Diagnóstico de ingreso a UCI" help="Diagnóstico de ingreso a UCI" placeholder="Diagnóstico de ingreso a UCI"></field>
             </group>
-            
             <group>
-              <separator string="Evaluación" colspan="2"/>
-              <field name="evaluacion_general" string="Evaluación de ingreso" help="Evaluación general de ingreso a UCI" placeholder="Evaluación"></field> 
+              <field name="examen_fisico_uci" string="Examen físico de ingreso a UCI" help="Examen físico de ingreso a UCI" placeholder="Examen físico"></field>
             </group>
-
           </group>
-          <notebook colspan="8">
-              <page string="Información personal">
-                  <field name="datos_paciente" string='Datos generales del paciente' help="Datos generales del paciente actual" placeholder="Datos generales del paciente"></field>
-              </page>
 
+          <group colspan="4">
+              <field name="evaluacion_general" string="Evaluación de ingreso" help="Evaluación general de ingreso a UCI" placeholder="Evaluación"></field>
+          </group>
+
+          <notebook>
               <page string="Resumen de ingreso">
                   <field name="resumen_ingreso" string='Resumen general de ingreso' placeholder="Resumen"></field>
               </page>

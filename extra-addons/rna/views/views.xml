@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
-  	<record id="vista_admision_rna" model="ir.ui.view">
+  	<record id="vista_form_admision_rna" model="ir.ui.view">
   		<field name="name">Formulario RNA</field>
   		<field name="model">admision.admision</field>
   		<field name="inherit_id" ref="admision.admision_form_view"></field>
   		<field name="arch" type="xml">
-  			<field name="foto" position="after">
-  				<field name="estadia" widget="gauge" style="width:120px;height:90px;cursor:pointer;"></field>
+  			<field name="estadia_hospitalaria" position="before">
+  				<field name="estadia" widget="gauge" style="width:180px;height:110px;cursor:pointer;"></field>
   			</field>
   		</field>
   	</record>
+
+  	<record id="vista_tree_admision_rna" model="ir.ui.view">
+  		<field name="name">RNA Tree</field>
+  		<field name="model">admision.admision</field>
+  		<field name="inherit_id" ref="admision.admision_tree_view"></field>
+  		<field name="arch" type="xml">
+  			<field name="fecha_ingreso_uci" position="after">
+  				<field name="estadia"></field>
+  			</field>
+  		</field>
+  	</record>
+
   </data>
 </odoo>
