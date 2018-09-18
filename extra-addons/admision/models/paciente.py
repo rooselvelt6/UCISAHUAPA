@@ -17,7 +17,10 @@ class Paciente(models.Model):
 
 	# SEXO.
 	sexo = fields.Selection([(0,"Femenino"),(1,"Masculino")])
-
+	
+	# COLOR DE PIEL.
+	color_piel = fields.Selection([(0,"Morena"),(1,"Blanca")], string="Color de piel", default=0)
+	
 	# CI
 	ci = fields.Char(string='Cédula de identidad', size=9, help='Cédula de identidad')
 	

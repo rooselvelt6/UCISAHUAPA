@@ -26,7 +26,8 @@
       <form string="APACHE_II">
 
         <header>
-          <button string="Generar valores" name="controlados" type="object"></button>
+          <field name="state" invisible="True"></field>
+          <button string="Generar valores" name="controlados" type="object" attrs="{'invisible':[('state','in',['draft'])]}" class="oe_highlight"></button>
           <button string="Obtener resultados" name="calcular" type="object"></button>
           
         </header>

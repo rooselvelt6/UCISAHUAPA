@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="action_admision_pacientes" model="ir.actions.act_window">
+    <field name="name">Lista de pacientes</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">admision.paciente</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para añadir los datos del nuevo Paciente en la UCI
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="admision_pacientes_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">admision.paciente</field>
+    <field name="arch" type="xml">
+      <form string="Idea form">
+        <sheet>
+         <group string="Número de la Historia Clínica">
+           <field name="id_historia" placeholder="Número de Historia Clínica"></field>
+         </group>
+         <group string="Datos personales">
+           <field name="fecha_nacimiento" help="Fecha de nacimiento del paciente" placeholder="Fecha de nacimiento"></field>
+           <field name="nombre" help="Nombre completo del paciente" placeholder="Nombre completo del paciente"></field>
+           <field name="ci" help="Cédula de identidad" placeholder="Cédula de identidad"></field>
+           <field name="sexo" help="Sexo del paciente" placeholder="Sexo"></field>
+           <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente"></field>
+           <field name="peso_corporal"></field>
+           <field name="lugar_nacimiento" help="Lugar de nacimiento" placeholder="Lugar de nacimiento del paciente"></field>
+           <field name="direccion" help="Dirección actual del paciente" placeholder="Dirección actual del paciente"></field>
+           <field name="familiar_encargado" placeholder="Familiar encargado del paciente"></field>
+           <field name="edad" readonly="True"></field>
+         </group>
+         <group string="Datos de ingreso al HUAPA">
+          <group string="Diagnóstico de ingreso al HUAPA">
+            <field name="diagnostico_hospital"></field>
+          </group>
+          <group string="Examen físico de ingreso al HUAPA">
+            <field name="examen_hospital"></field>
+          </group>
+         </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+   <!-- Tree view -->
+   <record id="admision_pacientes_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">admision.paciente</field>
+    <field name="arch" type="xml">
+      <tree limit="10">
+         <field name="id_historia"></field> 
+      </tree>
+    </field>
+  </record>
+  
+  <!-- Menú -->
+  <menuitem name="Configuración" id="menu_config" parent="admision_menu_root"></menuitem>
+  <menuitem name="Pacientes" id="pacientes_menu" parent="menu_config" action="action_admision_pacientes"></menuitem>
+</odoo>

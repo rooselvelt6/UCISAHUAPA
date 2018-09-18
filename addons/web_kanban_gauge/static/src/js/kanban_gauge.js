@@ -114,15 +114,15 @@ var GaugeWidget = AbstractField.extend({
 
         var foreground = svg.append("path")
             .datum({endAngle: 0})
-            .style("fill", "hsl(0,80%,50%)")
+            .style("fill", "hsl(0,80%,50%)") /**/
             .attr("d", arc);
 
         var ratio = max_value ? value/max_value : 0;
         var hue = Math.round(ratio*120);
 
         foreground.transition()
-            .style("fill", "hsl(" + hue + ",80%,50%)")
-            .duration(1500)
+            .style("fill", "hsl(" + hue + ",80%,50%)")/**/
+            .duration(3500)
             .call(arcTween, (ratio-0.5)*Math.PI);
 
         function arcTween (transition, newAngle) {

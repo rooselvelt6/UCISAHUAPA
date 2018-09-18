@@ -23,9 +23,6 @@ class Evaluacion(models.Model):
 	# INFECCION INTRAHOSPITALARIA
 	infecciones_intrahospitalarias = fields.Selection([(0,"No"), (1,"Si")], string="Infecciones intrahospitalarias", default=0)
 
-	# COLOR DE PIEL.
-	color_piel = fields.Selection([(0,"Morena"),(1,"Blanca")], string="Color de piel", default=0)
-	
 	# COMPLICACIONES POSTOPERATORIAS
 	complicacion_postoperatoria = fields.Selection([(0,"No"),(1,"Si")], string="Complicación post-operatoria", default=0)
 	

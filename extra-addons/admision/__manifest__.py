@@ -31,6 +31,12 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/diagnosticos.xml',
+        'views/evaluaciones.xml',
+        'views/examenesFisicos.xml',
+        'views/historias.xml',
+        'views/familiar.xml',
+        'views/pacientes.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
