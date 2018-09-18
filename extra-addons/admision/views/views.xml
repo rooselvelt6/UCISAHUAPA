@@ -32,6 +32,7 @@
             </group>
           </group>
           <separator string="Indicadores de admisión"></separator>
+          <!-- Nota: los widget pueden ser de float_time al futuro-->
           <field name="estadia_hospitalaria" widget="gauge" style="width:180px;height:110px;cursor:pointer;"></field>
           <group colspan="4">
             <field name="datos_paciente" string='Datos generales del paciente' help="Datos generales del paciente actual" placeholder="Datos generales del paciente"></field>

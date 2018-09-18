@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from datetime import datetime, timedelta
+
 class Paciente(models.Model):
 
 	_name = "admision.paciente"
@@ -33,17 +34,19 @@ class Paciente(models.Model):
 	# FECHA DE INGRESO AL HOSPITAL
 	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital')
 	
-	@api.depends('fecha_nacimiento','fecha_ingreso_hospital')
-	def calcular_edad(self):
-		for x in self:
-			x.edad = int(x.fecha_nacimiento.year)
-
 	edad = field_name = fields.Integer(
 	    string='Edad del paciente',
 	    calculate="calcular_edad",
 	    store=True,
 	    readonly=True, 
 	)
+	# CORREGIR ERRORES DEL CALCULO DE EDAD
+	@api.onchange('fecha_nacimiento')
+	def _calcularEdad(self):
+		for campo in self:
+			campo.edad = (datetime.now().date() - datetime.strptime(campo.fecha_nacimiento, '%Y-%m-%d').date()).days / 365
+
+	        
 	# PESO CORPORAL
 	peso_corporal = fields.Float(string='Peso corporal', help='Peso corporal del paciente')
 
