@@ -42,7 +42,6 @@ class Paciente(models.Model):
 	# CORREGIR ERRORES DEL CALCULO DE EDAD
 	@api.onchange('fecha_nacimiento')
 	def _calcularEdad(self):
-		
 		if self.fecha_nacimiento:
 			# Error existe en el calculo de la edad
 			fecha_nacimiento = fields.Date.from_string(self.fecha_nacimiento)
@@ -50,17 +49,6 @@ class Paciente(models.Model):
 			total = int(abs(((fecha_nacimiento - fecha_actual).days) / 365))
 			self.edad = total 
 
-
-
-		else:
-			return {
-				"warning":{
-					'title':"Ha ocurrido un error",
-					'message':"{0}".format(self.edad)
-				}
-			}
-
-	        
 	# PESO CORPORAL
 	peso_corporal = fields.Float(string='Peso corporal', help='Peso corporal del paciente')
 

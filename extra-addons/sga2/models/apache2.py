@@ -131,12 +131,10 @@ class Apache(models.Model):
 		"INMUNOSUPRESION: [Farmacologico:quimioterapia, radioterapia, esteroides, SIDA, linfoma, leucemias]",
 	]"""
 
-	# ENFERMEDADES CRONICAS.
-	enfermedades = fields.Selection([(0,'NINGUNA'), 
-									 (2,'ELECTIVA'), 
-									 (5,"NO-QUIRURGICA"), 
-									 (5,"URGENTE")], 
-									 )
+	# enfermedad_cronica CRONICAS.
+	enfermedad_cronica = fields.Selection([(2,"Postquirúrgicos urgentes o no quirúrgicos"), 
+									       (5,"Insuficiencia orgánica o inmunocomprometido"), 
+										 ],"Enfermedad crónica")
 									
 	# INDICADORES DE GRAVEDAD Y MORTALIDAD
 	
@@ -178,7 +176,7 @@ class Apache(models.Model):
 			x.edad = 1
 		return True
 	
-	@api.onchange('temperatura','pam','fc','fr','ph','hco3','na','k','creatinina','fallo_renal','hematocrito','leucocitos','fio2','oxigenacion','apertura_ocular','respuesta_verbal','respuesta_motora','enfermedades','edad')
+	@api.onchange('temperatura','pam','fc','fr','ph','hco3','na','k','creatinina','fallo_renal','hematocrito','leucocitos','fio2','oxigenacion','apertura_ocular','respuesta_verbal','respuesta_motora','enfermedad_cronica','edad')
 	def _calcular_resultados(self):
 		# OBTENCIÓN DEL PUNTAJE POR VARIABLES FISIOLOGICAS
 		self._temperatura(); 
@@ -194,7 +192,7 @@ class Apache(models.Model):
 		self._leucocitos()
 		self._oxigenacion()
 		self._calcularGlasgow()
-		# PUNTAJE CRONICO DE ENFERMEDADES PARA EL CÁLCULO DEL APACHE II
+		# PUNTAJE CRONICO DE enfermedad_cronica PARA EL CÁLCULO DEL APACHE II
 		self._puntajeCronico()
 		self._puntajeEdad()
 		# ESTIMACIÓN DEL PORCENTAJE DE MORTALIDAD.
@@ -773,7 +771,7 @@ class Apache(models.Model):
 		for x in self:
 			datos["nombre"] = "Enfermedad Cronica"
 			#datos["opciones"] = {"NINGUNA":0, "ELECTIVA":2, "NO-QUIRURGICA":5, "URGENTE":5}
-			datos["valor"] = x.enfermedades
+			datos["valor"] = x.enfermedad_cronica
 			#datos["puntos"] = datos["opciones"][datos["valor"]]
 			x.apache = (x.aps + datos["valor"])
 	

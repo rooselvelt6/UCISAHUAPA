@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+"""Versión antigua con botones sin campos reactivos fué adaptado a una nueva versión """
 from odoo import models, fields, api
 
 class Apache(models.Model):
@@ -120,7 +120,7 @@ class Apache(models.Model):
 	
 
 	# EDAD DEL PACIENTE.
-	edad = fields.Integer(string="Edad del paciente", help='Edad del paciente') # campo referencial por modelo
+	edad = fields.Integer(string="Edad del paciente", help='Edad del paciente')
 
 	# ENFERMEDAD CRONICA DOCUMENTACIÓN
 	"""documentacion = [
@@ -178,8 +178,8 @@ class Apache(models.Model):
 			x.edad = 1
 		return True
 	
-	@api.onchange('temperatura','pam','fc','fr','ph','hco3','na','k','creatinina','fallo_renal','hematocrito','leucocitos','fio2','oxigenacion','apertura_ocular','respuesta_verbal','respuesta_motora','enfermedades','edad')
-	def _calcular_resultados(self):
+	@api.multi
+	def calcular(self):
 		# OBTENCIÓN DEL PUNTAJE POR VARIABLES FISIOLOGICAS
 		self._temperatura(); 
 		self._presionArterialMedia() 
@@ -199,7 +199,7 @@ class Apache(models.Model):
 		self._puntajeEdad()
 		# ESTIMACIÓN DEL PORCENTAJE DE MORTALIDAD.
 		self._calcularMortalidad()
-			
+
 	# FUNCIONES DE CALCULO DEL SISTEMA	
 	@api.depends('aps') # variables dependientes
 	def _temperatura(self):

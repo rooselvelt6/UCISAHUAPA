@@ -38,17 +38,17 @@
               
               <group col="2" colspan="2">
         
-                <field name="aps" help="Sumatoria de todas las variables fisiológicas del paciente" widget="gauge" style="width:120px;height:90px;cursor:pointer;"/>
+                <field name="aps" help="Sumatoria de todas las variables fisiológicas del paciente" widget="gauge" style="cursor:pointer;"/>
                </group>
 
               <group col="2" colspan="2">
             
-                 <field name="apache" help="Estado de gravedad del paciente" widget="gauge" style="width:120px;height:90px;cursor:pointer;"/>
+                 <field name="apache" help="Estado de gravedad del paciente" widget="gauge" style="cursor:pointer;"/>
               </group>
 
               <group col="2" colspan="2">
               
-                <field name="mortalidad" help="Estimación del porcentaje de mortalidad" widget="gauge" style="width:120px;height:90px;cursor:pointer;"/>
+                <field name="mortalidad" help="Estimación del porcentaje de mortalidad" widget="gauge" style="cursor:pointer;"/>
               </group>
           </group>
 
@@ -58,7 +58,7 @@
             <group string="Datos del paciente" col="2" colspan="2">
             <field name="fecha_actual" string="Fecha"></field>
             <field name="edad" string="Edad del paciente"></field>
-            <field name="enfermedades" help="documentacion"></field>
+            <field name="enfermedad_cronica" widget="radio"></field>
           </group>
 
             <!-- Controles fisiológicos 2c--> 
@@ -80,9 +80,9 @@
             </group>
             <!-- Glasgow 2c--> 
             <group string="Escala de coma de Glasgow" col="2" colspan="2">
-              <field name="apertura_ocular" help='Apertura ocular.'></field>
-              <field name="respuesta_motora" help='Respuesta motora.'></field>
-              <field name="respuesta_verbal" help='Respuesta verbal.'></field>
+              <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
+              <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
+              <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
             </group>
               <!-- REsultados--> 
           </group>
