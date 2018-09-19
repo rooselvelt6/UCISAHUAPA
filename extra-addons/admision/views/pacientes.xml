@@ -24,29 +24,44 @@
          <group string="Número de la Historia Clínica">
            <field name="id_historia" placeholder="Número de Historia Clínica"></field>
          </group>
+        
          <group string="Datos personales del paciente">
-           <field name="fecha_nacimiento" help="Fecha de nacimiento del paciente" placeholder="Fecha de nacimiento"></field>
-           <field name="nombre" help="Nombre completo del paciente" placeholder="Nombre completo del paciente"></field>
-           <field name="ci" help="Cédula de identidad" placeholder="Cédula de identidad"></field>
-           <field name="sexo" help="Sexo del paciente" placeholder="Sexo" widget="radio"></field>
-           <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente" widget="radio"></field>
-           <field name="peso_corporal"></field>
-           <field name="lugar_nacimiento" help="Lugar de nacimiento" placeholder="Lugar de nacimiento del paciente"></field>
-           <field name="direccion" help="Dirección actual del paciente" placeholder="Dirección actual del paciente"></field>
-           <field name="familiar_encargado" placeholder="Familiar encargado del paciente"></field>
-           <field name="edad" readonly="True"></field>
+          <group>
+            <field name="fecha_nacimiento" help="Fecha de nacimiento del paciente" placeholder="Fecha de nacimiento"></field>
+            <field name="edad"></field>
+            <field name="nombre" help="Nombre completo del paciente" placeholder="Nombre completo del paciente"></field>
+            <field name="ci" help="Cédula de identidad" placeholder="Cédula de identidad"></field>
+            <field name="peso_corporal"></field>
+          </group>
+          <group>
+            <field name="lugar_nacimiento" help="Lugar de nacimiento" placeholder="Lugar de nacimiento del paciente"></field>
+            <field name="direccion" help="Dirección actual del paciente" placeholder="Dirección actual del paciente"></field>
+            <field name="familiar_encargado" placeholder="Familiar encargado del paciente"></field>
+          </group>
+           
+          <group>
+            <group>
+              <field name="sexo" help="Sexo del paciente" placeholder="Sexo" widget="radio"></field>
+            </group>
+            <group>
+              <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente" widget="radio"></field>
+            </group>
+           
+          </group>
+           
          </group>
+
+
          <group string="Información previa del Hospital">
-          <group string="Fecha de ingreso al HUAPA">
-            <field name="fecha_ingreso_hospital"></field>
-          </group>
-          <group string="Diagnóstico de ingreso al HUAPA">
-            <field name="diagnostico_hospital"></field>
-          </group>
-          <group string="Examen físico de ingreso al HUAPA">
-            <field name="examen_hospital"></field>
-          </group>
+            <group>
+              <field name="fecha_ingreso_hospital" placeholder="Fecga de ingreso al HUAPA"></field>
+            </group>
+            <group>
+              <field name="diagnostico_hospital" placeholder="Diagnóstico de Ingreso al HUAPA"></field>
+              <field name="examen_hospital" placeholder="Examen físico de ingreso al HUAPA"></field>
+            </group>
          </group>
+        
         </sheet>
       </form>
     </field>

@@ -44,7 +44,11 @@ class Apache(models.Model):
 	"""
 	_name = 'apache.apache'
 
-	state = fields.Selection([('draft',"Generar datos"),("open","Calcular"),("done","Finalizar")],"State")
+	state = fields.Selection([
+            ('iniciar', 'Iniciar'),
+            ('finalizar', 'Procesar'),
+            ], "State")
+
 	mortalidad_max = fields.Integer(default=85)
 	# FECHA DEL SISTEMA
 	fecha_actual = fields.Date()

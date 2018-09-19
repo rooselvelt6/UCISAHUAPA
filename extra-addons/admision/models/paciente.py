@@ -34,17 +34,31 @@ class Paciente(models.Model):
 	# FECHA DE INGRESO AL HOSPITAL
 	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital')
 	
-	edad = field_name = fields.Integer(
+	edad = fields.Char(
 	    string='Edad del paciente',
-	    calculate="calcular_edad",
+	    calculate="_calcularEdad",
 	    store=True,
-	    readonly=True, 
 	)
 	# CORREGIR ERRORES DEL CALCULO DE EDAD
 	@api.onchange('fecha_nacimiento')
 	def _calcularEdad(self):
-		for campo in self:
-			campo.edad = (datetime.now().date() - datetime.strptime(campo.fecha_nacimiento, '%Y-%m-%d').date()).days / 365
+		
+		if self.fecha_nacimiento:
+			# Error existe en el calculo de la edad
+			fecha_nacimiento = fields.Date.from_string(self.fecha_nacimiento)
+			fecha_actual = fields.Date.from_string(datetime.now().strftime("%Y-%m-%d"))
+			total = int(abs(((fecha_nacimiento - fecha_actual).days) / 365))
+			self.edad = total 
+
+
+
+		else:
+			return {
+				"warning":{
+					'title':"Ha ocurrido un error",
+					'message':"{0}".format(self.edad)
+				}
+			}
 
 	        
 	# PESO CORPORAL
