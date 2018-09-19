@@ -146,7 +146,7 @@ class Apache(models.Model):
 	# APACHE
 	apache = fields.Integer(string='APACHE')
 	
-	# <MORTALIDAD></MORTALIDAD>
+	# MORTALIDAD
 	mortalidad = fields.Integer(string='Mortalidad')
 
 	# CONTROL DE BOTONES
@@ -199,7 +199,7 @@ class Apache(models.Model):
 		self._puntajeEdad()
 		# ESTIMACIÓN DEL PORCENTAJE DE MORTALIDAD.
 		self._calcularMortalidad()
-
+			
 	# FUNCIONES DE CALCULO DEL SISTEMA	
 	@api.depends('aps') # variables dependientes
 	def _temperatura(self):

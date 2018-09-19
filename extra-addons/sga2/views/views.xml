@@ -27,12 +27,8 @@
 
         <header>
           
-          <button string="Generar valores" type="object" name="controlados" state="iniciar" class="oe_highlight"/>
+          <button string="Generar valores" type="object" name="controlados"/>
       
-          <button string="Obtener resultados" type="object" name="calcular" state="finalizar"/>
-          <!--This will create the statusbar, thanks to the widget. -->
-          <field name="state" widget="statusbar" clickable="True" statusbar_visible="iniciar,finalizar"/>
-          
         </header>
 
 
