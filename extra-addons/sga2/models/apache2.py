@@ -43,8 +43,18 @@ class Apache(models.Model):
 				pprint(ap.getReporte())
 	"""
 	_name = 'apache.apache'
-
+	
+	gravedad_id = fields.One2many(
+	    'admision.admision',
+	    'apache_id',
+	    string='APACHE II',
+	)
+	# CAMPOS PARA EL WIDGET GAUGE.
 	mortalidad_max = fields.Integer(default=85)
+	aps_max = fields.Integer(default=60)
+	apache_max = fields.Integer(default=71)
+	######################################
+
 	# FECHA DEL SISTEMA
 	fecha_actual = fields.Date()
 
@@ -144,7 +154,7 @@ class Apache(models.Model):
 	# APACHE
 	apache = fields.Integer(string='APACHE')
 	
-	# <MORTALIDAD></MORTALIDAD>
+	# MORTALIDAD
 	mortalidad = fields.Integer(string='Mortalidad')
 
 	# CONTROL DE BOTONES

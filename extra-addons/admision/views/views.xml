@@ -51,12 +51,19 @@
           </group>
 
           <notebook>
+             
               <page string="Resumen de ingreso">
                   <field name="resumen_ingreso" string='Resumen general de ingreso' placeholder="Resumen"></field>
               </page>
 
               <page string="Antecedentes">
                   <field name="antecedentes" string='Antecedentes del paciente' help="Antecedentes" placeholder="Antecedentes del paciente"></field>
+              </page>
+              
+              <page string="APACHE II">
+                <field name="apache_id" placeholder="Índice de gravedad APACHE II">
+                 
+                </field>
               </page>
           </notebook>
       
@@ -71,8 +78,8 @@
     <field name="model">admision.admision</field>
     <field name="arch" type="xml">
       <tree limit="10">
-            <field name="fecha_ingreso_uci"></field>
-            <field name="foto"></field>
+            <field name="usuario_id"></field>
+            <field name="fecha_ingreso_uci"></field> 
       </tree>
     </field>
   </record>

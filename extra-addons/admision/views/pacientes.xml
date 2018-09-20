@@ -22,7 +22,7 @@
       <form string="Idea form">
         <sheet>
          <group string="Número de la Historia Clínica">
-           <field name="id_historia" placeholder="Número de Historia Clínica"></field>
+           <field name="historia_id" placeholder="N° de Historia Clínica"></field>
          </group>
         
          <group string="Datos personales del paciente">
@@ -32,33 +32,32 @@
             <field name="nombre" help="Nombre completo del paciente" placeholder="Nombre completo del paciente"></field>
             <field name="ci" help="Cédula de identidad" placeholder="Cédula de identidad"></field>
             <field name="peso_corporal"></field>
+            <field name="sexo" help="Sexo del paciente" placeholder="Sexo" widget="radio"></field>
+            <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente" widget="radio"></field>
           </group>
           <group>
-            <field name="lugar_nacimiento" help="Lugar de nacimiento" placeholder="Lugar de nacimiento del paciente"></field>
-            <field name="direccion" help="Dirección actual del paciente" placeholder="Dirección actual del paciente"></field>
-            <field name="familiar_encargado" placeholder="Familiar encargado del paciente"></field>
+            <field name="lugar_nacimiento" help="Lugar de nacimiento" placeholder="Lugar de nacimiento"></field>
+
+            <field name="pais_id" help="País de origen" placeholder="País de origen del paciente"></field>
+            <field name="estado_id" help="Estado" placeholder="Estado"></field>
+            <field name="ciudad"></field>
+            <field name="calle1"></field>
+            <field name="calle2"></field>
+            <field name="familiar_id" placeholder="Familiar encargado del paciente" widget="many2many_tags"></field>
           </group>
            
-          <group>
-            <group>
-              <field name="sexo" help="Sexo del paciente" placeholder="Sexo" widget="radio"></field>
-            </group>
-            <group>
-              <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente" widget="radio"></field>
-            </group>
-           
-          </group>
+
            
          </group>
 
 
          <group string="Información previa del Hospital">
             <group>
-              <field name="fecha_ingreso_hospital" placeholder="Fecga de ingreso al HUAPA"></field>
+              <field name="fecha_ingreso_hospital" placeholder="Fecha de ingreso al HUAPA"></field>
             </group>
             <group>
-              <field name="diagnostico_hospital" placeholder="Diagnóstico de Ingreso al HUAPA"></field>
-              <field name="examen_hospital" placeholder="Examen físico de ingreso al HUAPA"></field>
+              <field name="diagnostico_id" placeholder="Diagnóstico de Ingreso al HUAPA"></field>
+              <field name="examen_id" placeholder="Examen físico de ingreso al HUAPA"></field>
             </group>
          </group>
         
@@ -73,7 +72,10 @@
     <field name="model">admision.paciente</field>
     <field name="arch" type="xml">
       <tree limit="10">
-         <field name="id_historia"></field> 
+         <field name="historia_id"></field>
+         <field name="fecha_ingreso_hospital"></field>
+         <field name="ci"></field>
+         <field name="nombre"></field> 
       </tree>
     </field>
   </record>

@@ -5,11 +5,16 @@ from odoo import models, fields, api
 class Admision(models.Model):
 	_name = "admision.admision"
 
+	# Prueba 1: Relación con apache
+	apache_id = fields.Many2one('apache.apache', "Apache II", ondelete="cascade")
+	
 	estadia_hospitalaria = fields.Integer(
 	    string='Estadía hospitalaria', 
 	    help='Diferencia entre la fecha de ingreso al HUAPA y la fecha de admisión a UCI', 
 	)
-	
+
+	usuario_id = fields.Many2one('res.users', string='Responsable de la admisión', index=True, track_visibility='onchange', default=lambda self: self.env.user)
+
 	# FOTO DEL PACIENTE
 	foto  = fields.Binary(string="Imagen del paciente", help='Imagen del paciente admitido', attachment=True)
 

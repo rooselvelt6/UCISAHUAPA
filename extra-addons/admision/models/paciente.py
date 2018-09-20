@@ -8,13 +8,13 @@ class Paciente(models.Model):
 	_name = "admision.paciente"
 
 	# NUMERO DE HISTORIA CLINICA
-	id_historia = fields.Many2one('admision.historia', string='Historia', ondelete='cascade')
+	historia_id = fields.Many2one('admision.historia', string='Historia')
 
 	# FECHA DE NACIMIENTO
 	fecha_nacimiento  = fields.Date(string='Fecha de nacimiento', help='Fecha de nacimiento')
 	
 	# NOMBRE
-	nombre = fields.Char(string='Nombre', translate=True, help='Nombre del paciente')
+	nombre = fields.Char(string='Nombre completo', translate=True, help='Nombre completo del paciente')
 
 	# SEXO.
 	sexo = fields.Selection([(0,"Femenino"),(1,"Masculino")])
@@ -25,11 +25,17 @@ class Paciente(models.Model):
 	# CI
 	ci = fields.Char(string='Cédula de identidad', size=9, help='Cédula de identidad')
 	
-	# LUGAR DE NACIMIENTO
-	lugar_nacimiento = fields.Char(string="Lugar de nacimiento", translate=True, help='Lugar de nacimiento')
+	# Lugar de nacimiento
+	lugar_nacimiento = fields.Text(string="Lugar de nacimiento", translate=True, help='Lugar de nacimiento')
 
 	# DIRECCIÓN ACTUAL
-	direccion = fields.Text(string="Dirección actual", translate=True, help='Dirección actual')
+	calle1 = fields.Char("Calle 1")
+	calle2 = fields.Char("Calle 2")
+	ciudad = fields.Many2one("admision.ciudad", string="Ciudad")
+	pais_id = fields.Many2one('res.country','Pais')
+	estado_id = fields.Many2one('res.country.state','Estado')
+
+	
 
 	# FECHA DE INGRESO AL HOSPITAL
 	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital')
@@ -53,12 +59,12 @@ class Paciente(models.Model):
 	peso_corporal = fields.Float(string='Peso corporal', help='Peso corporal del paciente')
 
 	# FAMILIAR ENCARGADO
-	familiar_encargado = fields.Many2one('admision.familiar', string='Familiar', ondelete='cascade')
+	familiar_id = fields.Many2many('admision.familiar', string='Familiares encargados')
 	
 	# DIAGNOSTICO DE INGRESO AL HOSPITAL.
-	diagnostico_hospital = fields.Many2one('admision.diagnostico', string='Diagnóstico HUAPA', ondelete='cascade')
+	diagnostico_id = fields.Many2one('admision.diagnostico', string='Diagnóstico HUAPA', ondelete='cascade')
 
 	# EXAMEN DE INGRESO AL HOSPITAL.
-	examen_hospital = fields.Many2one('admision.examenfisico', string='Examen físico HUAPA', ondelete='cascade')
+	examen_id = fields.Many2one('admision.examenfisico', string='Examen físico HUAPA', ondelete='cascade')
 
 	

@@ -33,7 +33,7 @@
 
 
         <sheet>
-          <!-- Datos del paciente 2c -->
+          <!-- Resultados del sistema -->
           <group col="6" colspan="2" string="Resultados">
               
               <group col="2" colspan="2">
@@ -52,41 +52,46 @@
               </group>
           </group>
 
-          
-          <group name="contenedor" col="6" colspan="2">
-
-            <group string="Datos del paciente" col="2" colspan="2">
+          <group string="Fecha de cálculo">
             <field name="fecha_actual" string="Fecha"></field>
-            <field name="edad" string="Edad del paciente"></field>
-            <field name="enfermedad_cronica" widget="radio"></field>
-          </group>
-
-            <!-- Controles fisiológicos 2c--> 
-            <group string="Variables Fisiológicas" col="2" colspan="2" >
-              <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
-              <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
-              <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
-              <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
-              <field name="ph" help="pH arterial (Preferido)"></field>
-              <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
-              <field name="na" help="Sodio Sérico (mEq/l)"></field>
-              <field name="k" help="Potasio Sérico (mEq/l)"></field>
-              <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
-              <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
-              <field name="hematocrito" help="Hematocrito (%)"></field>
-              <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
-              <field name="fio2" help="Oxigenación FIO2"></field>
-              <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
-            </group>
-            <!-- Glasgow 2c--> 
-            <group string="Escala de coma de Glasgow" col="2" colspan="2">
-              <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
-              <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
-              <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
-            </group>
-              <!-- REsultados--> 
           </group>
           
+          <group col="2" colspan="4">
+            <group string="Datos del paciente">
+              <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
+            </group>
+            <group string="Enfermedad crónica">
+               <field name="enfermedad_cronica" widget="radio"></field>
+            </group>
+          </group>
+          
+          <group col="2" colspan="4">
+              <group string="Variables fisiológicas">
+                <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
+                <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
+                <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
+                <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
+                <field name="ph" help="pH arterial (Preferido)"></field>
+                <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
+                <field name="na" help="Sodio Sérico (mEq/l)"></field>
+                <field name="k" help="Potasio Sérico (mEq/l)"></field>
+                <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
+                <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
+                <field name="hematocrito" help="Hematocrito (%)"></field>
+                <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
+                <field name="fio2" help="Oxigenación FIO2"></field>
+                <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
+              </group>
+
+              <group string="Escala de coma de Glasgow">
+                <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
+                <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
+                <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
+              </group>
+              
+          </group>
+
+
 
         </sheet>
       </form>
@@ -124,14 +129,15 @@
  
  
 
-  <!-- Menú -->
+  <!-- Menú 
   <menuitem 
     id="apache_menu_root" 
     name="Apache II" 
     sequence="1"
     web_icon="sga2,static/description/icon.png"></menuitem>
-  <menuitem id="apache_menu_category" name="Nuevo" sequence="1" parent="apache_menu_root"></menuitem>
+   <menuitem id="apache_menu_category" name="Nuevo" sequence="1" parent="apache_menu_root"></menuitem>-->
  <!-- <menuitem id="action_apache_menu" name="Documentación" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
 
    Acciones de ventana -->
+  
 </odoo>
