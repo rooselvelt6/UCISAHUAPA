@@ -23,11 +23,6 @@
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <form string="APACHE_II">
-
-        <header>  
-          <button string="Generar valores" type="object" name="controlados"/>
-        </header>
-
         <sheet>
           <!-- Resultados del sistema -->
           <group col="6" colspan="2" string="Resultados">

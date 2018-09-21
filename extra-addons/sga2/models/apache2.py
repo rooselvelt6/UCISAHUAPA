@@ -70,46 +70,51 @@ class Apache(models.Model):
 	# VARIABLES FISIOLOGICAS DEL PACIENTE SOLICITADAS AL USUARIO
 	
 	# TEMPERATURA
-	temperatura = fields.Float(digits=(2,1), string="Temperatura °C", help='Temperatura rectal (Axial +0.5°C)')
+	temperatura = fields.Float(digits=(2,1), 
+							   string="Temperatura °C", 
+							   help='Temperatura rectal (Axial +0.5°C)',
+							   default=float(37))
 	
 	# PRESION ARTERIAL MEDIA
-	pam = fields.Integer(string="Presión arterial media (mmHg)")
+	pam = fields.Integer(string="Presión arterial media (mmHg)", default=70)
 
 	# FRECUENCIA CARDIACA
-	fc = fields.Integer(string="Frecuencia cardíaca", help='Respuesta ventricular')
+	fc = fields.Integer(string="Frecuencia cardíaca", help='Respuesta ventricular', default=70)
 
 	# FRECUENCIA RESPIRATORIA
-	fr = fields.Integer(string="Frecuencia respiratoria", help='No ventilado o ventilado')
+	fr = fields.Integer(string="Frecuencia respiratoria", help='No ventilado o ventilado', default=12)
 
 	# PH ARTERIAL
-	ph = fields.Float(string='pH arterial', help='Preferido')
+	ph = fields.Float(string='pH arterial', help='Preferido', default=7.33)
 
 	# HCO3 SERICO
-	hco3 = fields.Float(string='HCO3 SÉRICO', help='Venoso mEq/l')
+	hco3 = fields.Float(string='HCO3 SÉRICO', help='Venoso mEq/l', default=22)
 
 	# NA SERICO
-	na = fields.Integer(string="Sodio Sérico", help='Na sérico (mEq/l)')
+	na = fields.Integer(string="Sodio Sérico", help='Na sérico (mEq/l)', default=130)
 
 	# K SERICO
-	k = fields.Float(string="Potasio Sérico", help="K sérico (mEq/l)")
+	k = fields.Float(string="Potasio Sérico", help="K sérico (mEq/l)", default=3.5)
 
 	# CREATININA SERICA DEPENDE DEL FALLO RENAL
-	creatinina  = fields.Float(string='Creatinina sérica', help='(mg/dl)')
+	creatinina  = fields.Float(string='Creatinina sérica', help='(mg/dl)', default=0.6)
 
 	# FALLO RENAL PARA LA CREATININA SERICA
-	fallo_renal =  fields.Boolean(string='Fallo renal', help='¿El paciente tiene fallas renales ? (Creatinina sérica)', required=True)
+	fallo_renal =  fields.Boolean(string='Fallo renal', 
+								  help='¿El paciente tiene fallas renales ? (Creatinina sérica)', 
+								  required=True, default=False)
 
 	# HEMATOCRITO
-	hematocrito = fields.Float(string="Hematocrito", help="(%)")
+	hematocrito = fields.Float(string="Hematocrito", help="(%)", default=30.0)
 
 	# LEUCOCITOS
-	leucocitos = fields.Float(string="Leucocitos", help='(Total/mm3 en miles)')
+	leucocitos = fields.Float(string="Leucocitos", help='(Total/mm3 en miles)', default=3)
 
 	# OXIGENACIÓN (VALOR DE FI02)
-	fio2 = fields.Float("Fi02", help='Oxigenación')
+	fio2 = fields.Float("Fi02", help='Oxigenación', default=0.6)
 
 	# OXIGENACIÓN
-	oxigenacion = fields.Integer("Valor de Oxigenación", help='Oxigenación')
+	oxigenacion = fields.Integer("Valor de Oxigenación", help='Oxigenación', default=71)
 
 	# SISTEMA GLASGOW
 
@@ -117,7 +122,7 @@ class Apache(models.Model):
 	apertura_ocular = fields.Selection([(1,"No responde"),
 										(2,"Dolor"),
 										(3,"Orden verbal"),
-										(4,"Espontánea")])
+										(4,"Espontánea")], default=4)
 
 	# RESPUESTA VERBAL.	
 	respuesta_verbal = fields.Selection([(1,"Ninguna respuesta"),
@@ -125,7 +130,7 @@ class Apache(models.Model):
 										(3,"Palabras inapropiadas"),
 										(4,"Desorientado y hablando"),
 										(5,"Orientado y conversando")
-										])
+										], default=5)
 
 	# RESPUESTA MOTORA.
 	respuesta_motora = fields.Selection([(1,"Ninguna respuesta"),
@@ -134,9 +139,7 @@ class Apache(models.Model):
 										(4,"Retirada y flexión"),
 										(5,"Localiza el dolor"),
 										(6,"Obedece ordenes verbales")
-										])
-
-	
+										], default=6)
 
 	# EDAD DEL PACIENTE.
 	edad = fields.Integer(string="Edad del paciente", help='Edad del paciente') # campo referencial por modelo
@@ -158,42 +161,13 @@ class Apache(models.Model):
 	# INDICADORES DE GRAVEDAD Y MORTALIDAD
 	
 	# APS
-	aps = fields.Integer(string='APS')
+	aps = fields.Integer(string='APS', default=0)
 
 	# APACHE
-	apache = fields.Integer(string='APACHE')
+	apache = fields.Integer(string='APACHE', default=0)
 	
 	# MORTALIDAD
-	mortalidad = fields.Integer(string='Mortalidad')
-
-	# CONTROL DE BOTONES
-	@api.multi
-	def controlados(self):
-		for x in self:
-			# PACIENTE EN PERFECTO ESTADO DE SALUD
-			x.temperatura = 37
-			x.pam = 70
-			x.fc = 70
-			x.fr = 12
-			x.ph = 7.33
-			x.hco3 = 22
-			x.na = 130
-			x.k = 3.5
-			x.creatinina = 0.6
-			x.fallo_renal = False
-			x.hematocrito = 30.0
-			x.leucocitos = 3
-			x.fio2 = 0.6
-			x.oxigenacion = 71
-			x.aps = 0
-			x.apache = 0
-			x.mortalidad = 0
-			# INDIVIDUO SANO
-			x.apertura_ocular = 4
-			x.respuesta_verbal = 5
-			x.respuesta_motora = 6
-			x.edad = 1
-		return True
+	mortalidad = fields.Integer(string='Mortalidad', default=0)
 	
 	@api.onchange('temperatura','pam','fc','fr','ph','hco3','na','k','creatinina','fallo_renal','hematocrito','leucocitos','fio2','oxigenacion','apertura_ocular','respuesta_verbal','respuesta_motora','enfermedad_cronica','edad')
 	def _calcular_resultados(self):
