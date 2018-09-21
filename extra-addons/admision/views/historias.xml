@@ -21,7 +21,7 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <sheet>
-         <field name="numero"></field>
+         <field name="numero" placeholder="Número de Historia clínica"></field>
         </sheet>
       </form>
     </field>
@@ -37,8 +37,4 @@
       </tree>
     </field>
   </record>
-
-  <!-- Menú -->
-  <menuitem name="Historias" id="historias_menu" parent="menu_config" action="action_admision_historia"></menuitem>
-
 </odoo>

@@ -4,7 +4,8 @@ from odoo import models, fields, api
 
 class Evaluacion(models.Model):
 	_name = "admision.evaluacion"
-
+	_description = "Evaluaciones"
+	_rec_name = "tipo_admision"
 	# SERVICIO DE PROCEDENCIA
 	procedencia = fields.Char(string="Servicio de procedencia", help='Servicio de procedencia', translate=True, index=True)
 	

@@ -72,9 +72,4 @@
       </tree>
     </field>
   </record>
-  
-   <!-- Menú -->
-  <menuitem name="Evaluaciones de ingreso" id="evaluaciones_menu" parent="menu_config" action="action_admision_evaluacion"></menuitem>
-
-
 </odoo>

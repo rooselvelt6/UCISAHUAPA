@@ -3,7 +3,7 @@
 <!-- CADA ID ES UNICO Y SIEMPRE EN MINUSCULA-->
 <odoo>
 
-  <record id="action_apache" model="ir.actions.act_window">
+  <record id="accion_admision" model="ir.actions.act_window">
     <field name="name">Control de admisión</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">admision.admision</field>
@@ -60,11 +60,11 @@
                   <field name="antecedentes" string='Antecedentes del paciente' help="Antecedentes" placeholder="Antecedentes del paciente"></field>
               </page>
               
-              <page string="APACHE II">
+             <!--  <page string="APACHE II">
                 <field name="apache_id" placeholder="Índice de gravedad APACHE II">
                  
                 </field>
-              </page>
+              </page> -->
           </notebook>
       
         </sheet>
@@ -73,7 +73,7 @@
   </record>
 
    <!-- Tree view -->
-   <record id="admision_tree_view" model="ir.ui.view">
+  <record id="admision_tree_view" model="ir.ui.view">
     <field name="name">Vista Tree</field>
     <field name="model">admision.admision</field>
     <field name="arch" type="xml">
@@ -86,15 +86,30 @@
   
   <!-- actions opening views on models -->
   
-  
   <!-- Menú -->
-   <menuitem id="admision_menu_root" 
+  <menuitem id="admision_menu_root" 
     name="Pacientes" 
     sequence="1"
     web_icon="admision,static/description/icon.png"
     ></menuitem>
-  
+
   <menuitem id="admision_menu_category" name="Admisión" sequence="1" parent="admision_menu_root"></menuitem>
   
-  <menuitem id="action_apache_menu" name="Nueva admisión" sequence="1" parent="admision_menu_root" action="action_apache"></menuitem>
+  <menuitem id="action_admision_menu" name="Nuevo" sequence="1" parent="admision_menu_root" action="accion_admision"></menuitem> 
+  
+  <menuitem name="Configuración" id="menu_config" parent="admision_menu_root"></menuitem>
+  
+  <menuitem name="Pacientes" id="pacientes_menu" parent="menu_config" action="action_admision_pacientes"></menuitem>
+  
+  <menuitem name="Historias" id="historias_menu" parent="menu_config" action="action_admision_historia"></menuitem>
+
+  <menuitem name="Familiar encargado" id="familiar_menu" parent="menu_config" action="action_admision_familiar"></menuitem>
+
+  <menuitem name="Examenes físicos" id="examenes_menu" parent="menu_config" action="action_admision_examenfisico"></menuitem>
+
+  <menuitem name="Evaluaciones de ingreso" id="evaluaciones_menu" parent="menu_config" action="action_admision_evaluacion"></menuitem>
+
+  <menuitem name="Diagnósticos de ingreso" id="diagnosticos_menu" parent="menu_config" action="action_admision_diagnostico"></menuitem>
+  <!--Fin del menú -->
+
 </odoo>

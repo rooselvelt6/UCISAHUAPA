@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 class Paciente(models.Model):
 
 	_name = "admision.paciente"
-
+	_rec_name = "nombre"
 	# NUMERO DE HISTORIA CLINICA
 	historia_id = fields.Many2one('admision.historia', string='Historia')
 
@@ -29,8 +29,8 @@ class Paciente(models.Model):
 	lugar_nacimiento = fields.Text(string="Lugar de nacimiento", translate=True, help='Lugar de nacimiento')
 
 	# DIRECCIÓN ACTUAL
-	calle1 = fields.Char("Calle 1")
-	calle2 = fields.Char("Calle 2")
+	direccion1 = fields.Char("Dirección 1")
+	direccion2 = fields.Char("Dirección 2")
 	ciudad = fields.Many2one("admision.ciudad", string="Ciudad")
 	pais_id = fields.Many2one('res.country','Pais')
 	estado_id = fields.Many2one('res.country.state','Estado')

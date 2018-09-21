@@ -51,7 +51,4 @@
       </tree>
     </field>
   </record>
-   <!-- Menú -->
-  <menuitem name="Examenes físicos" id="examenes_menu" parent="menu_config" action="action_admision_examenfisico"></menuitem>
-
 </odoo>

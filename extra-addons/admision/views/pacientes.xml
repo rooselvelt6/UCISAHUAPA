@@ -41,8 +41,8 @@
             <field name="pais_id" help="País de origen" placeholder="País de origen del paciente"></field>
             <field name="estado_id" help="Estado" placeholder="Estado"></field>
             <field name="ciudad"></field>
-            <field name="calle1"></field>
-            <field name="calle2"></field>
+            <field name="direccion1"></field>
+            <field name="direccion2"></field>
             <field name="familiar_id" placeholder="Familiar encargado del paciente" widget="many2many_tags"></field>
           </group>
            
@@ -79,8 +79,4 @@
       </tree>
     </field>
   </record>
-  
-  <!-- Menú -->
-  <menuitem name="Configuración" id="menu_config" parent="admision_menu_root"></menuitem>
-  <menuitem name="Pacientes" id="pacientes_menu" parent="menu_config" action="action_admision_pacientes"></menuitem>
 </odoo>

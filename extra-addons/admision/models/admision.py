@@ -4,9 +4,17 @@ from odoo import models, fields, api
 
 class Admision(models.Model):
 	_name = "admision.admision"
+	_description = "Admisiones"
+	_rec_name = "datos_paciente"
 
 	# Prueba 1: Relación con apache
-	apache_id = fields.Many2one('apache.apache', "Apache II", ondelete="cascade")
+	#apache_id = fields.Many2one('apache.apache', "Apache II", ondelete="cascade")
+	# Prueba 2: No funciona el modelo así falta asesoría
+	# apache_ids = fields.One2many(
+	#     'apache.apache',
+	#     'paciente_admitido',
+	#     string='APACHE II',
+	# )
 	
 	estadia_hospitalaria = fields.Integer(
 	    string='Estadía hospitalaria', 
@@ -31,7 +39,12 @@ class Admision(models.Model):
 	resumen_ingreso  = fields.Html(string='Resumen general de ingreso', translate=True, help='Resumen de ingreso del paciente')
 
 	# EXAMEN FISICO DE INGRESO A UCI
-	examen_fisico_uci = fields.Many2one('admision.examenfisico', string='Examen de ingreso a UCI', ondelete='cascade', index=True, track_visibility='onchange', help="Examen físico de ingreso a UCI")
+	examen_fisico_uci = fields.Many2one('admision.examenfisico', 
+										string='Examen de ingreso a UCI', 
+										ondelete='cascade', 
+										index=True, 
+										track_visibility='onchange', 
+										help="Examen físico de ingreso a UCI")
 
 	# DIAGNOSTICO DE INGRESO A UCI
 	diagnostico_uci = fields.Many2one('admision.diagnostico', string='Diagnóstico de ingreso a UCI', ondelete='cascade', index=True, track_visibility='onchange', help="Diágnostico de ingreso a UCI")

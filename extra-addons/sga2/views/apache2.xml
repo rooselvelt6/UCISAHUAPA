@@ -4,7 +4,7 @@
 <odoo>
 
   
-  <record id="action_apache" model="ir.actions.act_window">
+  <record id="apache_accion" model="ir.actions.act_window">
     <field name="name">Fisiología aguda y evaluación de salud crónica II</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">apache.apache</field>
@@ -17,7 +17,6 @@
     </field>
   </record>
 
-
   <!-- Form view -->
   <record id="apache_form_view" model="ir.ui.view">
     <field name="name">Vista Form</field>
@@ -25,12 +24,9 @@
     <field name="arch" type="xml">
       <form string="APACHE_II">
 
-        <header>
-          
+        <header>  
           <button string="Generar valores" type="object" name="controlados"/>
-      
         </header>
-
 
         <sheet>
           <!-- Resultados del sistema -->
@@ -52,12 +48,12 @@
               </group>
           </group>
 
-          <group string="Fecha de cálculo">
-            <field name="fecha_actual" string="Fecha"></field>
-          </group>
-          
+        
           <group col="2" colspan="4">
             <group string="Datos del paciente">
+              <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
+              <field name="paciente_admitido" placeholder="Paciente"></field>
+              <!--Traer la edad del paciente por referencia del modelo de admision usado -->
               <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
             </group>
             <group string="Enfermedad crónica">
@@ -99,12 +95,13 @@
   </record>
 
    <!-- Tree view -->
-   <record id="apache_tree_view" model="ir.ui.view">
+  <record id="apache_tree_view" model="ir.ui.view">
     <field name="name">Vista Tree</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <tree limit="30">
             <field name="fecha_actual"></field>
+            <field name="paciente_admitido"></field>
             <field name="aps"></field>
             <field name="apache"></field>
             <field name="mortalidad"></field>
@@ -113,7 +110,7 @@
   </record>
   
   <!-- Search views -->
-  <record id="views_filter_apache" model="ir.ui.view">
+  <record id="apache_search_view" model="ir.ui.view">
     <field name="name">Vista Search</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
@@ -126,18 +123,17 @@
       </search>
     </field>
   </record>
- 
- 
 
-  <!-- Menú 
-  <menuitem 
-    id="apache_menu_root" 
-    name="Apache II" 
+  <!-- Menú -->
+  <menuitem id="apache_menu_root" 
+    name="APACHE II" 
     sequence="1"
-    web_icon="sga2,static/description/icon.png"></menuitem>
-   <menuitem id="apache_menu_category" name="Nuevo" sequence="1" parent="apache_menu_root"></menuitem>-->
- <!-- <menuitem id="action_apache_menu" name="Documentación" sequence="1" parent="apache_menu_category" action="action_apache"></menuitem>
+    web_icon="sga2,static/description/icon.png"
+    ></menuitem>
 
-   Acciones de ventana -->
+  <menuitem id="apache_menu_category" name="APACHE II" sequence="1" parent="apache_menu_root"></menuitem>
   
+  <menuitem id="action_apache_menu" name="Nuevo" sequence="1" parent="apache_menu_root" action="apache_accion"></menuitem> 
+  
+  <!--Fin del menú -->
 </odoo>

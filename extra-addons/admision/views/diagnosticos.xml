@@ -42,9 +42,4 @@
       </tree>
     </field>
   </record>
-
-  <!-- Menú -->
-  <menuitem name="Diagnósticos de ingreso" id="diagnosticos_menu" parent="menu_config" action="action_admision_diagnostico"></menuitem>
-  
-
 </odoo>

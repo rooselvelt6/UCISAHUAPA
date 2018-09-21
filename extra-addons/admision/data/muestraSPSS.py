@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 pacientes = [ # INICIO DE LISTA DE REGISTROS
 
 	{
-		
+		# REGISTRO DE PRUEBA
 		"nombre": "Antonia María Rivas".upper(),
 		"ci": "2.291.248",
 		"sexo": "F".upper(),
@@ -52,11 +52,16 @@ pacientes = [ # INICIO DE LISTA DE REGISTROS
 			descamativas con bordes irregulares y escasa secreción purulenta, 
 			llenado capilar menor de 3s.''',
 
-			"cardiopulmonar": '''Tórax simétrico normoexpansible, ruidos respiratorios presentes en ambos hemitorax, con agregados crepitantes hasta 1/3 medio bilateral, ruidos cardiacos arrítmicos regulares sin presencia de soplo ni galope. ''',
+			"cardiopulmonar": '''Tórax simétrico normoexpansible, 
+			ruidos respiratorios presentes en ambos hemitorax, con agregados 
+			crepitantes hasta 1/3 medio bilateral, ruidos cardiacos arrítmicos 
+			regulares sin presencia de soplo ni galope. ''',
 
-			"abdomen": '''RsHs presentes, plano, no impresiona dolor a la palpación superficial y profunda.''',
+			"abdomen": '''RsHs presentes, plano, no impresiona dolor a la 
+			palpación superficial y profunda.''',
 
-			"neurologico": '''No evaluable por efectos de sedación farmacológica. A su ingreso se realiza vía venosa central yugular interna derecha sin complicaciones.''',
+			"neurologico": '''No evaluable por efectos de sedación farmacológica. 
+			A su ingreso se realiza vía venosa central yugular interna derecha sin complicaciones.''',
 		},
 
 		"diagnosticoIngresoUCI": ["Insuficiencia respiratoria aguda.", 

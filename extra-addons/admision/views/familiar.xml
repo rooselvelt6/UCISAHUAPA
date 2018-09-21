@@ -37,9 +37,4 @@
       </tree>
     </field>
   </record>
-  
-  
-   <!-- Menú -->
-  <menuitem name="Familiar encargado" id="familiar_menu" parent="menu_config" action="action_admision_familiar"></menuitem>
-  
 </odoo>
