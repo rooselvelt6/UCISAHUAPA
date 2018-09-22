@@ -21,7 +21,6 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <sheet>
-          
          <group string="Procedencia del paciente">
            <field name="procedencia" help="Servicio de procedencia" placeholder="Servicio de procedencia"></field>
            <separator></separator>

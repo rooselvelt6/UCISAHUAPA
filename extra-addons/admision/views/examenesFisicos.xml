@@ -47,7 +47,7 @@
     <field name="model">admision.examenfisico</field>
     <field name="arch" type="xml">
       <tree limit="10">
-        <field name="resumen"></field>
+        <field name="create_date"></field>
       </tree>
     </field>
   </record>

@@ -21,7 +21,7 @@
     <field name="arch" type="xml">
       <form string="Idea form">
         <sheet>
-          <group string="Resumen Diagnóstico">
+          <group>
             <field name="resumen"></field>
           </group>
           <group string="Descripción del Diagnóstico">
@@ -38,7 +38,7 @@
     <field name="model">admision.diagnostico</field>
     <field name="arch" type="xml">
       <tree limit="10">
-          <field name="descripcion"></field>
+          <field name="create_date"></field>
       </tree>
     </field>
   </record>

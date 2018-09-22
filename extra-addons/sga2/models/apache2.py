@@ -142,8 +142,12 @@ class Apache(models.Model):
 										], default=6)
 
 	# EDAD DEL PACIENTE.
-	edad = fields.Integer(string="Edad del paciente", help='Edad del paciente') # campo referencial por modelo
-
+	edad = fields.Integer(string="Edad del paciente", help='Edad del paciente', store=True, calculate="_obtenerEdad")
+	@api.onchange('paciente_admitido')
+	def _obtenerEdad(self):
+		for x in self:
+			x.edad = x.paciente_admitido.datos_paciente.edad # Obtener la edad del paciente admitido y electo para el cálculo.
+	        
 	# ENFERMEDAD CRONICA DOCUMENTACIÓN
 	"""documentacion = [
 		"CARDIOVASCULAR: NYHA IV",

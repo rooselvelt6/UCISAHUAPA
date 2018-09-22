@@ -5,8 +5,9 @@ from odoo import models, fields, api
 class Diagnostico(models.Model):
 	_name = "admision.diagnostico"
 	_description = "Diagnósticos"
-	_rec_name = "resumen"
-	
+	_rec_name = "create_date"
+
+
 	# RESUMEN
 	resumen = fields.Html(
 	    string='Resumen del diagnóstico',

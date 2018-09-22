@@ -5,7 +5,7 @@
 
   
   <record id="apache_accion" model="ir.actions.act_window">
-    <field name="name">Fisiología aguda y evaluación de salud crónica II</field>
+    <field name="name">APACHE II</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">apache.apache</field>
     <field name="view_type">form</field>
@@ -24,66 +24,55 @@
     <field name="arch" type="xml">
       <form string="APACHE_II">
         <sheet>
-          <!-- Resultados del sistema -->
-          <group col="6" colspan="2" string="Resultados">
-              
-              <group col="2" colspan="2">
-        
-                <field name="aps" help="Sumatoria de todas las variables fisiológicas del paciente" widget="gauge" style="cursor:pointer;"/>
-               </group>
+         <group col="2" colspan="2">
+           
+           <group col="2" colspan="4">
+             <group>
+               <separator string="Paciente"></separator>
+               <field name="paciente_admitido" placeholder="Nombre del paciente admitido"></field>
+               <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
+               
+               <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
 
-              <group col="2" colspan="2">
-            
-                 <field name="apache" help="Estado de gravedad del paciente" widget="gauge" style="cursor:pointer;"/>
-              </group>
-
-              <group col="2" colspan="2">
-              
-                <field name="mortalidad" help="Estimación del porcentaje de mortalidad" widget="gauge" style="cursor:pointer;"/>
-              </group>
-          </group>
-
-        
-          <group col="2" colspan="4">
-            <group string="Datos del paciente">
-              <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
-              <field name="paciente_admitido" placeholder="Paciente"></field>
-              <!--Traer la edad del paciente por referencia del modelo de admision usado -->
-              <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
-            </group>
-            <group string="Enfermedad crónica">
+               <separator string="Variables fisiológicas"></separator>
+               <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
+               <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
+               <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
+               <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
+               <field name="ph" help="pH arterial (Preferido)"></field>
+               <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
+               <field name="na" help="Sodio Sérico (mEq/l)"></field>
+               <field name="k" help="Potasio Sérico (mEq/l)"></field>
+               <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
+               <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
+               <field name="hematocrito" help="Hematocrito (%)"></field>
+               <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
+               <field name="fio2" help="Oxigenación FIO2"></field>
+               <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
+               <separator string="Puntaje crónico"></separator>
                <field name="enfermedad_cronica" widget="radio"></field>
-            </group>
-          </group>
-          
-          <group col="2" colspan="4">
-              <group string="Variables fisiológicas">
-                <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
-                <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
-                <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
-                <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
-                <field name="ph" help="pH arterial (Preferido)"></field>
-                <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
-                <field name="na" help="Sodio Sérico (mEq/l)"></field>
-                <field name="k" help="Potasio Sérico (mEq/l)"></field>
-                <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
-                <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
-                <field name="hematocrito" help="Hematocrito (%)"></field>
-                <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
-                <field name="fio2" help="Oxigenación FIO2"></field>
-                <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
+             </group>
+             <group>
+                <separator string="Resultados"></separator>
+                <field name="aps" widget="gauge"></field>
+                <field name="apache" widget="gauge"></field>
+                <field name="mortalidad" widget="gauge"></field>
+             </group>
+           </group>
+           <group col="2" colspan="4" string="Escala Coma Glasgow">
+              <group col="3" colspan="2">
+                <group>
+                  <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
+                </group>
+                <group>
+                  <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
+                </group>
+                <group>
+                   <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
+                </group> 
               </group>
-
-              <group string="Escala de coma de Glasgow">
-                <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
-                <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
-                <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
-              </group>
-              
-          </group>
-
-
-
+           </group>
+         </group>
         </sheet>
       </form>
     </field>
