@@ -7,19 +7,15 @@ class Admision(models.Model):
 	_description = "Admisiones"
 	_rec_name = "datos_paciente"
 
-	# Prueba 1: Relación con apache
-	#apache_id = fields.Many2one('apache.apache', "Apache II", ondelete="cascade")
-	# Prueba 2: No funciona el modelo así falta asesoría
-	# apache_ids = fields.One2many(
-	#     'apache.apache',
-	#     'paciente_admitido',
-	#     string='APACHE II',
-	# )
-	
-	estadia_hospitalaria = fields.Integer(
-	    string='Estadía hospitalaria', 
-	    help='Diferencia entre la fecha de ingreso al HUAPA y la fecha de admisión a UCI', 
-	)
+	estadia_hospitalaria = fields.Integer(calculate="_calcularEstadiaH", store=True, string="Estadía Hospitalaría General")
+
+	@api.onchange('fecha_ingreso_uci')
+	def _calcularEstadiaH(self):
+		if self.fecha_ingreso_uci:
+			HUAPA = fields.Date.from_string(self.datos_paciente.fecha_ingreso_hospital)
+			UCI = fields.Date.from_string(self.fecha_ingreso_uci)
+			self.estadia_hospitalaria = int(abs(((HUAPA - UCI).days)))
+			
 
 	usuario_id = fields.Many2one('res.users', string='Responsable de la admisión', index=True, track_visibility='onchange', default=lambda self: self.env.user)
 

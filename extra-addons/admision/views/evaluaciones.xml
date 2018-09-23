@@ -25,20 +25,13 @@
            <field name="procedencia" help="Servicio de procedencia" placeholder="Servicio de procedencia"></field>
            <separator></separator>
            <field name="migracion" help="¿El paciente proviene de una migración?" widget="radio"></field>
-           <field name="tipo_paciente" help="¿El paciente es interno o externo de la UCI?" widget="radio"></field>
          </group>
 
          <group string="Condición de gravedad" col="6" colspan="2">
             <group>
               <field name="tipo_admision" help="¿La admisión del paciente es Urgente o Electiva?" widget="radio"></field>
-              <field name="intervenciones_quirurgicas" help="¿El paciente posee intervenciones quirurgicas previas?" widget="radio"></field>
             </group>
             <group>
-              <field name="infecciones_intrahospitalarias" help="¿El paciente se ha infectado dentro del HUAPA?" widget="radio"></field>
-              <field name="complicacion_postoperatoria" help="¿El paciente presenta complicaciones postoperatorias?" widget="radio"></field>
-            </group>
-            <group>
-              <field name="complicacion_respiratoria" help="¿El paciente presenta complicaciones respiratorias?" widget="radio"></field>
               <field name="ventilacion_mecanica" help="¿El paciente requiere conexión al Ventilador Mecánico?" widget="radio"></field>
             </group>
             <group>
@@ -57,15 +50,10 @@
     <field name="name">Vista Tree</field>
     <field name="model">admision.evaluacion</field>
     <field name="arch" type="xml">
-      <tree limit="10">
+      <tree>
         <field name="procedencia"></field>
         <field name="migracion"></field>
-        <field name="tipo_paciente"></field>
         <field name="tipo_admision"></field>
-        <field name="intervenciones_quirurgicas"></field>
-        <field name="infecciones_intrahospitalarias"></field>
-        <field name="complicacion_postoperatoria"></field>
-        <field name="complicacion_respiratoria"></field>
         <field name="ventilacion_mecanica"></field>
         <field name="procesos_invasivos"></field>
       </tree>

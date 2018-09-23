@@ -31,10 +31,7 @@
               <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI" help="Fecha de ingreso a UCI" placeholder="Fecha de ingreso" widget='date' ></field>
             </group>
           </group>
-          <!--
-          <separator string="Indicadores de admisión"></separator>
-      
-          <field name="estadia_hospitalaria" widget="gauge" style="width:180px;height:110px;cursor:pointer;"></field> -->
+
           <group colspan="4">
             <field name="datos_paciente" string='Datos generales del paciente' help="Datos generales del paciente actual" placeholder="Datos generales del paciente"></field>
           </group>
@@ -54,13 +51,19 @@
           </group>
 
           <notebook>
-             
+          
               <page string="Resumen de ingreso">
                   <field name="resumen_ingreso" string='Resumen general de ingreso' placeholder="Resumen"></field>
               </page>
 
               <page string="Antecedentes">
                   <field name="antecedentes" string='Antecedentes del paciente' help="Antecedentes" placeholder="Antecedentes del paciente"></field>
+              </page>
+
+              <page string="Tiempos de estadía">
+                <group colspan="4">
+                  <field name="estadia_hospitalaria" placeholder="Estadía total en el SAHUAPA"></field>
+                </group>
               </page>
           </notebook>
         </sheet>
