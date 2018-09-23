@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="action_admision_ordenMedica" model="ir.actions.act_window">
+    <field name="name">Ordenes</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">admision.orden</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para añadir una nueva Orden Médica
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="admision_historia_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">admision.orden</field>
+    <field name="arch" type="xml">
+      <form string="Idea form">
+        <sheet>
+          <group col="2" colspan="4">
+            <group string="Paciente">
+              <field name="paciente_id" placeholder="Nombre del paciente"></field>
+              <field name="medico_id" placeholder="Médico tratante"></field>
+            </group>
+            <group string="Fechas">
+              <field name="fecha_inicio" placeholder="Fecha de inicio de la orden"></field>
+              <field name="fecha_final" placeholder="Fecha final de la orden"></field>
+            </group>
+          </group>
+          <separator string="Ordenes"></separator>
+          <field name="orden" placeholder="Descripción de las ordenes"></field>
+          <separator string="Actualización"></separator>
+          <field name="actualizacion" placeholder="Actualizaciones"></field>      
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+   <!-- Tree view -->
+   <record id="admision_historia_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">admision.orden</field>
+    <field name="arch" type="xml">
+      <tree limit="10">
+          <field name="paciente_id"></field>
+          <field name="fecha_inicio"></field>
+          <field name="fecha_final"></field>
+         <!--  <field name="medico"></field> -->
+      </tree>
+    </field>
+  </record>
+  <!-- Menú -->
+  <menuitem id="ordenes_menu_root" 
+    name="Ordenes médicas" 
+    sequence="1"
+    web_icon="admision,static/description/icon2.png"
+    ></menuitem>
+
+  <menuitem id="ordenes_category" name="Orden" sequence="1" parent="ordenes_menu_root"></menuitem>
+  
+  <menuitem id="action_ordenes_menu" name="Nuevo" sequence="1" parent="ordenes_menu_root" action="action_admision_ordenMedica"></menuitem> 
+</odoo>

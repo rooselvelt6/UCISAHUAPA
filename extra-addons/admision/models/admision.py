@@ -42,12 +42,12 @@ class Admision(models.Model):
 	examen_fisico_uci = fields.Many2one('admision.examenfisico', 
 										string='Examen de ingreso a UCI', 
 										ondelete='cascade', 
-										index=True, 
+										
 										track_visibility='onchange', 
 										help="Examen físico de ingreso a UCI")
 
 	# DIAGNOSTICO DE INGRESO A UCI
-	diagnostico_uci = fields.Many2one('admision.diagnostico', string='Diagnóstico de ingreso a UCI', ondelete='cascade', index=True, track_visibility='onchange', help="Diágnostico de ingreso a UCI")
+	diagnostico_uci = fields.Many2one('admision.diagnostico', string='Diagnóstico de ingreso a UCI', ondelete='cascade', track_visibility='onchange', help="Diágnostico de ingreso a UCI")
 	
 	# EVALUACION GENERAL DE INGRESO
-	evaluacion_general = fields.Many2one('admision.evaluacion', string='Evaluación', ondelete='cascade', index=True, track_visibility='onchange', help="Evaluación de ingreso a UCI")
+	evaluacion_general = fields.Many2one('admision.evaluacion', string='Evaluación', ondelete='cascade', track_visibility='onchange', help="Evaluación de ingreso a UCI")

@@ -37,6 +37,7 @@
         'views/historias.xml',
         'views/familiar.xml',
         'views/pacientes.xml',
+        'views/ordenMedica.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

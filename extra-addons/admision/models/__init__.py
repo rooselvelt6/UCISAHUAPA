@@ -8,3 +8,4 @@ from . import familiar
 from . import historia
 from . import paciente
 from . import ciudad
+from . import ordenMedica

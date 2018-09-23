@@ -8,7 +8,7 @@
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">admision.admision</field>
     <field name="view_type">form</field>
-    <field name="view_mode">kanban,tree,form</field>
+    <field name="view_mode">kanban,tree,form,graph</field>
     <field name="help" type="html">
           <p class="oe_view_nocontent_create">
             Click para añadir un nuevo paciente a la UCI del SAHUAPA
@@ -38,10 +38,12 @@
           <group colspan="4">
             <field name="datos_paciente" string='Datos generales del paciente' help="Datos generales del paciente actual" placeholder="Datos generales del paciente"></field>
           </group>
+
           <group colspan="4">
             <group>
               <field name="diagnostico_uci" string="Diagnóstico de ingreso a UCI" help="Diagnóstico de ingreso a UCI" placeholder="Diagnóstico de ingreso a UCI"></field>
             </group>
+
             <group>
               <field name="examen_fisico_uci" string="Examen físico de ingreso a UCI" help="Examen físico de ingreso a UCI" placeholder="Examen físico"></field>
             </group>
@@ -60,14 +62,7 @@
               <page string="Antecedentes">
                   <field name="antecedentes" string='Antecedentes del paciente' help="Antecedentes" placeholder="Antecedentes del paciente"></field>
               </page>
-              
-             <!--  <page string="APACHE II">
-                <field name="apache_id" placeholder="Índice de gravedad APACHE II">
-                 
-                </field>
-              </page> -->
           </notebook>
-      
         </sheet>
       </form>
     </field>
@@ -85,6 +80,30 @@
     </field>
   </record>
   
+   <!-- Graph view -->
+  <record id="admision_graph_view" model="ir.ui.view">
+    <field name="name">Vista Graph</field>
+    <field name="model">admision.admision</field>
+    <field name="arch" type="xml">
+      <graph type="bar"> <!--pie, line, bar -->
+        <field name="estadia_hospitalaria" type="measure"></field>
+      </graph>
+    </field>
+  </record>
+
+   <!-- Pivot view -->
+  <record id="admision_graph_view" model="ir.ui.view">
+    <field name="name">Vista Pivot</field>
+    <field name="model">admision.admision</field>
+    <field name="arch" type="xml">
+      <pivot>
+        <field name="datos_paciente"></field>
+        <field name="fecha_ingreso_uci"></field>
+        <field name="estadia_hospitalaria" type="measure"></field>
+      </pivot>
+    </field>
+  </record>
+
   <!-- actions opening views on models -->
   
   <!-- Menú -->
