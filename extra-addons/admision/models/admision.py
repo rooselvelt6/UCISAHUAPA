@@ -26,10 +26,10 @@ class Admision(models.Model):
 	antecedentes = fields.Html(translate=True, help='Antecedentes del paciente')
 	
 	# FECHA INGRESO A UCI
-	fecha_ingreso_uci = fields.Date(string="Fecha de ingreso a UCI", help='Fecha de Ingreso a UCI')
+	fecha_ingreso_uci = fields.Date(string="Fecha de ingreso a UCI", help='Fecha de Ingreso a UCI', required=True)
 	
 	# DATOS DEL PACIENTE.
-	datos_paciente = fields.Many2one('admision.paciente', string='Paciente', ondelete='cascade', index=True, track_visibility='onchange', help="Datos del paciente")
+	datos_paciente = fields.Many2one('admision.paciente', string='Paciente', ondelete='cascade', index=True, track_visibility='onchange', help="Datos del paciente", required=True)
 
 	# RESUMEN DE INGRESO A UCI
 	resumen_ingreso  = fields.Html(string='Resumen general de ingreso', translate=True, help='Resumen de ingreso del paciente')
@@ -38,7 +38,6 @@ class Admision(models.Model):
 	examen_fisico_uci = fields.Many2one('admision.examenfisico', 
 										string='Examen de ingreso a UCI', 
 										ondelete='cascade', 
-										
 										track_visibility='onchange', 
 										help="Examen físico de ingreso a UCI")
 

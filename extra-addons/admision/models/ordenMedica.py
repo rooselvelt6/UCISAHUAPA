@@ -18,12 +18,14 @@ class OrdenMedica(models.Model):
 	)
 	fecha_inicio = fields.Datetime(
 	    string='Fecha de inicio',
-	    help='Fecha de inicio de la orden medica', 
+	    help='Fecha de inicio de la orden medica',
+	    required=True, 
 	)
 
 	fecha_final= fields.Datetime(
 	    string='Fecha de culminación',
-	    help='Fecha de finalización de la orden medica', 
+	    help='Fecha de finalización de la orden medica',
+	    required=True, 
 	)
 
 	orden = fields.Text(

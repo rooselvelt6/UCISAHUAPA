@@ -78,7 +78,9 @@
     <field name="arch" type="xml">
       <tree limit="10">
             <field name="usuario_id"></field>
-            <field name="fecha_ingreso_uci"></field> 
+            <field name="datos_paciente"></field>
+            <field name="fecha_ingreso_uci"></field>
+            <field name="estadia_hospitalaria"></field>
       </tree>
     </field>
   </record>

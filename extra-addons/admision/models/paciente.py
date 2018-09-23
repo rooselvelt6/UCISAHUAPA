@@ -11,13 +11,13 @@ class Paciente(models.Model):
 	historia_id = fields.Many2one('admision.historia', string='Historia')
 
 	# FECHA DE NACIMIENTO
-	fecha_nacimiento  = fields.Date(string='Fecha de nacimiento', help='Fecha de nacimiento')
+	fecha_nacimiento  = fields.Date(string='Fecha de nacimiento', help='Fecha de nacimiento', required=True)
 	
 	# NOMBRE
-	nombre = fields.Char(string='Nombre completo', translate=True, help='Nombre completo del paciente')
+	nombre = fields.Char(string='Nombre completo', translate=True, help='Nombre completo del paciente', required=True)
 
 	# SEXO.
-	sexo = fields.Selection([(0,"Femenino"),(1,"Masculino")])
+	sexo = fields.Selection([(0,"Femenino"),(1,"Masculino")], default=0, string="Sexo")
 	
 	# COLOR DE PIEL.
 	color_piel = fields.Selection([(0,"Morena"),(1,"Blanca")], string="Color de piel", default=0)
@@ -38,7 +38,7 @@ class Paciente(models.Model):
 	
 
 	# FECHA DE INGRESO AL HOSPITAL
-	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital')
+	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital', required=True)
 	
 	edad = fields.Char(
 	    string='Edad del paciente',

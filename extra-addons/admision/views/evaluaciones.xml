@@ -24,7 +24,7 @@
          <group string="Procedencia del paciente">
            <field name="procedencia" help="Servicio de procedencia" placeholder="Servicio de procedencia"></field>
            <separator></separator>
-           <field name="migracion" help="¿El paciente proviene de una migración?" widget="radio"></field>
+           <field name="migracion" help="¿El paciente proviene de una migración?" widget="priority"></field>
          </group>
 
          <group string="Condición de gravedad" col="6" colspan="2">
@@ -32,10 +32,10 @@
               <field name="tipo_admision" help="¿La admisión del paciente es Urgente o Electiva?" widget="radio"></field>
             </group>
             <group>
-              <field name="ventilacion_mecanica" help="¿El paciente requiere conexión al Ventilador Mecánico?" widget="radio"></field>
+              <field name="ventilacion_mecanica" help="¿El paciente requiere conexión al Ventilador Mecánico?" widget="priority"></field>
             </group>
             <group>
-              <field name="procesos_invasivos" help="¿El paciente presenta intubaciones u algún proceso invasivo?" widget="radio"></field>
+              <field name="procesos_invasivos" help="¿El paciente presenta intubaciones u algún proceso invasivo?" widget="priority"></field>
             </group>
         
          </group>

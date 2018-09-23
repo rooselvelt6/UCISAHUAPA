@@ -10,4 +10,4 @@ class Ciudad(models.Model):
 	nombre = fields.Char(string="Ciudad", 
 							translate=True,
 							index=True,
-							help='Ciudad')
+							help='Ciudad', required=True)

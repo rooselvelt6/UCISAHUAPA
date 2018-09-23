@@ -24,18 +24,24 @@
     <field name="arch" type="xml">
       <form string="APACHE_II">
         <sheet>
-         <group col="2" colspan="2">
-           
-           <group col="2" colspan="4">
-             <group>
-               <separator string="Paciente"></separator>
-               <field name="paciente_admitido" placeholder="Nombre del paciente admitido"></field>
-               <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
-               
-               <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
-
-               <separator string="Variables fisiológicas"></separator>
-               <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
+          <group>
+            <separator string="Datos del paciente"></separator>
+            <field name="paciente_admitido" placeholder="Nombre del paciente admitido"></field>
+            <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
+            <separator string="Fecha del cálculo"></separator>
+            <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
+          </group>
+          <group colspan="4">
+            <group>
+              <separator string="Escala Coma Glasgow"></separator>
+              <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
+              <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
+              <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
+              <separator string="Puntaje enfermedad crónica"></separator>
+              <field name="enfermedad_cronica" widget="radio"></field>
+            </group>
+            <group string="Variables fisiológicas">
+              <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
                <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
                <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
                <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
@@ -49,30 +55,15 @@
                <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
                <field name="fio2" help="Oxigenación FIO2"></field>
                <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
-               <separator string="Puntaje crónico"></separator>
-               <field name="enfermedad_cronica" widget="radio"></field>
-             </group>
-             <group>
-                <separator string="Resultados"></separator>
-                <field name="aps" widget="gauge"></field>
-                <field name="apache" widget="gauge"></field>
-                <field name="mortalidad" widget="gauge"></field>
-             </group>
-           </group>
-           <group col="2" colspan="4" string="Escala Coma Glasgow">
-              <group col="3" colspan="2">
-                <group>
-                  <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
-                </group>
-                <group>
-                  <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
-                </group>
-                <group>
-                   <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
-                </group> 
-              </group>
-           </group>
-         </group>
+            </group>
+          </group>
+          <notebook>
+            <page string="Resultados">
+              <field name="aps" widget="gauge"></field>
+              <field name="apache" widget="gauge"></field>
+              <field name="mortalidad" widget="gauge"></field>
+            </page>
+          </notebook>
         </sheet>
       </form>
     </field>
