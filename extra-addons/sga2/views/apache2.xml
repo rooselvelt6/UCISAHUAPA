@@ -9,14 +9,14 @@
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">apache.apache</field>
     <field name="view_type">form</field>
-    <field name="view_mode">kanban,tree,form</field>
+    <field name="view_mode">kanban,tree,form,graph,pivot</field>
     <field name="help" type="html">
           <p class="oe_view_nocontent_create">
             Click para realizar un nuevo cálculo de gravedad (APACHE II).
           </p>
     </field>
   </record>
-
+  
   <!-- Form view -->
   <record id="apache_form_view" model="ir.ui.view">
     <field name="name">Vista Form</field>
@@ -74,7 +74,7 @@
     <field name="name">Vista Tree</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
-      <tree limit="30">
+      <tree>
             <field name="fecha_actual"></field>
             <field name="paciente_admitido"></field>
             <field name="aps"></field>
@@ -95,9 +95,32 @@
         <field name="mortalidad"></field>
         <filter string="Pacientes con fallas renales" domain="[('fallo_renal','=',True)]"></filter>
         <filter string="Pacientes sin fallas renales" domain="[('fallo_renal','=',False)]"></filter>
+        <filter string="Pacientes graves" domain="[('apache','>=',40)]"></filter>
       </search>
     </field>
   </record>
+  
+  <!-- Graph view -->
+  <record id="apache_graph_view" model="ir.ui.view">
+    <field name="name">Vista Graph</field>
+    <field name="model">apache.apache</field>
+    <field name="arch" type="xml">
+      <graph type="bar"> 
+        <field name="apache" type="measure"></field>
+      </graph>
+    </field>
+  </record>
+  <record id="apache_graph_view" model="ir.ui.view">
+    <field name="name">Vista Pivot</field>
+    <field name="model">apache.apache</field>
+    <field name="arch" type="xml">
+      <pivot>
+        <field name="aps" type="measure"></field>
+        <field name="mortalidad"></field>
+      </pivot>
+    </field>
+  </record>
+
 
   <!-- Menú -->
   <menuitem id="apache_menu_root" 

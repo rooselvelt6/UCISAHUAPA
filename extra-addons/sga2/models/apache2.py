@@ -54,7 +54,8 @@ class Apache(models.Model):
 	paciente_admitido = fields.Many2one(
 	    'admision.admision',
 	    string='Paciente admitido',
-	    help='Registro del paciente admitido en UCI', 
+	    help='Registro del paciente admitido en UCI',
+	    required=True, 
 	)
 	# Prueba 3
 
@@ -65,7 +66,7 @@ class Apache(models.Model):
 	######################################
 
 	# FECHA DEL SISTEMA
-	fecha_actual = fields.Date()
+	fecha_actual = fields.Date(required=True)
 
 	# VARIABLES FISIOLOGICAS DEL PACIENTE SOLICITADAS AL USUARIO
 	

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<report id="accion_admision_admision_report" string="Reporte de admision" model="admision.admision" report_type="qweb-pdf" name="reporte_admision_uci.reporte_admision">
+		
+	</report>
+	<template id="reporte_admision">
+		
+	</template>
+</odoo>

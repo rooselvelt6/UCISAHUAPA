@@ -3,12 +3,11 @@
     'name': "Egreso UCI",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Sistema de control de egreso de pacientes admitidos en la UCI del SAHUAPA.""",
 
     'description': """
         Sistema de control de egresos de pacientes admitidos en la UCI.
-        - Historia de admisión a UCI.
+            - Historia de admisión a UCI.
             - Examenes.
             - Diagnosticos.
     """,

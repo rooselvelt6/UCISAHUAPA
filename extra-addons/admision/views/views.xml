@@ -62,7 +62,7 @@
 
               <page string="Tiempos de estadía">
                 <group colspan="4">
-                  <field name="estadia_hospitalaria" placeholder="Estadía total en el SAHUAPA"></field>
+                  <field name="estadia_hospitalaria" placeholder="Estadía total en el SAHUAPA" widget="float_time"></field>
                 </group>
               </page>
           </notebook>
@@ -76,7 +76,7 @@
     <field name="name">Vista Tree</field>
     <field name="model">admision.admision</field>
     <field name="arch" type="xml">
-      <tree limit="10">
+      <tree decoration-warning="estadia_hospitalaria>=15">
             <field name="usuario_id"></field>
             <field name="datos_paciente"></field>
             <field name="fecha_ingreso_uci"></field>
@@ -102,9 +102,8 @@
     <field name="model">admision.admision</field>
     <field name="arch" type="xml">
       <pivot>
-        <field name="datos_paciente"></field>
-        <field name="fecha_ingreso_uci"></field>
         <field name="estadia_hospitalaria" type="measure"></field>
+        <field name="fecha_ingreso_uci"></field>
       </pivot>
     </field>
   </record>
