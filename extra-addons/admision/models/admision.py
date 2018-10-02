@@ -9,7 +9,7 @@ class Admision(models.Model):
 
 	estadia_hospitalaria = fields.Integer(calculate="_calcularEstadiaH", store=True, string="Estadía Hospitalaría General")
 
-	@api.onchange('fecha_ingreso_uci')
+	@api.onchange('fecha_ingreso_uci','datos_paciente')
 	def _calcularEstadiaH(self):
 		if(self.datos_paciente.fecha_ingreso_hospital and self.fecha_ingreso_uci):
 			HUAPA = fields.Date.from_string(self.datos_paciente.fecha_ingreso_hospital)
