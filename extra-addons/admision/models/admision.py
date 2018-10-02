@@ -11,7 +11,7 @@ class Admision(models.Model):
 
 	@api.onchange('fecha_ingreso_uci')
 	def _calcularEstadiaH(self):
-		if self.fecha_ingreso_uci:
+		if(self.datos_paciente.fecha_ingreso_hospital and self.fecha_ingreso_uci):
 			HUAPA = fields.Date.from_string(self.datos_paciente.fecha_ingreso_hospital)
 			UCI = fields.Date.from_string(self.fecha_ingreso_uci)
 			self.estadia_hospitalaria = int(abs(((HUAPA - UCI).days)))
@@ -23,7 +23,7 @@ class Admision(models.Model):
 	foto  = fields.Binary(string="Imagen del paciente", help='Imagen del paciente admitido', attachment=True)
 
 	# ANTECEDENTES DE INGRESO
-	antecedentes = fields.Html(translate=True, help='Antecedentes del paciente')
+	antecedentes = fields.Text(help='Antecedentes del paciente', default="")
 	
 	# FECHA INGRESO A UCI
 	fecha_ingreso_uci = fields.Date(string="Fecha de ingreso a UCI", help='Fecha de Ingreso a UCI', required=True)

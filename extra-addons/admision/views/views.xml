@@ -8,7 +8,7 @@
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">admision.admision</field>
     <field name="view_type">form</field>
-    <field name="view_mode">kanban,tree,form,graph</field>
+    <field name="view_mode">kanban,tree,form,graph,pivot</field>
     <field name="help" type="html">
           <p class="oe_view_nocontent_create">
             Click para añadir un nuevo paciente a la UCI del SAHUAPA
@@ -62,7 +62,7 @@
 
               <page string="Tiempos de estadía">
                 <group colspan="4">
-                  <field name="estadia_hospitalaria" placeholder="Estadía total en el SAHUAPA" widget="float_time"></field>
+                  <field name="estadia_hospitalaria" placeholder="Estadía total en el SAHUAPA"></field>
                 </group>
               </page>
           </notebook>

@@ -57,7 +57,7 @@
   <menuitem id="ordenes_menu_root" 
     name="Ordenes médicas" 
     sequence="1"
-    web_icon="admision,static/description/icon2.png"
+    web_icon="admision,static/description/icon3.png"
     ></menuitem>
 
   <menuitem id="ordenes_category" name="Orden" sequence="1" parent="ordenes_menu_root"></menuitem>

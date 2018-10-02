@@ -107,6 +107,8 @@
     <field name="arch" type="xml">
       <graph type="bar"> 
         <field name="apache" type="measure"></field>
+        <field name="aps" type="measure"></field>
+        <field name="mortalidad"></field>
       </graph>
     </field>
   </record>
@@ -115,8 +117,8 @@
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <pivot>
-        <field name="aps" type="measure"></field>
-        <field name="mortalidad"></field>
+        <field name="paciente_admitido"></field>
+         <field name="apache" type="measure"></field>
       </pivot>
     </field>
   </record>

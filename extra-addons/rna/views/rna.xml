@@ -9,6 +9,10 @@
   			<field name="estadia_hospitalaria" position="before">
   				<field name="estadia" placeholder="Predicción de la estadía con RNA"></field>
   			</field>
+
+        <field name="estadia" position="before">
+          <field name="vector_entrada" placeholder="Vector de Atributos"></field>
+        </field>
   		</field>
   	</record> 
 
