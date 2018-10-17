@@ -1,0 +1,28 @@
+
+class MLP():
+
+    def prediccion(self):
+        #******************************************************
+        # PASO 4. Cargar modelo.
+            #******************************************************
+            # Notas:
+            #******************************************************
+            # Error al cargar modelo varias veces
+            # Se identifica un problema tener que cargar el modelo en cada predicción que se haga
+            # Es necesario buscar otra solución donde el modelo esté cargado de manera general.
+            #******************************************************
+        
+        """modelo_cargado = self.cargarModelo(); # Cargar de disco el modelo.
+                        
+                                print("El modelo ha sido cargado con éxito")
+                                print(modelo_cargado)
+                                del(modelo_cargado)
+                                print(modelo_cargado)"""
+        # 4.2 Configurar y compilar modelo
+        #modelo_cargado.compile(loss=losses.mean_squared_error, optimizer=optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True), metrics=[metrics.mae])
+        #print("Modelo compilado....")
+        # Estimación final
+        #estimacion = modelo_cargado.predict(l3)
+        #print("Estimación:",estimacion)
+        print("     Prueba      ")
+
