@@ -41,26 +41,12 @@
     
 """
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-from . import mlp
 from odoo import models, fields, api
 from sklearn.preprocessing import MinMaxScaler
 import ast
 import numpy as np
-from keras import losses, metrics, optimizers
+from .. import Deep
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-# Iniciar el Agente RNA
-_agente = mlp.Mlp();
-# Entrenamiento y pruebas al iniciar el sistema.
-#_agente.entrenar(); #Entrenar
-#_agente.probar(); # Probar
-# Cargar modelo para predicciones.
-_modelo_cargado = _agente.cargarModelo()
-print("Agente cargado con éxito")
-print(_modelo_cargado)
-_modelo_cargado.compile(loss=losses.mean_squared_error, optimizer=optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True), metrics=[metrics.mae])
-print("Modelo listo para hacer nuevas predicciones")
-#"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 class rna(models.Model):
     _inherit = "admision.admision"
     #*********************************************************************
@@ -139,14 +125,11 @@ class rna(models.Model):
         final = escala.transform(matriz_prediccion)
         l2 = [x[0] for x in final]
         l3 = np.array([l2])
-        resultados_finales = _modelo_cargado.predict(l3)
-        print(l3.shape)
-        
-
-
-
-
-
-        
-        
+        print(l3)
+        print(l3.shape, type(l3))
+        #************************************************
+        # Paso final...construcción
+        #resultados_finales = _modelo_cargado.predict(l3)
+        #print(resultados_finales)
+        print("Fin del proyecto UDO SUCRE 2018...")
         
