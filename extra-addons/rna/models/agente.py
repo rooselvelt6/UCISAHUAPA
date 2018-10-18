@@ -45,10 +45,66 @@ from odoo import models, fields, api
 from sklearn.preprocessing import MinMaxScaler
 import ast
 import numpy as np
-from .. import Deep
+from ..Deep.mlp import Agente
+from os import system
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+_bot = Agente(); # Nuevo Agente RNA
+
+# Fase 1: Entrenamiento y prueba...
+def _modo():
+    system("clear")
+    while True:
+        print("**************************")
+        print("(1). Modo de Aprendizaje. ")
+        print()
+        print("(2). Modo de Predicción.  ")
+        print("**************************")
+        fase = input("Indicar el modo de la RNA:")
+        try:
+            valor = int(fase)
+            if((valor > 0) and (valor <=2)):
+                if(valor==1):
+                    print("Iniciado el modo de Aprendizaje...")
+                    print()
+                    # Modo entrenamiento
+                    _bot._entrenar(); 
+                    _bot._probar(); 
+                    _bot._getTablero();
+                    break;
+                else:
+                    # Fase 2: Predicciones
+                    # Modo predicción
+                    print("Iniciando Modo predicción...")
+                    print()
+                    _modelo_cargado = _bot._cargarCompilar();
+                    print("La predicción es:")
+                    print(_bot._predecir(_modelo_cargado, [0.1,0.2,0.3,0.4,1,1,1,1,1]))
+                    break;
+            else:
+                system("clear")
+                print("Has cometido un error !!!")
+                print("ATENCIÓN. Por favor revisar las opciones del menú...")
+                continue;
+        except ValueError:
+            system("clear")
+            print("ATENCIÓN: Debe ingresar un número entero")
+        
+_modo()
+
+
+# x = _bot._predecir(_modelo_cargado, [1,0,0,0,0,0,0,0,1])
+#fin = _bot._predecir(_modelo_cargado,[0.3076923076923077, 0.0, 0.038461538461538464, 0.038461538461538464, 0.0, 0.038461538461538464, 1.0, 0.0, 0.038461538461538464])
+#print(fin)
+# 2.2) Generar un array numpy (1,9) desde admisión.
+
+# El sistema neuronal percibe las entradas a traves de los sensores
+# y actua en función de la predicción de la estadía así:
+
+
+#***********************************************************************
 class rna(models.Model):
     _inherit = "admision.admision"
+
     #*********************************************************************
     # Campos finales para la comunicación con el exterior.
     #*********************************************************************
@@ -57,12 +113,12 @@ class rna(models.Model):
         string='Estimación del tiempo en UCI',
         help='Estimación del tiempo de la estadía del paciente en la UCI', 
     )
+
     # Percepción del entorno de admisión.
     vector_entrada = fields.Text(
         string='Vector de atributos',
         calculate="_obtenerAtributos"
     )
-
     #*********************************************************************   
     # Métodos onchange
     #*********************************************************************
@@ -124,12 +180,10 @@ class rna(models.Model):
         print(escala.fit(matriz_prediccion))
         final = escala.transform(matriz_prediccion)
         l2 = [x[0] for x in final]
-        l3 = np.array([l2])
-        print(l3)
-        print(l3.shape, type(l3))
-        #************************************************
-        # Paso final...construcción
-        #resultados_finales = _modelo_cargado.predict(l3)
-        #print(resultados_finales)
-        print("Fin del proyecto UDO SUCRE 2018...")
-        
+        # L2: Es la percepción recibida del entorno
+        print(l2)
+
+        #l3 = np.array([l2])
+        #print(l3.shape, type(l3))
+        #print(l3)
+        #_bot._estimar(_modelo_cargado,l2)
