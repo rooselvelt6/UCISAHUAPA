@@ -170,9 +170,9 @@ class rna(models.Model):
         if(len(l2)==9):
             resultado = _agente._estimar(atributos=l2, modelo=_modelo)
             del(l2)
-            print()
-            # Actuar
-            mensaje = "Se estiman {0} días".format(resultado)
-            print("Estimación de estadía en UCI:",resultado)
+           
             for campo in self:
-                campo.estadia = mensaje;
+                # Post-procesar a la realidad de 0 a 41 días y envías a carmpo
+                campo.estadia = _agente._postprocesar(minV=0, maxV=1, minimoNuevo=0, maximoNuevo=41, valor=resultado[0])
+        else:
+            print("El vector de percepciones no tiene el tamaño adecuado...")

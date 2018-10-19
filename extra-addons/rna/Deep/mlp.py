@@ -12,7 +12,7 @@ import numpy as np
 import os
 import webbrowser
 from keras import backend as K
-
+from decimal import Decimal
 class Agente(object):
 	def __init__(self):
 		np.random.seed(7) # Semilla de aleatoriedad
