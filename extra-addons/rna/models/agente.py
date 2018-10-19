@@ -156,22 +156,23 @@ class rna(models.Model):
 
     @api.onchange('vector_entrada')
     def percibir(self):
-        # Paso 1 Generar una lista del entorno.
-        lista = [0,0,0,0,0,0,0,0,0];
-        # Evaluar condición de longitud de lista.
-        if(len(lista)==9):
-            resultado = _agente._estimar(atributos=lista, modelo=_modelo)
-            del(lista)
-            print("Resultado:",resultado)
-        
-    def razonar(self):
+        # Paso 0: Percepcion del entorno.
         for campo in self:
             lista_atributos = ast.literal_eval(campo.vector_entrada)
-            matriz_prediccion = np.array(lista_atributos)                   
-        # Paso 2.
-        matriz_prediccion = np.reshape(matriz_prediccion,(-1,1));
+            matriz_prediccion = np.array(lista_atributos)
+        matriz_prediccion = np.reshape(matriz_prediccion, (-1,1));
         escala = MinMaxScaler(feature_range=(0,1));
         print(escala.fit(matriz_prediccion))
-        final = escala.transform(matriz_prediccion)
+        final = escala.transform(matriz_prediccion);
         l2 = [x[0] for x in final]
-        return l2
+        print(l2)
+        # Razonar
+        if(len(l2)==9):
+            resultado = _agente._estimar(atributos=l2, modelo=_modelo)
+            del(l2)
+            print()
+            # Actuar
+            mensaje = "Se estiman {0} días".format(resultado)
+            print("Estimación de estadía en UCI:",resultado)
+            for campo in self:
+                campo.estadia = mensaje;
