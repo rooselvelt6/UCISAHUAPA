@@ -15,12 +15,13 @@ from keras import backend as K
 
 class Agente(object):
 	def __init__(self):
+		np.random.seed(7) # Semilla de aleatoriedad
 		# Tensorboard
 		self.tensorboard = TensorBoard(log_dir="/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/rna/Deep/Tablero/{0}".format(datetime.now()), write_grads=True, write_graph=True, histogram_freq=1)
 		# Construir modelo.
 		self.modelo = self._construirModelo()
 		# Obtener arquitectura de RNA
-		self._getModelo()
+		#self._getModelo()
 		# Orden: (X_train, X_test, y_train, y_test)
 		self.conjunto_datos = self._crearConjuntos();
 
@@ -54,11 +55,7 @@ class Agente(object):
 	def _construirModelo(self):
 		modelo = Sequential()
 
-		modelo.add(Dense(units=9, 
-						 activation="relu", 
-						 name="Capa_Entrada", 
-						 input_dim=9)
-				   )
+		modelo.add(Dense(units=9, activation="relu", name="Capa_Entrada", input_dim=9))
 		
 		modelo.add(Dense(units=7, activation="relu", name="Capa_Oculta"))
 		
@@ -126,7 +123,7 @@ class Agente(object):
 		print("Resultados:")
 		print()
 		print("Loss:", loss)
-		print("MAE:", mae)
+		print("MAE:", mae*100)
 		print()
 
 	def _postprocesar(self, minV, maxV, minimoNuevo, maximoNuevo, valor):
@@ -143,7 +140,7 @@ class Agente(object):
 		print()
 		return modelo_cargado
 
-	def _predecir(self, modelo, atributos):
+	def _estimar(self, atributos, modelo):
 		"""
 			Errores:
 				Negativos:
@@ -161,49 +158,17 @@ class Agente(object):
 					 			Resultados: [[0.43830487]]
 			
 			# Error Final.
-				
-				ValueError: Error when checking input: expected Capa_Entrada_input to have shape (9,) but got array with shape (1,)
+				- Sucede cuando se ejecuta dos veces la carga de archivos se sobre carga la función y pasa lo siguiente:
+					TypeError: Cannot interpret feed_dict key as Tensor: Tensor Tensor("Placeholder:0", shape=(9, 9), dtype=float32) is not an element of this graph.
+				  -Solución sacar el método de carga de archivos de la función para evitar la sobrecarga de consultas a disco para cargar el modelo.
+
+				alueError: Error when checking input: expected Capa_Entrada_input to have shape (9,) but got array with shape (1,)
 				ValueError: 
 					Tensor Tensor("Capa_Salida_1/Sigmoid:0", shape=(?, 1), dtype=float32) is not an element of this graph.
-
-			Descripción:
-				La función recibe un conjunto similar al de prueba
-				y entrenamiento en formato de array numpy con
-				dimensión de 9 la cual debe estar preprocesada
-				similarmente a la que es usada en casos anteriores
-				También se debe aplicar el método: 
-				estimacion = modelo_cargado.predict(atributos)
-				Una vez que la estimación se realize se debe
-				postprocesar adecuandose a la realidad de la 
-				variable en escala del 0-41 y enviar el valor
-				al formulario del sistema donde es evaluado
-				y corregido tantas por las percepciones del entorno.
-				Se debe estudiar la función desde distintos aspectos
-				hasta encontrar dicha solución desde Odoo.
-				Cada vez que sucedan cambios en el vector_entradas
-				este sistema debe calcularse sin cargar a cada
-				momento el modelo es decir sin realizar tantas 
-				consultas al disco duro para cargar modelos y pesos.
-
-			Llamado de la función:
-				a.predecir(atributos=[[1,2,3,4,5,6,7,8,9]])
-
-			Luego postprocesar para adecuar a la realidad en Días.
-		"""	
+		"""
 		vector = np.array([atributos])
-		print(type(vector), vector.shape)
-		print(vector)
-		return modelo.predict(vector).flatten()
-
-	def _estimar(self, modelo, atributos):
-		print(atributos, type(atributos))
+		estimar = modelo.predict(vector).flatten()
+		return estimar
 		
-		print(dir(modelo))
-
-		array = np.array([atributos])
-		print(array.shape)
-		prediccion = modelo.predict(array)
-		print(prediccion)
-
 		
 		 

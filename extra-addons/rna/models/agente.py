@@ -48,9 +48,11 @@ import numpy as np
 from ..Deep.mlp import Agente
 from os import system
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-_bot = Agente(); # Nuevo Agente RNA
 
-# Fase 1: Entrenamiento y prueba...
+_agente = Agente(); # Nuevo agente...
+_modelo = _agente._cargarCompilar(); # Cargar Modelo.
+_modelo._make_predict_function();
+
 def _modo():
     system("clear")
     while True:
@@ -89,17 +91,6 @@ def _modo():
             system("clear")
             print("ATENCIÓN: Debe ingresar un número entero")
         
-_modo()
-
-
-# x = _bot._predecir(_modelo_cargado, [1,0,0,0,0,0,0,0,1])
-#fin = _bot._predecir(_modelo_cargado,[0.3076923076923077, 0.0, 0.038461538461538464, 0.038461538461538464, 0.0, 0.038461538461538464, 1.0, 0.0, 0.038461538461538464])
-#print(fin)
-# 2.2) Generar un array numpy (1,9) desde admisión.
-
-# El sistema neuronal percibe las entradas a traves de los sensores
-# y actua en función de la predicción de la estadía así:
-
 
 #***********************************************************************
 class rna(models.Model):
@@ -116,7 +107,7 @@ class rna(models.Model):
 
     # Percepción del entorno de admisión.
     vector_entrada = fields.Text(
-        string='Vector de atributos',
+        string='Percepciones',
         calculate="_obtenerAtributos"
     )
     #*********************************************************************   
@@ -164,26 +155,23 @@ class rna(models.Model):
     		attr.vector_entrada = entradas
 
     @api.onchange('vector_entrada')
-    def percepciones(self):
-        print("*********************************")
-        print()
-        print("Se perciben cambios en el entorno")
-        print()
-        print("*********************************")
-        # Paso 1.
+    def percibir(self):
+        # Paso 1 Generar una lista del entorno.
+        lista = [0,0,0,0,0,0,0,0,0];
+        # Evaluar condición de longitud de lista.
+        if(len(lista)==9):
+            resultado = _agente._estimar(atributos=lista, modelo=_modelo)
+            del(lista)
+            print("Resultado:",resultado)
+        
+    def razonar(self):
         for campo in self:
             lista_atributos = ast.literal_eval(campo.vector_entrada)
-            matriz_prediccion = np.array(lista_atributos)
+            matriz_prediccion = np.array(lista_atributos)                   
         # Paso 2.
         matriz_prediccion = np.reshape(matriz_prediccion,(-1,1));
         escala = MinMaxScaler(feature_range=(0,1));
         print(escala.fit(matriz_prediccion))
         final = escala.transform(matriz_prediccion)
         l2 = [x[0] for x in final]
-        # L2: Es la percepción recibida del entorno
-        print(l2)
-
-        #l3 = np.array([l2])
-        #print(l3.shape, type(l3))
-        #print(l3)
-        #_bot._estimar(_modelo_cargado,l2)
+        return l2

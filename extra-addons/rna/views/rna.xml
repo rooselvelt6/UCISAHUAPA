@@ -11,7 +11,7 @@
   			</field>
 
         <field name="estadia" position="before">
-          <field name="vector_entrada" placeholder="Vector de Atributos"></field>
+          <field name="vector_entrada" placeholder="Percepciones del entorno"></field>
         </field>
   		</field>
   	</record> 
