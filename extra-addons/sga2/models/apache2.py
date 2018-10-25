@@ -45,24 +45,14 @@ class Apache(models.Model):
 	_name = 'apache.apache'
 	_description = "APACHE II"
 	_rec_name = "paciente_admitido"
-	# Prueba 1
-	# gravedad_id = fields.One2many('admision.admision','apache_id', string='APACHE II')
-	
-	# Prueba 2: 
-	# Funciono el sistema referenciando el paciente al momento del cálculo sin problemas
-	# Para la relación One2many presenta problemas de relación con elcampo clave
 	paciente_admitido = fields.Many2one(
 	    'admision.admision',
 	    string='Paciente admitido',
 	    help='Registro del paciente admitido en UCI',
 	    required=True, 
 	)
-	# Prueba 3
 
-	# CAMPOS PARA EL WIDGET GAUGE.
-	mortalidad_max = fields.Integer(default=85)
-	aps_max = fields.Integer(default=60)
-	apache_max = fields.Integer(default=71)
+
 	######################################
 
 	# FECHA DEL SISTEMA

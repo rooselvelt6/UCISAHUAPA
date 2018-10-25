@@ -63,14 +63,13 @@ var GaugeWidget = AbstractField.extend({
         if (this.nodeOptions.gauge_value_field) {
             gauge_value = this.recordData[this.nodeOptions.gauge_value_field];
         }
-
         var degree = Math.PI/180,
             width = 200,
             height = 150,
             outerRadius = Math.min(width, height)*0.5,
             innerRadius = outerRadius*0.7,
             fontSize = height/7;
-
+            
         this.$el.empty().attr('style', this.nodeOptions.style + ';position:relative; display:inline-block;');
 
         var arc = d3.svg.arc()
@@ -114,15 +113,15 @@ var GaugeWidget = AbstractField.extend({
 
         var foreground = svg.append("path")
             .datum({endAngle: 0})
-            .style("fill", "hsl(0,50%,50%)") /**/
+            .style("fill", "hsl(0,70%,60%)") 
             .attr("d", arc);
 
         var ratio = max_value ? value/max_value : 0;
         var hue = Math.round(ratio*120);
 
         foreground.transition()
-            .style("fill", "hsl(" + hue + ",70%,50%)")/**/
-            .duration(3000)
+            .style("fill", "hsl(" + hue + ",70%,60%)")
+            .duration(3000) 
             .call(arcTween, (ratio-0.5)*Math.PI);
 
         function arcTween (transition, newAngle) {
