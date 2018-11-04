@@ -59,9 +59,9 @@
           </group>
           <notebook>
             <page string="Resultados">
-              <field name="aps"> </field>
-              <field name="apache"> </field>
-              <field name="mortalidad"> </field>
+              <field name="aps" widget="percentpie"> </field>
+              <field name="apache" widget="percentpie"> </field>
+              <field name="mortalidad" widget="percentpie"> </field>
             </page>
           </notebook>
         </sheet>

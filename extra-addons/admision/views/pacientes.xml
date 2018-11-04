@@ -26,6 +26,7 @@
          </group>
         
          <group string="Datos personales del paciente">
+          
           <group>
             <field name="fecha_nacimiento" help="Fecha de nacimiento del paciente" placeholder="Fecha de nacimiento"></field>
             <field name="edad"></field>
@@ -35,9 +36,9 @@
             <field name="sexo" help="Sexo del paciente" placeholder="Sexo" widget="radio"></field>
             <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente" widget="radio"></field>
           </group>
+
           <group>
             <field name="lugar_nacimiento" help="Lugar de nacimiento" placeholder="Lugar de nacimiento"></field>
-
             <field name="pais_id" help="País de origen" placeholder="País de origen del paciente"></field>
             <field name="estado_id" help="Estado" placeholder="Estado"></field>
             <field name="ciudad"></field>
@@ -45,11 +46,8 @@
             <field name="direccion2"></field>
             <field name="familiar_id" placeholder="Familiar encargado del paciente" widget="many2many_tags"></field>
           </group>
-           
 
-           
          </group>
-
 
          <group string="Información previa del Hospital">
             <group>
@@ -60,7 +58,6 @@
               <field name="examen_id" placeholder="Examen físico de ingreso al HUAPA"></field>
             </group>
          </group>
-        
         </sheet>
       </form>
     </field>

@@ -58,29 +58,29 @@ def _modo():
     while True:
         print("**************************")
         print("(1). Modo de Aprendizaje. ")
-        print()
-        print("(2). Modo de Predicción.  ")
+        #print()
+        #print("(2). Modo de Predicción.  ")
         print("**************************")
         fase = input("Indicar el modo de la RNA:")
         try:
             valor = int(fase)
-            if((valor > 0) and (valor <=2)):
+            if((valor > 0) and (valor <=1)):
                 if(valor==1):
                     print("Iniciado el modo de Aprendizaje...")
                     print()
                     # Modo entrenamiento
-                    _bot._entrenar(); 
-                    _bot._probar(); 
-                    _bot._getTablero();
+                    #_agente._entrenar(); 
+                    #_agente._probar(); 
+                    _agente._getTablero();
                     break;
                 else:
                     # Fase 2: Predicciones
                     # Modo predicción
-                    print("Iniciando Modo predicción...")
-                    print()
-                    _modelo_cargado = _bot._cargarCompilar();
-                    print("La predicción es:")
-                    print(_bot._predecir(_modelo_cargado, [0.1,0.2,0.3,0.4,1,1,1,1,1]))
+                    print("Modo predicción se encuentra en construcción...")
+                    #print()
+                    #_modelo_cargado = _agente._cargarCompilar();
+                    #print("La predicción es:")
+                    #print(_agente._predecir(_modelo_cargado, [0.1,0.2,0.3,0.4,1,1,1,1,1]))
                     break;
             else:
                 system("clear")
@@ -91,7 +91,7 @@ def _modo():
             system("clear")
             print("ATENCIÓN: Debe ingresar un número entero")
         
-
+#_modo()
 #***********************************************************************
 class rna(models.Model):
     _inherit = "admision.admision"
@@ -175,4 +175,5 @@ class rna(models.Model):
                 # Post-procesar a la realidad de 0 a 41 días y envías a carmpo
                 campo.estadia = _agente._postprocesar(minV=0, maxV=1, minimoNuevo=0, maximoNuevo=41, valor=resultado[0])
         else:
-            print("El vector de percepciones no tiene el tamaño adecuado...")
+            print("El vector de percepciones no tiene el tamaño adecuado...")            
+    #*********************************************************************

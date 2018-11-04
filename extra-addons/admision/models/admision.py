@@ -16,7 +16,11 @@ class Admision(models.Model):
 			UCI = fields.Date.from_string(self.fecha_ingreso_uci)
 			self.estadia_hospitalaria = int(abs(((HUAPA - UCI).days)))
 			
-
+	active = fields.Boolean(
+	    string='Active',
+	    default=True
+	)
+	
 	usuario_id = fields.Many2one('res.users', string='Responsable de la admisión', index=True, track_visibility='onchange', default=lambda self: self.env.user)
 
 	# FOTO DEL PACIENTE

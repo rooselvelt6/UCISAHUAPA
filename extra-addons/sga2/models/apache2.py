@@ -45,11 +45,16 @@ class Apache(models.Model):
 	_name = 'apache.apache'
 	_description = "APACHE II"
 	_rec_name = "paciente_admitido"
+	active = fields.Boolean(
+	    string='Active',
+	    default=True
+	)
 	paciente_admitido = fields.Many2one(
 	    'admision.admision',
 	    string='Paciente admitido',
 	    help='Registro del paciente admitido en UCI',
-	    required=True, 
+	    required=True,
+	    ondelete='cascade',
 	)
 
 

@@ -11,3 +11,6 @@ class Ciudad(models.Model):
 							translate=True,
 							index=True,
 							help='Ciudad', required=True)
+	_sql_constraints = [
+	    ('nombre_uniq', 'unique (nombre)', ('Ciudad ya se encuentra registrada !!!')),
+	]

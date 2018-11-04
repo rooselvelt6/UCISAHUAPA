@@ -11,3 +11,6 @@ class Familiar(models.Model):
 							translate=True,
 							index=True,
 							help='Parentesco del familiar con el paciente')
+	_sql_constraints = [
+	    ('parentesco_uniq', 'unique (parentesco)', ('Ya se encuentra registrado intenta con otro !!!')),
+	]
