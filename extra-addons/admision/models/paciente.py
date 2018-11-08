@@ -29,16 +29,17 @@ class Paciente(models.Model):
 	# CI
 	ci = fields.Char(string='Cédula de identidad', size=9, help='Cédula de identidad')
 	
-	pais_id = fields.Many2one('res.country','Pais', 'Pais de origen')
+	pais_id = fields.Many2one('res.country','Pais', required=True)
 
 	estado_id = fields.Many2one('res.country.state','Estado')
 
-	ciudad = fields.Many2one("admision.ciudad", string="Ciudad")
+	ciudad = fields.Many2one("admision.ciudad", string="Ciudad de origen")
+	
 	# Lugar de nacimiento
 	lugar_nacimiento = fields.Text(string="Lugar de nacimiento", translate=True, help='Lugar de nacimiento')
 
 	# DIRECCIÓN ACTUAL
-	direccion1 = fields.Char("Dirección de hábitación 1:")
+	direccion1 = fields.Char("Dirección de hábitación 1")
 	direccion2 = fields.Char("Dirección de hábitación 2")
 	
 	# FECHA DE INGRESO AL HOSPITAL
@@ -60,7 +61,7 @@ class Paciente(models.Model):
 			self.edad = total 
 
 	# PESO CORPORAL
-	peso_corporal = fields.Float(string='Peso corporal', help='Peso corporal del paciente')
+	#peso_corporal = fields.Float(string='Peso corporal', help='Peso corporal del paciente')
 
 	# FAMILIAR ENCARGADO
 	familiar_id = fields.Many2many('admision.familiar', string='Familiares encargados')

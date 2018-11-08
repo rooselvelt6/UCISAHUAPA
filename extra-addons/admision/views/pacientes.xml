@@ -32,7 +32,7 @@
             <field name="edad"></field>
             <field name="nombre" help="Nombre completo del paciente" placeholder="Nombre completo del paciente"></field>
             <field name="ci" help="Cédula de identidad" placeholder="Cédula de identidad"></field>
-            <field name="peso_corporal"></field>
+           
             <field name="sexo" help="Sexo del paciente" placeholder="Sexo" widget="radio"></field>
             <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente" widget="radio"></field>
           </group>

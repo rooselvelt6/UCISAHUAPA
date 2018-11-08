@@ -38,7 +38,8 @@
     'data': [
         'security/ir.model.access.csv',
         'views/apache2.xml',
-        'views/templates.xml',
+        'reports/reporte_apache.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [

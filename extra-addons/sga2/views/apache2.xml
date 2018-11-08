@@ -3,7 +3,6 @@
 <!-- CADA ID ES UNICO Y SIEMPRE EN MINUSCULA-->
 <odoo>
 
-  
   <record id="apache_accion" model="ir.actions.act_window">
     <field name="name">APACHE II</field>
     <field name="type">ir.actions.act_window</field>
@@ -12,26 +11,47 @@
     <field name="view_mode">kanban,tree,form,graph,pivot</field>
     <field name="help" type="html">
           <p class="oe_view_nocontent_create">
-            Click para realizar un nuevo cálculo de gravedad (APACHE II).
+            Click para realizar un nuevo cálculo de APACHE II.
           </p>
     </field>
   </record>
   
-  <!-- Form view -->
+  
+   <!-- Tree view -->
+  <record id="apache_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">apache.apache</field>
+    <field name="arch" type="xml">
+      <tree>
+            <field name="fecha_actual"></field>
+            <field name="paciente_admitido"></field>
+            <field name="aps"></field>
+            <field name="apache"></field>
+            <field name="mortalidad"></field>
+      </tree>
+    </field>
+  </record>
+   <!-- Form view -->
   <record id="apache_form_view" model="ir.ui.view">
     <field name="name">Vista Form</field>
     <field name="model">apache.apache</field>
     <field name="arch" type="xml">
       <form string="APACHE_II">
         <sheet>
-          <group>
-            <separator string="Datos del paciente"></separator>
-            <field name="paciente_admitido" placeholder="Nombre del paciente admitido"></field>
-            <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
-            <separator string="Fecha del cálculo"></separator>
-            <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
-          </group>
-          <group colspan="4">
+              <field name="aps" widget="percentpie" style="width:160px; height:120px;"> </field>
+              <field name="apache" widget="percentpie" style="width:160px; height:120px;"> </field>
+              <field name="mortalidad" 
+                     widget="percentpie" 
+                     style="width:160px; height:120px;"> 
+              </field>
+              <!-- Datos del paciente -->
+              <group>
+                <field name="paciente_admitido" placeholder="Nombre del paciente admitido"></field>
+                <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
+                <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
+              </group>
+
+        <group colspan="4">
             <group>
               <separator string="Escala Coma Glasgow"></separator>
               <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
@@ -57,33 +77,11 @@
                <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
             </group>
           </group>
-          <notebook>
-            <page string="Resultados">
-              <field name="aps" widget="percentpie"> </field>
-              <field name="apache" widget="percentpie"> </field>
-              <field name="mortalidad" widget="percentpie"> </field>
-            </page>
-          </notebook>
         </sheet>
       </form>
     </field>
   </record>
 
-   <!-- Tree view -->
-  <record id="apache_tree_view" model="ir.ui.view">
-    <field name="name">Vista Tree</field>
-    <field name="model">apache.apache</field>
-    <field name="arch" type="xml">
-      <tree>
-            <field name="fecha_actual"></field>
-            <field name="paciente_admitido"></field>
-            <field name="aps"></field>
-            <field name="apache"></field>
-            <field name="mortalidad"></field>
-      </tree>
-    </field>
-  </record>
-  
   <!-- Search views -->
   <record id="apache_search_view" model="ir.ui.view">
     <field name="name">Vista Search</field>
@@ -99,7 +97,8 @@
       </search>
     </field>
   </record>
-  
+
+ 
   <!-- Graph view -->
   <record id="apache_graph_view" model="ir.ui.view">
     <field name="name">Vista Graph</field>
@@ -122,8 +121,6 @@
       </pivot>
     </field>
   </record>
-
-
   <!-- Menú -->
   <menuitem id="apache_menu_root" 
     name="APACHE II" 

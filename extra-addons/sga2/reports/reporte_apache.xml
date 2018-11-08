@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<report 
+		id="accion_admision_admision_report" 
+		string="Reporte de gravedad" 
+		model="apache.apache" 
+		report_type="qweb-html" 
+		name="sga2.reporte_apache">
+	</report>
+
+	<template id="reporte_apache">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page">
+						<h1>Reporte APACHE II</h1>	
+						<div class="row">
+							<div class="span6">
+								<h2>Resultados</h2>
+								<p>Fecha de medición: <span t-field="o.fecha_actual"></span></p>
+								<p>Paciente: <span t-field="o.paciente_admitido"></span></p>
+								<p>Edad: <span t-field="o.edad"></span></p>
+							</div>
+						</div>
+						<ul class="nav nav-pills nav-stacked">
+						  <li class="active">
+						    <a>
+						      <span class="badge pull-right"><span t-field="o.aps"></span></span>
+						      APS
+						    </a>
+						  </li>
+						  <li class="active">
+						    <a>
+						      <span class="badge pull-right"><span t-field="o.apache"></span></span>
+						      APACHE II
+						    </a>
+						  </li>
+						  <li class="active">
+						    <a>
+						      <span class="badge pull-right"><span t-field="o.mortalidad"></span></span>
+						      MORTALIDAD
+						    </a>
+						  </li>
+						</ul>
+						<div class="panel panel-info">
+						  <div class="panel-body">
+						    Variables fisiológicas
+						  </div>
+						  <div class="panel-footer">
+						  	<p>Temperatura: <span t-field="o.temperatura"></span></p>
+						  	<p>Presión arterial media: <span t-field="o.pam"></span></p>
+						  	<p>Frecuencia cardiaca: <span t-field="o.fc"></span></p>
+						  	<p>Frecuencia respiratoria: <span t-field="o.fr"></span></p>
+						  	<p>PH: <span t-field="o.ph"></span></p>
+						  	<p>HCO3 Serico: <span t-field="o.hco3"></span></p>
+						  	<p>Na Serico: <span t-field="o.na"></span></p>
+						  	<p>K Serico: <span t-field="o.k"></span></p>
+						  	<p>Creatinina Serica: <span t-field="o.creatinina"></span></p>
+						  	<p>Hematocrito: <span t-field="o.hematocrito"></span></p>
+						  	<p>Leucocitos: <span t-field="o.leucocitos"></span></p>
+						  	<p>Oxigenación: <span t-field="o.oxigenacion"></span></p>
+						  </div>
+						</div>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

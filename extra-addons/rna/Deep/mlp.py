@@ -13,6 +13,7 @@ import os
 import webbrowser
 from keras import backend as K
 from decimal import Decimal
+
 class Agente(object):
 	def __init__(self):
 		np.random.seed(7) # Semilla de aleatoriedad
@@ -21,7 +22,7 @@ class Agente(object):
 		# Construir modelo.
 		self.modelo = self._construirModelo()
 		# Obtener arquitectura de RNA
-		#self._getModelo()
+		self._getModelo()
 		# Orden: (X_train, X_test, y_train, y_test)
 		self.conjunto_datos = self._crearConjuntos();
 

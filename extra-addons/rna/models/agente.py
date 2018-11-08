@@ -9,24 +9,24 @@
         con retropropagación de errores en Tensorflow.
 
         El sistema toma percepciones del entorno es decir del sistema de admisión actual
-        y en base a las variables procesa las variables y obtiene un resultado capaz de 
-        predecir el tiempo de estadía dentro de la UCI con funciones onchange.
+        y en base a las variables procesa y obtiene un resultado capaz de 
+        predecir el tiempo de estadía dentro de la UCI con funciones onchange de Odoo V11.
 
         El problema de la estimación del tiempo de estadía se presenta como un
         modelo de regresión por medio de RNA con el objetivo de predecir la salida
         de un valor continuo, como el tiempo de estadía de un paciente admitido en
-        la UCI del SAHUAPA en base al siguiente conjunto de variables.
+        la UCI del SAHUAPA en base al siguiente conjunto de variables:
 
         Orden de las variables del universo del conjunto de entrenamiento.
             1. Presencia de antecedentes.
             2. Color de piel del paciente.
             3. Edad del paciente.
             4. Estadía hospitalaria del paciente.
-            5. Proviene de migración el paciente.
+            5. Migración.
             6. Presencia de procesos invasivos.
-            7. Sexo del paciente.
-            8. Tipo de admisión realizada al paciente.
-            9. Ventilador Mecánico.
+            7. Sexo.
+            8. Tipo de admisión realizada.
+            9. Requiere del Ventilador Mecánico.
             ----------------------------------------------------
             10. Etiqueta de salida. (Tiempo de estadía en UCI).
             ----------------------------------------------------
@@ -170,10 +170,23 @@ class rna(models.Model):
         if(len(l2)==9):
             resultado = _agente._estimar(atributos=l2, modelo=_modelo)
             del(l2)
-           
+            # Prueba:
+            #*******************************************
+            # Postprocesar resultados con MinMaxScaler:
+            #*******************************************
+            #*******************************************
             for campo in self:
                 # Post-procesar a la realidad de 0 a 41 días y envías a carmpo
-                campo.estadia = _agente._postprocesar(minV=0, maxV=1, minimoNuevo=0, maximoNuevo=41, valor=resultado[0])
+                # Versión 1.
+                #campo.estadia = _agente._postprocesar(minV=0, maxV=1, minimoNuevo=0, maximoNuevo=41, valor=resultado[0])
+                # Versión 2: (prueba del modelo):
+                campo.estadia = resultado
+                print("********************************************")
+                print("            ESTIMACIÓN DE LA RNA            ")
+                print("********************************************")
+                print(resultado);
+                print(type(resultado))
+                print("********************************************")
         else:
             print("El vector de percepciones no tiene el tamaño adecuado...")            
     #*********************************************************************
