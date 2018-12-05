@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+  <record id="accion_admision" model="ir.actions.act_window">
+    <field name="name">Control de admisión a UCI</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ingreso.ingreso</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form,graph,pivot</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para ingresar un nuevo paciente a la UCI
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="admision_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">ingreso.ingreso</field>
+    <field name="arch" type="xml">
+      
+      <form string="Ingreso UCI form">
+        <sheet>
+           <group string="Datos personales del paciente" colspan="4">
+              <group>
+                <field name="foto" widget="image" class="oe_avatar"></field>
+                <field name="historia" placeholder="Número de la Historia Clínica" default_focus="1"></field>
+                <field name="nombre_completo" placeholder="Nombre del paciente"></field>
+
+                <field name="fecha_nacimiento" string="Fecha de nacimiento" help="Fecha de nacimiento del paciente" placeholder="Fecha de nacimiento" widget='date'></field>
+
+                <field name="edad" placeholder="Edad del paciente"> </field> <!-- Solo lectura -->
+
+                <field name="nacionalidad" placeholder="Nacionalidad del paciente" string="Nacionalidad" widget="radio"></field>
+
+                <field name="ci" help="Cédula de identidad" placeholder="Cédula de identidad"></field>
+
+                <field name="familiar_ids" widget="many2many_tags" placeholder="Familiares en sala de espera"></field>
+              </group>
+
+              <group>
+
+                <field name="sexo" help="Sexo del paciente" placeholder="Sexo" widget="radio"></field>
+
+                <field name="color_piel" help="Color de piel del paciente" placeholder="Color de piel del paciente" widget="radio"></field>
+
+                <field name="pais_id" help="País de origen del paciente" placeholder="País de origen del paciente"></field>
+              
+                <field name="ciudad" placeholder="Ciudad de origen"></field>
+                
+                <field name="lugar_nacimiento" placeholder="Lugar de nacimiento"></field>
+                
+                <field name="direccion" placeholder="Dirección de residencia actual"></field>
+              </group>
+            </group>
+
+            <group string="Resumen de ingreso">
+              <field name="resumen_ingreso" string="Resumen de ingreso a UCI" placeholder="Resumen del ingreso a UCI"></field>
+            </group>
+
+            <group string="Información Hospitalaria" colspan="4">
+              <group string="Fechas de ingreso y tiempos de estadía">
+                <field name="fecha_ingreso_hospital" string="Fecha de ingreso al Hospital" help="Fecha de ingreso al Hospital" placeholder="Fecha de ingreso al Hospital" widget='date'></field>
+              
+                <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI" help="Fecha de ingreso a UCI" placeholder="Fecha de ingreso a UCI" widget='date'></field>
+
+                <field name="estadia_hospitalaria" string="Tiempo en el Hospital" help="Tiempo en el Hospital" placeholder="Tiempo de estadía en el HUAPA"></field>
+
+
+                <field name="antecedentes" string="Antecedentes del paciente" placeholder="Antecedentes del paciente"></field>
+              </group>
+
+              <group string="Evaluación diágnostica del paciente">
+                <!-- Servicio de procedencia
+                <field name="servicio_procedencia" help="¿De cuál servicio procede el paciente?"></field>
+                -->
+                <field name="tipo_admision" help="¿La admisión del paciente es Urgente o Electiva?" widget="radio"></field>
+                <field name="migracion" help="¿El paciente proviene de una migración?" widget="radio"></field>
+                <field name="ventilacion_mecanica" help="¿El paciente requiere conexión al Ventilador Mecánico?" widget="radio"></field>
+                <field name="procesos_invasivos" help="¿El paciente presenta intubaciones u algún proceso invasivo?" widget="radio"></field>
+              </group>
+            </group>
+  
+            <group colspan="4">
+
+              <group string="Examen físico de ingreso al HUAPA">
+                   <field name="examen_fisico_HUAPA" string="Examen físico de ingreso al HUAPA" placeholder="Examen físico de ingreso al HUAPA" help="Examen físico realizado en el HUAPA"></field>
+              </group>
+
+              <group string="Examen físico de ingreso a UCI">
+                  <field name="examen_fisico_UCI" string="Examen físico de ingreso a UCI" placeholder="Examen físico de ingreso a UCI" help="Examen físico realizado en la UCI"></field>
+              </group>
+            </group>
+
+            <group colspan="4">
+
+              <group string="Diagnóstico de ingreso al HUAPA">
+                   <field name="diagnostico_HUAPA" string="Diagnóstico de ingreso al HUAPA" help="Diagnóstico de ingreso al HUAPA"></field>  
+              </group>
+
+              <group string="Diagnóstico de ingreso a UCI">
+                  <field name="diagnostico_UCI" string="Diagnóstico de ingreso a UCI" help="Diagnóstico de ingreso a UCI"></field>
+              </group>
+            </group>
+        </sheet> 
+      </form> 
+    </field>
+  </record>
+
+   <!-- Tree view -->
+  <record id="admision_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">ingreso.ingreso</field>
+    <field name="arch" type="xml">
+      <tree decoration-warning="estadia_hospitalaria>=10" decoration-danger="estadia_hospitalaria>=20">
+            <field name="usuario_id"></field>
+            <field name="nombre_completo"></field>
+            <field name="sexo"></field>
+            <field name="edad"></field>
+            <field name="fecha_ingreso_hospital"></field>
+            <field name="fecha_ingreso_uci"></field>
+            <field name="estadia_hospitalaria"></field>
+      </tree>
+    </field>
+  </record>
+  
+   <!-- Graph view -->
+  <record id="admision_graph_view" model="ir.ui.view">
+    <field name="name">Vista Graph</field>
+    <field name="model">ingreso.ingreso</field>
+    <field name="arch" type="xml">
+      <graph type="bar"> 
+        <field name="estadia_hospitalaria" type="measure"></field>
+      </graph>
+    </field>
+  </record>
+
+   <!-- Pivot view -->
+  <record id="admision_graph_view" model="ir.ui.view">
+    <field name="name">Vista Pivot</field>
+    <field name="model">ingreso.ingreso</field>
+    <field name="arch" type="xml">
+      <pivot>
+        <field name="fecha_ingreso_uci" interval="day"></field>
+        <field name="estadia_hospitalaria" type="measure"></field>
+      </pivot>
+    </field>
+  </record>
+
+  <record id="admision_search_view" model="ir.ui.view">
+    <field name="name">Vista search</field>
+    <field name="model">ingreso.ingreso</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="historia"></field>
+        <filter string="Pacientes con historia" domain="[('historia','!=','')]"></filter>
+        <filter string="Pacientes sin historia" domain="[('historia','=','')]"></filter>
+      </search>
+    </field>
+  </record>
+  
+<!-- Menú -->
+<menuitem id="admision_menu_root" 
+    name="Pacientes" 
+    sequence="1"
+    web_icon="ingreso,static/description/icon.png"
+    ></menuitem>
+  
+  <menuitem id="action_admision_menu" name="Nuevo" sequence="1" parent="admision_menu_root" action="accion_admision"></menuitem> 
+  
+  <menuitem name="Configuración" id="menu_config" parent="admision_menu_root"></menuitem>
+  
+  <menuitem name="Examen físico" id="examenes_menu" parent="menu_config" action="action_admision_examenfisico"></menuitem>
+  
+  <menuitem name="Orden medica" id="orden_menu" parent="menu_config" action="accion_orden"></menuitem>
+
+  <menuitem name="Familiares" id="familiar_menu" parent="menu_config" action="action_ingreso_familiar"></menuitem>
+
+ 
+</odoo>

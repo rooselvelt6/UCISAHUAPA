@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_admision_admision,admision.admision,model_admision_admision,,1,1,1,1
-access_admision_paciente,admision.paciente,model_admision_paciente,,1,1,1,1

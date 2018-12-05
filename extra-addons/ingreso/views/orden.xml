@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- CADA ID ES UNICO Y SIEMPRE EN MINUSCULA-->
+<odoo>
+
+  <record id="accion_orden" model="ir.actions.act_window">
+    <field name="name">Orden medica UCI</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ingreso.orden</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para ingresar una nueva orden médica
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="orden_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">ingreso.orden</field>
+    <field name="arch" type="xml">
+      <form string="Orden form">
+        <group string="Orden">
+          <field name="paciente_id" placeholder="Nombre del paciente" string="Paciente"></field>
+         
+          <field name="fecha_inicio" placeholder="Fecha inicio" string="Fecha inicial"></field>
+          <field name="fecha_final" placeholder="Fecha de culminación" string="Fecha de culminación"></field>
+          <field name="orden" placeholder="Resumen de la orden" string="Ordenes"></field>
+          <field name="actualizacion" placeholder="Actualización" string="Actualización"></field>
+        </group>
+      </form>
+    </field>
+  </record>
+
+   <!-- Tree view -->
+  <record id="orden_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">ingreso.orden</field>
+    <field name="arch" type="xml">
+      <tree>
+          <field name="paciente_id"></field>
+          <field name="fecha_inicio"></field>
+          <field name="fecha_final"></field>
+      </tree>
+    </field>
+  </record>
+ 
+<!-- Menú -->
+<menuitem id="orden_menu_root" 
+    name="Ordenes" 
+    sequence="1"
+    web_icon="ingreso,static/description/icon3.png"
+    ></menuitem>
+
+  <menuitem id="admision_menu_category" name="Ingreso" sequence="1" parent="orden_menu_root"></menuitem>
+  
+  <menuitem id="action_orden_menu" name="Nuevo" sequence="1" parent="orden_menu_root" action="accion_orden"></menuitem> 
+
+</odoo>

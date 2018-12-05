@@ -1,60 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="mlp.list">
-      <field name="name">mlp list</field>
-      <field name="model">mlp.mlp</field>
+  <record id="vista_form_admision_rna" model="ir.ui.view">
+      <field name="name">Formulario RNA</field>
+      <field name="model">ingreso.ingreso</field>
+      <field name="inherit_id" ref="ingreso.admision_form_view"></field>
       <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
+
+        <field name="estadia_hospitalaria" position="before">
+          <field name="prediccion" placeholder="Predicción de la estadía con RNA" readonly="1"></field>
+        </field>
+
+        <field name="prediccion" position="before">
+          <field name="percepciones" placeholder="Percepciones del entorno" readonly="1"></field>
+        </field>
+      </field>
+    </record> 
+
+    <record id="vista_tree_admision_rna" model="ir.ui.view">
+      <field name="name">RNA Tree</field>
+      <field name="model">ingreso.ingreso</field>
+      <field name="inherit_id" ref="ingreso.admision_tree_view"></field>
+      <field name="arch" type="xml">
+        <field name="estadia_hospitalaria" position="after">
+          <field name="prediccion"></field>
+        </field>
       </field>
     </record>
-    -->
 
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="mlp.action_window">
-      <field name="name">mlp window</field>
-      <field name="res_model">mlp.mlp</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    -->
-
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="mlp.action_server">
-      <field name="name">mlp server</field>
-      <field name="model_id" ref="model_mlp_mlp"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
-
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="mlp" id="mlp.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="mlp.menu_1" parent="mlp.menu_root"/>
-    <menuitem name="Menu 2" id="mlp.menu_2" parent="mlp.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="mlp.menu_1_list" parent="mlp.menu_1"
-              action="mlp.action_window"/>
-    <menuitem name="Server to list" id="mlp" parent="mlp.menu_2"
-              action="mlp.action_server"/>
-    -->
   </data>
 </odoo>

@@ -2,12 +2,23 @@
 {
     'name': "mlp",
 
-    'summary': """Multilayer Perceptron""",
+    'summary': """RNA tipo MLP con BP""",
 
     'description': """
-        RNA tipo perceptron multicapa con interfaz gráfica definida para 
-        entrenamiento, prueba, validación y manejo de hiperparámetros
-        del sistema general.
+        Red neuronal artificial multicapa con retroprogación de errores para la estimación de la estadía de un paciente en la UCI del SAHUAPA en base a 
+        variables de admisión del mismo.
+
+        El sistema neuronal hace uso de las variables de la evaluación de la admisión para realizar el cálculo de la variable de estadía.
+
+            - Tiempo de estadía hospitalaria: diferencia entre las fechas de ingreso al hospital y de ingreso a UCI.
+            - Antecedentes del paciente.
+            - Ventilación mecánica.
+            - Migración del paciente.
+            - Color de piel del paciente.
+            - Presencia de procesos invasivos.
+            - Edad.
+            - Sexo.
+            - Tipo de admisión. 
     """,
 
     'author': "Rooselvelt Angulo",
@@ -20,7 +31,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','ingreso'],
 
     # always loaded
     'data': [

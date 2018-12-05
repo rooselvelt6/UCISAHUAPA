@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<report 
+		id="accion_admision_admision_report" 
+		string="Reporte de ingreso" 
+		model="ingreso.ingreso" 
+		report_type="qweb-html" 
+		name="ingreso.reporte_admision">
+	</report>
+
+	<template id="reporte_admision">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page">
+						<h1>Reporte de ingreso a UCI</h1>
+						<p>Responsable del ingreso: <span t-field="o.usuario_id"></span></p>
+						<p>Historia clínica: <span t-field="o.historia"></span></p>
+						<p>Nombre del paciente: <span t-field="o.nombre_completo"></span></p>
+						<p>Cédula de identidad: <span t-field="o.ci"></span></p>
+						<p>Fecha de nacimiento: <span t-field="o.fecha_nacimiento"></span></p>
+						<p>Edad: <span t-field="o.edad"></span></p>
+						<p>Sexo: <span t-field="o.sexo"></span></p>
+						<p>País de origen: <span t-field="o.pais_id"></span></p>
+						<p>Ciudad de origen: <span t-field="o.ciudad"></span></p>
+						<p>Fecha de ingreso al HUAPA: <span t-field="o.fecha_ingreso_hospital"></span></p>
+						<p>Fecha de ingreso a UCI: <span t-field="o.fecha_ingreso_uci"></span></p>
+						<p>Cantidad de días en el Hospital: <span t-field="o.estadia_hospitalaria"></span></p>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

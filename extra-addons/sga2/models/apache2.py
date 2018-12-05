@@ -45,12 +45,13 @@ class Apache(models.Model):
 	_name = 'apache.apache'
 	_description = "APACHE II"
 	_rec_name = "paciente_admitido"
+	_order = 'fecha_actual, apache'
 	active = fields.Boolean(
 	    string='Active',
 	    default=True
 	)
 	paciente_admitido = fields.Many2one(
-	    'admision.admision',
+	    'ingreso.ingreso',
 	    string='Paciente admitido',
 	    help='Registro del paciente admitido en UCI',
 	    required=True,
@@ -142,7 +143,7 @@ class Apache(models.Model):
 	@api.onchange('paciente_admitido')
 	def _obtenerEdad(self):
 		for x in self:
-			x.edad = x.paciente_admitido.datos_paciente.edad # Obtener la edad del paciente admitido y electo para el cálculo.
+			x.edad = x.paciente_admitido.edad # Obtener la edad del paciente admitido y electo para el cálculo.
 	        
 	# ENFERMEDAD CRONICA DOCUMENTACIÓN
 	"""documentacion = [

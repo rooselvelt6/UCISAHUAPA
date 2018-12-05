@@ -38,11 +38,9 @@
     <field name="arch" type="xml">
       <form string="APACHE_II">
         <sheet>
-              <field name="aps" widget="percentpie" style="width:160px; height:120px;"> </field>
-              <field name="apache" widget="percentpie" style="width:160px; height:120px;"> </field>
-              <field name="mortalidad" 
-                     widget="percentpie" 
-                     style="width:160px; height:120px;"> 
+              <field name="aps" widget="percentpie"> </field>
+              <field name="apache" widget="percentpie"> </field>
+              <field name="mortalidad" widget="percentpie"> 
               </field>
               <!-- Datos del paciente -->
               <group>
@@ -111,6 +109,7 @@
       </graph>
     </field>
   </record>
+
   <record id="apache_graph_view" model="ir.ui.view">
     <field name="name">Vista Pivot</field>
     <field name="model">apache.apache</field>
@@ -121,6 +120,10 @@
       </pivot>
     </field>
   </record>
+
+  
+
+
   <!-- Menú -->
   <menuitem id="apache_menu_root" 
     name="APACHE II" 
