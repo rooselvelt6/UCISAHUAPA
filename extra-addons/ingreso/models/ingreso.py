@@ -4,6 +4,7 @@ from odoo import models, fields, api, exceptions
 from datetime import datetime, timedelta
 
 class ingreso(models.Model):
+
 	_name = 'ingreso.ingreso'
 
 	_rec_name = "nombre_completo"
@@ -16,9 +17,11 @@ class ingreso(models.Model):
 
 	active = fields.Boolean(string='Active', default=True)
 
+	color = fields.Integer('Color')
+
 	foto  = fields.Binary(string="Imagen del paciente", help='Imagen del paciente admitido', attachment=True)
 
-	historia = fields.Char(string="Número de historia clínica", translate=True, size=8)
+	historia = fields.Char(string="Número de historia clínica", translate=True, size=7)
 
 	nombre_completo = fields.Char(string='Nombre completo', translate=True, help='Nombre completo del paciente', required=True)
 
@@ -36,11 +39,11 @@ class ingreso(models.Model):
 
 	pais_id = fields.Many2one('res.country','Pais', required=True)
 
-	#estado_id = fields.Many2one('res.country.state','Estado', help='Estado de residencia u origen')
+	estado = fields.Many2one('res.country.state',"Estado de residencia")
 
 	ciudad = fields.Many2one("res.city", string="Ciudad de origen", help='Ciudad de origen', required=True)
 
-	lugar_nacimiento = fields.Text(string="Lugar de nacimiento", translate=True, help='Lugar de nacimiento')
+	lugar_nacimiento = fields.Text(string="Lugar de nacimiento", translate=True, help='Lugar de nacimiento', default="Cumaná, estado Sucre.")
 
 	direccion = fields.Text(string="Dirección de hábitación actual", translate=True, help='Dirección actual')
 
@@ -48,13 +51,12 @@ class ingreso(models.Model):
 	    'ingreso.familiar',
 	    string='Familiares en sala de espera',
 	)
-	
-	# Datos Hospital y UCI
+
 	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital', required=True)
 	
 	fecha_ingreso_uci = fields.Date(string="Fecha de ingreso a UCI", help='Fecha de Ingreso a UCI', required=True)
 
-	estadia_hospitalaria = fields.Integer(calculate="_calcularEstadiaH", store=True, string="Estadía Hospitalaría General", readonly=True)
+	estadia_hospitalaria = fields.Integer(calculate="_calcularEstadiaH", store=True, string="Estadía Hospitalaría General")
 
 	antecedentes = fields.Text(string="Antecedentes del paciente", help='Antecedentes del paciente', default="")
 
@@ -87,38 +89,53 @@ class ingreso(models.Model):
 	ventilacion_mecanica = fields.Selection([(0,"No"), (1,"Si")], string="Ventilador Mecánico", default=0)
 	
 	procesos_invasivos = fields.Selection([(0,"No"), (1,"Si")], string="Procesos invasivos", default=0)
+	
 	# Restricciones
 	_sql_constraints = [
 	    ('historia_uniq', 'unique (historia)', ('El número de Historia ya se encuentra registrado !!!')),
 	    ('nombre_completo_uniq', 'unique (nombre_completo)', ('El paciente ya se encuentra registrado !!!')),
+	    ('ci_uniq', 'unique (ci)', ('Cédula de identidad ya se encuentra registrada en el sistema !!!')),
 	]
 
 	@api.constrains('historia')
 	def check_historia(self):
-		if not self.historia:
+		"""if not self.historia:
+			raise exceptions.ValidationError(
+				'El número de historia debe ser completado !!!'
+			)"""
+		if(self.historia):
+			if((len(self.historia) < 6)):
+				raise exceptions.ValidationError(
+					'El número de historia debe poseer un mínimo de 6 digitos !!!'
+				)
+			if((len(self.historia) > 7)):
+				raise exceptions.ValidationError(
+					'El número de historia debe poseer un máximo de 7 digitos !!!'
+				)
+			if(not self.historia.isdigit()):
+				raise exceptions.ValidationError(
+					"El número de historia no es válida !!!"
+				)
+
+			if (self.historia.isspace()):
+				raise exceptions.ValidationError(
+					"No se puede registrar una historia vacia !!!"
+				)
+			if (self.historia.isalpha()):
+				raise exceptions.ValidationError(
+					"Por favor ingresar un número de historia correcto !!!"
+				)
+
+	@api.constrains('nombre_completo')
+	def check_nombre(self):
+		if not self.nombre_completo:
 			raise exceptions.ValidationError(
 				'El número de historia debe ser completado !!!'
 			)
-		if((len(self.historia) < 6)):
-			raise exceptions.ValidationError(
-				'El número de historia debe poseer un mínimo de 6 digitos !!!'
-			)
-		if((len(self.historia) > 7)):
-			raise exceptions.ValidationError(
-				'El número de historia debe poseer un máximo de 7 digitos !!!'
-			)
-		if(not self.historia.isdigit()):
-			raise exceptions.ValidationError(
-				"El número de historia no es válida !!!"
-			)
 
-		if (self.historia.isspace()):
+		if((len(self.nombre_completo) > 35)):
 			raise exceptions.ValidationError(
-				"No se puede registrar una historia vacia !!!"
-			)
-		if (self.historia.isalpha()):
-			raise exceptions.ValidationError(
-				"Por favor ingresar un número de historia correcto !!!"
+				'El nombre no debe exceder los 35 carácteres !!!'
 			)
 
 	# Funciones 
@@ -137,6 +154,15 @@ class ingreso(models.Model):
 			fecha_actual = fields.Date.from_string(datetime.now().strftime("%Y-%m-%d"))
 			total = int(abs(((fecha_nacimiento - fecha_actual).days) / 365))
 			self.edad = total
+
+	@api.onchange('nombre_completo')
+	def _adaptarNombre(self):
+		
+		if self.nombre_completo:
+		
+			nombre_mayusculas = self.nombre_completo.upper()
+
+			self.nombre_completo = nombre_mayusculas
 	
 	
 

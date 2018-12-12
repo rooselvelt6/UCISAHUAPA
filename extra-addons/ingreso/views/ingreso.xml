@@ -49,6 +49,7 @@
                 <field name="pais_id" help="País de origen del paciente" placeholder="País de origen del paciente"></field>
               
                 <field name="ciudad" placeholder="Ciudad de origen"></field>
+                <field name="estado" placeholder="Estado"></field>
                 
                 <field name="lugar_nacimiento" placeholder="Lugar de nacimiento"></field>
                 
@@ -66,16 +67,14 @@
               
                 <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI" help="Fecha de ingreso a UCI" placeholder="Fecha de ingreso a UCI" widget='date'></field>
 
-                <field name="estadia_hospitalaria" string="Tiempo en el Hospital" help="Tiempo en el Hospital" placeholder="Tiempo de estadía en el HUAPA"></field>
+                <field name="estadia_hospitalaria" string="Estadía Hospitalaria" help="Tiempo en el Hospital" placeholder="Tiempo de estadía en el HUAPA"></field>
 
 
                 <field name="antecedentes" string="Antecedentes del paciente" placeholder="Antecedentes del paciente"></field>
               </group>
 
               <group string="Evaluación diágnostica del paciente">
-                <!-- Servicio de procedencia
-                <field name="servicio_procedencia" help="¿De cuál servicio procede el paciente?"></field>
-                -->
+                
                 <field name="tipo_admision" help="¿La admisión del paciente es Urgente o Electiva?" widget="radio"></field>
                 <field name="migracion" help="¿El paciente proviene de una migración?" widget="radio"></field>
                 <field name="ventilacion_mecanica" help="¿El paciente requiere conexión al Ventilador Mecánico?" widget="radio"></field>
@@ -149,6 +148,7 @@
     </field>
   </record>
 
+  <!--Search -->
   <record id="admision_search_view" model="ir.ui.view">
     <field name="name">Vista search</field>
     <field name="model">ingreso.ingreso</field>
@@ -160,7 +160,84 @@
       </search>
     </field>
   </record>
-  
+ 
+    <!-- Kanban views -->
+  <record id="admision_ingreso_kanban_view" model="ir.ui.view">
+    <field name="name">Vista kanban</field>
+    <field name="model">ingreso.ingreso</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_small_column">
+        <field name="color"></field>
+        <field name="nombre_completo"></field>
+        <field name="sexo"></field>
+        <field name="edad"></field>
+        <field name="fecha_ingreso_uci"></field>
+        <templates>
+          <t t-name="kanban-box">
+            <!-- Set the Kanban card color: -->
+            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+
+              <div class="o_dropdown_kanban dropdown">
+                <!-- Top-right drop down menu here -->
+                <a class="dropdown-toggle btn" data-toggle="dropdown">
+                  <span class="fa fa-bars fa-lg"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  
+                  <t t-if="widget.editable">
+                    <li><a type="edit">Editar</a></li>
+                  </t>
+
+                  <t t-if="widget.deletable">
+                    <li><a type="delete">Eliminar</a></li>
+                  </t>
+
+                  <li>
+                    <ul class="oe_kanban_colorpicker" data-field="color"></ul>
+                  </li>
+                  
+                </ul>
+              </div>
+
+              <div class="oe_kanban_content">
+                
+                <div>
+                  <label for="nombre_completo">Nombre del paciente:</label>
+                  <field name="nombre_completo"></field>
+                </div>
+
+                <div>
+                  <label for="edad">Edad: </label>
+                  <field name="edad"></field>
+                </div>
+
+                <div>
+                  <label for="fecha_ingreso_uci">Fecha de ingreso a UCI: </label>
+                  <field name="fecha_ingreso_uci"></field>
+                </div>
+
+                <div class="oe_kanban_footer">
+                  <div><!-- LEft hand footer-->
+                    
+                  </div>
+
+                  <div><!-- Right hand footer-->
+                    
+                  </div>
+
+                </div>
+              </div> <!--oe_kanban_content -->
+
+              <div class="oe_clear"></div>
+            </div> <!--kanban color -->
+              
+          </t>
+        </templates>
+      </kanban>
+    </field>
+
+  </record>
+
 <!-- Menú -->
 <menuitem id="admision_menu_root" 
     name="Pacientes" 

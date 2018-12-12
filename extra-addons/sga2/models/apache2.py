@@ -46,10 +46,14 @@ class Apache(models.Model):
 	_description = "APACHE II"
 	_rec_name = "paciente_admitido"
 	_order = 'fecha_actual, apache'
+
 	active = fields.Boolean(
 	    string='Active',
 	    default=True
 	)
+
+	color = fields.Integer()
+	
 	paciente_admitido = fields.Many2one(
 	    'ingreso.ingreso',
 	    string='Paciente admitido',

@@ -8,7 +8,7 @@
       <field name="arch" type="xml">
 
         <field name="estadia_hospitalaria" position="before">
-          <field name="prediccion" placeholder="Predicción de la estadía con RNA" readonly="1"></field>
+          <field name="prediccion" placeholder="Predicción de la estadía con RNA"></field>
         </field>
 
         <field name="prediccion" position="before">
