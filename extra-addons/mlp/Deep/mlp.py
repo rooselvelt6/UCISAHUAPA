@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import numpy as np
+import os
+import webbrowser
 from datetime import datetime
 from decimal import Decimal
 from keras import backend as K
@@ -12,17 +15,14 @@ from keras.utils import plot_model
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.python import debug as tf_debug
-import numpy as np
-import os
-import webbrowser
+
 
 class Agente():
 	def __init__(self):
 		np.random.seed(7) # Semilla de aleatoriedad
+
 		# Tensorboard
 		self.tensorboard = TensorBoard(log_dir="/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/mlp/Deep/Tablero/{0}".format(datetime.now()), write_grads=True, write_graph=True, histogram_freq=1, write_images=True)
-		
-		#self.hook = tf_debug.TensorBoardDebugHook("robzombie6:7000")
 		
 		# Construir modelo.
 		self.modelo = self._construirModelo()
@@ -54,7 +54,7 @@ class Agente():
 
 	def _imprimirModelo(self):
 		""" Crear imagen del modelo construido """
-		plot_model(self.modelo, to_file="modelo.png", show_shapes=False, expand_nested=False, dpi=96, rankdir="LR")
+		plot_model(self.modelo, to_file="Modelo/modelo.png")
 
 	def _getTablero(self):
 		# Abrir pestaña de navegador y ejecutar servicio tensorboard

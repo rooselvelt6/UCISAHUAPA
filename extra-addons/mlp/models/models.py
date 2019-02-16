@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from ..Deep.mlp import Agente
+# Prueba.
+from ..Deep.rna import RNA
+
+#from ..Deep.mlp import Agente
 from odoo import models, fields, api
 from os import system
 from sklearn.preprocessing import MinMaxScaler
 import ast
 import numpy as np
 
-
-# Servicio externo
-
 # Modo aprendizaje. (Fase 1)
-_agente = Agente(); # Nuevo agente...
 
-# Modo predicción (Fase 2)
-_modelo = _agente._cargarCompilar(); # Cargar Modelo.
-_modelo._make_predict_function();
+_agente = RNA() # Nuevo agente...
 
 def _modo():
     system("clear")
@@ -33,9 +30,9 @@ def _modo():
                     print("Iniciado el modo de Aprendizaje...")
                     print()
                     # Modo entrenamiento
-                    _agente._entrenar(); 
-                    _agente._probar(); 
-                    _agente._getTablero();
+                    _agente._entrenarModelo(); 
+                    _agente._probarModelo(); 
+                    _agente._mostrarTablero();
                     break;
                 else:
                     # Fase 2: Predicciones
@@ -55,8 +52,14 @@ def _modo():
             system("clear")
             print("ATENCIÓN: Debe ingresar un número entero")
 
-# Activar solo para fase 1    
+# Fase de entrenamiento
 #_modo();
+
+# Fase de recuerdo
+# Modo predicción (Fase 2)
+_modelo = _agente._cargarCompilar(); # Cargar Modelo.
+_modelo._make_predict_function();
+
 
 class mlp(models.Model):
    
@@ -120,7 +123,11 @@ class mlp(models.Model):
         l2 = [x[0] for x in final]
         print(l2)
         if(len(l2)==9):
-            resultado = _agente._estimar(atributos=l2, modelo=_modelo)
+            # Predicción de la estadía
+            #resultado = _agente._estimar(atributos=l2, modelo=_modelo)
+            # Prueba
+            resultado = _agente._predecir(atributos=l2, modelo=_modelo)
+            ##########
             del(l2)
             for attr in self:
                 # Original: attr.prediccion = resultado
