@@ -148,6 +148,7 @@ class Agente():
 
 	def _cargarCompilar(self):
 		modelo_cargado = self._cargarModelo();
+		
 		modelo_cargado.compile(loss=losses.mean_squared_error, 
 					   optimizer=optimizers.Adam(lr=0.01),
 					   metrics=[metrics.mae]

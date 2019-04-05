@@ -22,13 +22,15 @@
     <field name="model">ingreso.orden</field>
     <field name="arch" type="xml">
       <form string="Orden form">
-        <group string="Orden">
-          <field name="paciente_id" placeholder="Nombre del paciente" string="Paciente"></field>
-         
-          <field name="fecha_inicio" placeholder="Fecha inicio" string="Fecha inicial"></field>
-          <field name="fecha_final" placeholder="Fecha de culminación" string="Fecha de culminación"></field>
-          <field name="orden" placeholder="Resumen de la orden" string="Ordenes"></field>
-          <field name="actualizacion" placeholder="Actualización" string="Actualización"></field>
+        <group string="Orden Medica">
+          <group>
+            <field name="paciente_id" placeholder="Nombre del paciente" string="Paciente"></field>
+            <field name="fecha_inicio" placeholder="Fecha inicio" string="Fecha inicial"></field>
+            <field name="fecha_final" placeholder="Fecha de culminación" string="Fecha de culminación"></field>
+            <field name="estado" placeholder="Estado de la orden" string="Estado de la orden"></field>
+            <field name="orden" placeholder="Ordenes" string="Ordenes"></field>
+            <field name="actualizacion" placeholder="Actualización" string="Actualización"></field>
+          </group>
         </group>
       </form>
     </field>
