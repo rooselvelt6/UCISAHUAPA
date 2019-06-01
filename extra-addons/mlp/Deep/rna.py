@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """ Debo actualizar el proyecto a rutas automáticas de python """
-import numpy as np 
+import numpy as np
 import os
 import webbrowser
 from datetime import datetime
@@ -9,37 +9,39 @@ from decimal import Decimal
 from keras import backend as K
 from keras import losses, metrics, optimizers
 from keras.callbacks import EarlyStopping, TensorBoard
-from keras.layers import Dense 
-from keras.models import Sequential, load_model, model_from_json 
-from keras.utils import plot_model 
-from sklearn.model_selection import train_test_split 
+from keras.layers import Dense
+from keras.models import Sequential, load_model, model_from_json
+from keras.utils import plot_model
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from tensorflow.python import debug as tf_debug 
+from tensorflow.python import debug as tf_debug
 
 class RNA():
 	""" Perceptron multicapa para la predicción de la estadía de un paciente en la UCI del SAHUAPA """
 	def __init__(self):
+		""" Constructor """
 		try:
-			# Semilla de aleatoriedad 
-			np.random.seed(7)
-			# Construcción del modelo automáticamente al iniciar objeto.
-			self.modelo = self._construirModelo()
-			# Generar imagen del modelo construido
-			self._imprimirModelo()
-			# Obtener modelo desarrollado y mostrar en consola
-			self._obtenerModelo()
-			# Crear el conjunto de datos
-			self.conjuntoDatos = self._crearConjuntos()
-			# Tensorboard tablero para resultados de la RNA
-			self.tensorboard = TensorBoard(log_dir="/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/mlp/Deep/Tablero/{0}".format(datetime.now()), write_grads=True, write_graph=True, histogram_freq=1, write_images=True)
+			self.reporte = {} # Reporte básico
+			np.random.seed(7) # Semilla de aleatoriedad
+			self.modelo = self._construirModelo() # Construir modelo general
+			self._imprimirModelo() # Generar imagen del modelo a construir
+			self.conjuntoDatos = self._crearConjuntos() # Cargar el conjunto de datos a utilizar por el modelo
+			# Tensorboard
+			self.tensorboard = TensorBoard(write_grads=True, # Pérdida y error
+										   write_graph=True, # Mostrar modelo gráfico
+										   histogram_freq=1, # Histograma
+										   write_images=True, # Imagen del entrenamiento
+										   log_dir="/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/mlp/Deep/Tablero/{0}".format(datetime.now()) # Ruta
+										   )
 		except Exception as e:
 			print(e)
 			raise
 		finally:
-			print("---------------------------------")
-			print("(RNA) HA SIDO DEFINIDA CON ÉXITO ")
-			print("---------------------------------")
-		
+			print("___________________________________________________________________")
+			print("                RED NEURONAL ARTIFICIAL DEFINIDA                   ")
+			print("===================================================================")
+			self.modelo.summary() # Mostrar el modelo creado
+
 	def _debug(self):
 		""" En investigación """
 		print("INICIO DEBUG")
@@ -58,62 +60,78 @@ class RNA():
 		# Agregar capa de salida con una neurona de salida
 		modelo.add(Dense(units=1, activation="sigmoid", name="Capa_Salida"))
 		# Compilar el modelo definido.
-		modelo.compile(loss=losses.mean_squared_error, optimizer=optimizers.Adam(lr=tasa), metrics=[metrics.mae])
+		modelo.compile(loss=losses.mean_squared_error, # Pérdida
+					   optimizer=optimizers.Adam(lr=tasa),  # Método de optimización
+					   metrics=[metrics.mae] # List de metricas a obtener
+					   ) 
 		# Retornar el modelo creado
+		self.reporte["configuracion"] = modelo.get_config()
 		return modelo
-			
+
 	def _imprimirModelo(self):
 		""" Crear imagen del modelo construido """
 		plot_model(self.modelo, to_file="/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/mlp/Deep/Modelo/modelo.png")
-
-	def _obtenerModelo(self):
-		""" Mostrar arquitectura del modelo """
-		return self.modelo.summary()
 
 	def _crearConjuntos(self):
 		try:
 			# Cargar el conjunto total.
 			conjunto = np.loadtxt("/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/mlp/Deep/Data/todo/conjunto_total.csv", delimiter=",")
 			# Dividir en partes las etiquetas y los atributos
-			# Conjunto de atributos
-			atributos = conjunto[:, 0:9]
-			# Conjunto de etiquetas
-			etiqueta  = conjunto[:,9]
-			#print("---------------------------CONJUNTO DE ATRIBUTOS-------------------------------")
-			#print(atributos);
-			#print(type(atributos))
-			#print("---------------------------CONJUNTO DE ETIQUETAS-------------------------------")
-			#print(etiqueta)
-			#print(type(etiqueta))
-			# Transformar etiqueta
-			etiqueta = np.reshape(etiqueta,(-1,1))
-			# Aplicar escalado MinMax
-			escala = MinMaxScaler()
+			atributos = conjunto[:, 0:9] # Atributos
+			etiqueta  = conjunto[:,9] # Etiquetas
+			#print("___________________________________________________________________")
+			#print("                        CONJUNTO DE ATRIBUTOS                      ")
+			#print("===================================================================")
+			#self.reporte["atributos"] = atributos
+			#print(atributos,type(atributos))
+			#print("===================================================================")
+			#print("                        CONJUNTO DE ETIQUETAS                      ")
+			#print("===================================================================")
+			#print(etiqueta,type(etiqueta))
+			#print("===================================================================")
+			#self.reporte["etiquetas"] = etiqueta
+			#print("                 ETIQUETA TRANSFORMADA EN MATRIZ                   ")
+			#print("===================================================================")
+			etiqueta = np.reshape(etiqueta,(-1,1)) # Transformar etiqueta
+			escala = MinMaxScaler() # Aplicar escalado MinMax
+			self.reporte["escalado"] = escala
 			# Imprimir el escalado de los datos.
 			#print("---------------------------PREPROCESAMIENTO MINMAXSCALER-----------------------")
 			print(escala.fit(atributos), escala.fit(etiqueta))
 			escalaAtributos = escala.transform(atributos)
 			escalaEtiqueta = escala.transform(etiqueta)
 			# Imprimir las transformaciones
-			print("-------------------------------------------------------------------------------")
-			print("---------------------------INFORMACIÓN ADICIONAL-------------------------------")
-			print("Cantidad total de ejemplos:",escalaAtributos.shape[0]);
-			print("Dimensión de los atributos:",escalaAtributos.shape[1]);
-			print("Dimensión de las etiquetas:",escalaEtiqueta.shape[1]);
+			#print("===================================================================")
+			#print("Cantidad total de ejemplos:",escalaAtributos.shape[0]);
+			self.reporte["total_ejemplos"] = escalaAtributos.shape[0]
+			#print("===================================================================")
+			#print("Dimensión de los atributos:",escalaAtributos.shape[1]);
+			#print("===================================================================")
+			self.reporte["dimension_atributos"] = escalaAtributos.shape[1]
+			#print("Dimensión de las etiquetas:",escalaEtiqueta.shape[1]);
+			#print("===================================================================")
+			self.reporte["dimension_etiquetas"] = escalaEtiqueta.shape[1]
 			# Dividir conjuntos de aprendizaje y prueba
 			attrEntrenamiento, attrPrueba, etiquetaEntrenamiento, etiquetaPrueba = train_test_split(escalaAtributos, escalaEtiqueta)
-			print("Tamaño del conjunto de entrenamiento:",len(attrEntrenamiento));
-			print("Tamaño del conjunto de prueba:",len(attrPrueba));
+			#print("Tamaño del conjunto de entrenamiento:",len(attrEntrenamiento));
+			#print("===================================================================")
+			self.reporte["length_set_train"] = len(attrEntrenamiento)
+			#print("Tamaño del conjunto de prueba:",len(attrPrueba));
+			self.reporte["length_set_test"] = len(attrPrueba)
+			# Dividir conjuntos de aprendizaje y prueba
+			attrEntrenamiento, attrPrueba, etiquetaEntrenamiento, etiquetaPrueba = train_test_split(escalaAtributos, escalaEtiqueta)
 			# Retornar datos en el orden de creación: (X_train, X_test, y_train, y_test)
 			return (attrEntrenamiento, attrPrueba, etiquetaEntrenamiento, etiquetaPrueba)
 		except Exception as e:
 			print(e)
-			raise
 		finally:
-			print("------------------------------------------")
-			print("Conjuntos de datos transformados con éxito")
-			print("------------------------------------------")
+			print("___________________________________________________________________")
+			print("                  CONJUNTO DE DATOS CARGADO                        ")
+			print("===================================================================")
 
+	def _get_reporte(self):
+		return self.reporte
+		
 	def _guardarModelo(self):
 		""" Enviar los datos del modelo en formato JSON y los pesos en formato HDF5 """
 		modeloJSON = self.modelo.to_json()
@@ -134,11 +152,11 @@ class RNA():
 	def _entrenarModelo(self):
 		# Monitor de paciencia del modelo para el conjunto de validación
 		earlyStop = EarlyStopping(monitor="val_loss", patience=50);
-		self.modelo.fit(self.conjuntoDatos[0], 
-						self.conjuntoDatos[2], 
-						epochs=500, 
-						batch_size=32, 
-						verbose=1, 
+		self.modelo.fit(self.conjuntoDatos[0],
+						self.conjuntoDatos[2],
+						epochs=500,
+						batch_size=32,
+						verbose=1,
 						validation_split=0.2,
 						callbacks=[self.tensorboard, earlyStop]
 						)
@@ -149,10 +167,11 @@ class RNA():
 		cargado = self._cargarModelo()
 		cargado.compile(loss=losses.mean_squared_error, optimizer=optimizers.Adam(lr=0.01), metrics=[metrics.mae])
 		loss, mae = cargado.evaluate(self.conjuntoDatos[1], self.conjuntoDatos[3], batch_size=32, verbose=2)
-		print("---------------------------RESULTADOS DE LA PRUEBA DEL MODELO-------------------------------")
-		print("PÉRDIDA:", loss)
-		print("ERROR ABSOLUTO MEDIO (MAE):", mae)
-		print("--------------------------------------------------------------------------------------------")
+		print("===================================================================")
+		print("                   FASE DE PRUEBA DEL MODELO                       ")
+		print("===================================================================")
+		print("Loss: {0}, MAE: {1}".format(loss, mae))
+		print("===================================================================")
 
 	def _predecir(self, atributos, modelo):
 		vector = np.array([atributos])
@@ -161,21 +180,21 @@ class RNA():
 
 	def _cargarCompilar(self):
 		modelo_cargado = self._cargarModelo();
-		
-		modelo_cargado.compile(loss=losses.mean_squared_error, 
+		# Compilación del modelo 
+		modelo_cargado.compile(loss=losses.mean_squared_error,
 					   optimizer=optimizers.Adam(lr=0.01),
 					   metrics=[metrics.mae]
 					   )
-		print()
-		print("El modelo ha sido cargado y compilado con éxito...")
-		print()
+		print("___________________________________________________________________")
+		print("            RED NEURONAL ARTIFICIAL CARGARDA Y COMPILADA           ")
+		print("===================================================================")
+		print(self.reporte)
 		return modelo_cargado
-		
+
 	def _postprocesar(self, minV, maxV, minimoNuevo, maximoNuevo, valor):
 		return round(Decimal((((valor - minV) * (maximoNuevo - minimoNuevo)) / (maxV - minV)) + minimoNuevo),4)
-		
+
 	def _mostrarTablero(self):
 		""" Obtener tablero TensorBoard en el navegador por defecto """
 		webbrowser.open("http://robzombie6:6006", new=2, autoraise=True)
 		os.system("tensorboard --logdir='/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/mlp/Deep/Tablero'")
-

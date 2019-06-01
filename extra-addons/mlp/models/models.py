@@ -34,15 +34,6 @@ def _modo():
                     _agente._probarModelo(); 
                     _agente._mostrarTablero();
                     break;
-                else:
-                    # Fase 2: Predicciones
-                    # Modo predicción
-                    print("Modo predicción se encuentra en construcción...")
-                    #print()
-                    #_modelo_cargado = _agente._cargarCompilar();
-                    #print("La predicción es:")
-                    #print(_agente._predecir(_modelo_cargado, [0.1,0.2,0.3,0.4,1,1,1,1,1]))
-                    break;
             else:
                 system("clear")
                 print("Has cometido un error !!!")
