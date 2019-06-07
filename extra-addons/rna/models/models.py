@@ -55,7 +55,7 @@ class Agente():
 			# Capa de entrada con 9 neuronas y función relu
 			modelo.add(Dense(units=9, activation="relu", name="Capa_Entrada", input_dim=9))
 			# Capa de entrada con 7 neuronas y función relu
-			modelo.add(Dense(units=8, activation="relu", name="Capa_Oculta"))
+			modelo.add(Dense(units=7, activation="relu", name="Capa_Oculta"))
 			# Capa de salida con 1 neurona y función sigmoide
 			modelo.add(Dense(units=1, activation="sigmoid", name="Capa_Salida"))
 			# Compilación del modelo
@@ -171,14 +171,14 @@ class Agente():
 		os.system("tensorboard --logdir='/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/rna/Tablero'")
 
 # Prueba del agente RNA
-mlp = Agente()
+mlp = Agente() # Cargar Agente inteligente basado en RNA
 #******************************************************************************
 #                 Fase 1: Entrenamiento y prueba                              *
 #******************************************************************************
 # Se utiliza una sola vez luego es desconectada                               *
 #******************************************************************************
-# mlp._entrenarModelo() # Entrenamiento 
-# mlp._probarModelo() # Prueba
+#mlp._entrenarModelo() # Entrenamiento 
+#mlp._probarModelo() # Prueba
 #******************************************************************************
 # Fase 2: Recuerdo e inferencia se encuentra activa una vez entrenado la RNA  *
 #******************************************************************************
@@ -232,6 +232,7 @@ class RNA(models.Model):
 			attr.percepciones = entorno      
 
 	# Predicción del tiempo de estadía basado en RNA
+	
 	@api.onchange('percepciones')
 	def _onchange_percepciones(self):
 		for campo in self:
@@ -256,12 +257,12 @@ class RNA(models.Model):
 			for attr in self:
 				# Estadía cruda sin postprocesamiento de salida.
 				attr.tiempo_estadia = resultado[0]
-				#************************************************************************************************************************
-				# 												Postprocesamiento de salida
-				#************************************************************************************************************************
+				# Postprocesamiento de salida
 				# La pregunta acá es cual es el valor de la estadía ???
-				#************************************************************************************************************************
 				print("Estadía por 10:", resultado[0]*10)
 				print("Estadía por 100:", resultado[0]*100)
 				print("Postprocesamiento MinMax:", mlp._postprocesar(minV=0, maxV=1, minimoNuevo=0, maximoNuevo=41, valor=resultado[0]))
 				#________________________________________________________________________________________________________________________
+	
+	        
+
