@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+  <record id="orden_accion" model="ir.actions.act_window">
+    <field name="name">Orden médica</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">paciente.orden</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para ingresar una nueva orden médica
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="orden_medica_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">paciente.orden</field>
+    <field name="arch" type="xml">
+      <form string="Orden form">
+        <group string="Orden Médica">
+          
+            <field name="id_paciente" placeholder="Nombre del paciente" string="Paciente"></field>
+            <field name="fecha_inicio" placeholder="Fecha inicio" string="Fecha inicial"></field>
+            <field name="fecha_final" placeholder="Fecha de culminación" string="Fecha de culminación"></field>
+            <field name="estado" placeholder="Estado de la orden" string="Estado de la orden"></field>
+            <field name="orden" placeholder="Ordenes" string="Ordenes"></field>
+         
+        </group>
+      </form>
+    </field>
+  </record>
+
+   <!-- Tree view -->
+  <record id="orden_medica_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">paciente.orden</field>
+    <field name="arch" type="xml">
+      <tree>
+          <field name="id_paciente"></field>
+          <field name="fecha_inicio"></field>
+          <field name="fecha_final"></field>
+          <field name="estado"></field>
+      </tree>
+    </field>
+  </record>
+ 
+<!-- Menú 
+<menuitem id="orden_menu_root" 
+    name="Ordenes" 
+    sequence="1"
+    web_icon="ingreso,static/description/icon3.png"
+    ></menuitem>
+
+  <menuitem id="admision_menu_category" name="Ingreso" sequence="1" parent="orden_menu_root"></menuitem>
+  
+  <menuitem id="action_orden_menu" name="Nuevo" sequence="1" parent="orden_menu_root" action="orden_accion"></menuitem> 
+-->
+</odoo>

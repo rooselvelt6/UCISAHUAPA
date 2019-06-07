@@ -3,43 +3,65 @@
 from odoo import models, fields, api, exceptions
 from datetime import datetime, timedelta
 
-class ingreso(models.Model):
+class Paciente(models.Model):
 
-	_name = 'ingreso.ingreso'
+	_name = 'paciente.paciente'
 
 	_rec_name = "nombre_completo"
 	
-	_description = "Ingresos"
+	_description = "Pacientes de la UCI"
 
-	_order = 'fecha_ingreso_uci desc, nombre_completo asc'
-
-	usuario_id = fields.Many2one('res.users', string='Responsable de la admisión', default=lambda self: self.env.user)
+	_order = 'nombre_completo asc'
 
 	active = fields.Boolean(string='Active', default=True)
 
 	color = fields.Integer('Color')
 
-	foto  = fields.Binary(string="Imagen del paciente", help='Imagen del paciente admitido', attachment=True)
+	# Persona responsable del ingreso del paciente
+
+	responsable = fields.Many2one(
+	    'res.users',
+	    string='Responsable del ingreso del paciente',
+	    index=True, 
+	    track_visibility='onchange', 
+	    default=lambda self: self.env.user
+	)
+
+	# Identificador de la historia clínica
 
 	historia = fields.Char(string="Número de historia clínica", translate=True, size=7)
 
-	nombre_completo = fields.Char(string='Nombre completo', translate=True, help='Nombre completo del paciente', required=True)
+	# Datos personales
+
+	foto  = fields.Binary(string="Imagen del paciente", help='Imagen del paciente', attachment=True)
+
+	nombre_completo = fields.Char(string='Nombre completo del paciente', translate=True, help='Nombre completo del paciente', required=True)
 
 	nacionalidad = fields.Selection([(0,"V"),(1,"E")], string="Nacionalidad", default=0)
 
-	ci = fields.Char(string='Cédula de identidad', size=9, help='Cédula de identidad')
+	ci = fields.Char(string='Cédula de identidad', size=9, help='Cédula de identidad', required=True)
 	
 	fecha_nacimiento  = fields.Date(string='Fecha de nacimiento', help='Fecha de nacimiento', required=True)
 	
+	# Edad se calcula con la fecha de nacimiento
+
 	edad = fields.Char(string='Edad del paciente', calculate="_calcularEdad", store=True)
 	
 	sexo = fields.Selection([(0,"Femenino"),(1,"Masculino")], default=0, string="Sexo")
 	
-	color_piel = fields.Selection([(0,"Morena"),(1,"Blanca")], string="Color de piel", default=0)
+	color_piel = fields.Selection([(0,"Morena"),(1,"Blanca")], string="Color de piel del paciente", default=0)
 
-	pais_id = fields.Many2one('res.country','Pais', required=True)
+	familiares = fields.Many2many(
+	    'paciente.familiar',
+	    string='Familiares encargados del paciente',
+	    required=True
+	)
 
-	estado = fields.Many2one('res.country.state',"Estado de residencia")
+	# Ubicación física y dirección
+
+	pais = fields.Many2one('res.country', string='Pais de origen del paciente', required=True)
+
+	estado = fields.Many2one('res.country.state', string="Estado")
 
 	ciudad = fields.Many2one("res.city", string="Ciudad de origen", help='Ciudad de origen', required=True)
 
@@ -47,16 +69,13 @@ class ingreso(models.Model):
 
 	direccion = fields.Text(string="Dirección de hábitación actual", translate=True, help='Dirección actual')
 
-	familiar_ids = fields.Many2many(
-	    'ingreso.familiar',
-	    string='Familiares en sala de espera',
-	)
+	# Datos del ingreso al HUAPA Y UCI
 
-	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al Hospital', required=True)
+	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al hospital', required=True)
 	
-	fecha_ingreso_uci = fields.Date(string="Fecha de ingreso a UCI", help='Fecha de Ingreso a UCI', required=True)
+	fecha_ingreso_uci = fields.Date(string="Fecha de ingreso a la UCI", help='¿Cuando ingreso a la UCI ?', required=True)
 
-	estadia_hospitalaria = fields.Integer(calculate="_calcularEstadiaH", store=True, string="Estadía Hospitalaría General")
+	estadia_hospitalaria = fields.Integer(calculate="_calcularEstadiaH", store=True, string="Estadía Hospitalaría General", help="Diferencia entre la fecha de ingreso al HUAPA e ingreso a la UCI")
 
 	antecedentes = fields.Text(string="Antecedentes del paciente", help='Antecedentes del paciente', default="")
 
@@ -66,37 +85,39 @@ class ingreso(models.Model):
 
 	diagnostico_UCI = fields.Html(string="Diagnóstico de ingreso a UCI", translate=True, help='Diagnóstico de ingreso a UCI', required=True, sanitize=True)
 
+	tipo_admision = fields.Selection([(0,"Electiva"), (1,"Urgente")], string="Tipo de admisión", default=0)
+
+	migracion = fields.Selection([(0,"No"), (1,"Si")], string="Proviene de migración", default=0, help="¿El paciente ha sido migrado de otro centro de salud ?")
+
+	ventilacion_mecanica = fields.Selection([(0,"No"), (1,"Si")], string="Ventilador Mecánico", default=0, help="¿El paciente requiere el Ventilador Mecánico?")
+	
+	procesos_invasivos = fields.Selection([(0,"No"), (1,"Si")], string="Procesos invasivos", default=0, help='¿El paciente ha sido sometido a procesos invasivos?')
+
 	examen_fisico_HUAPA = fields.Many2one(
-	    'ingreso.examenfisico',
+	    'paciente.examen_fisico',
 	    string='Examen físico de ingreso al HUAPA',
 	    ondelete="cascade",
 	    help='Examen físico de ingreso al HUAPA',
 	    index=False,
 	)
 
-	examen_fisico_UCI = field_name = fields.Many2one(
-	    'ingreso.examenfisico',
+	examen_fisico_UCI = fields.Many2one(
+	    'paciente.examen_fisico',
 	    string='Examen físico de ingreso a UCI',
 	    ondelete="cascade",
 	    help='Examen físico de ingreso a UCI',
 	    index=False,
 	)
-	
-	tipo_admision = fields.Selection([(0,"Electiva"), (1,"Urgente")], string="Tipo de admisión", default=0)
 
-	migracion = fields.Selection([(0,"No"), (1,"Si")], string="Proviene de migración", default=0)
-
-	ventilacion_mecanica = fields.Selection([(0,"No"), (1,"Si")], string="Ventilador Mecánico", default=0)
-	
-	procesos_invasivos = fields.Selection([(0,"No"), (1,"Si")], string="Procesos invasivos", default=0)
-	
-	# Restricciones
-	_sql_constraints = [
-	    ('historia_uniq', 'unique (historia)', ('El número de Historia ya se encuentra registrado !!!')),
-	    ('nombre_completo_uniq', 'unique (nombre_completo)', ('El paciente ya se encuentra registrado !!!')),
-	    ('ci_uniq', 'unique (ci)', ('Cédula de identidad ya se encuentra registrada en el sistema !!!')),
-	]
-
+	# PRUEBA
+	"""
+	apaches = field_name_ids = fields.One2many(
+	    'apache.apache',
+	    'o2m_field_id',
+	    string='APACHE II',
+	)
+	"""
+	# FIN
 	@api.constrains('historia')
 	def check_historia(self):
 		"""if not self.historia:

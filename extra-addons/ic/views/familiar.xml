@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="action_familiar" model="ir.actions.act_window">
+    <field name="name">Familiar encargado del paciente</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">paciente.familiar</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para añadir un familiar del paciente 
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="familiar_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">paciente.familiar</field>
+    <field name="arch" type="xml">
+      <form string="Idea form">
+        <sheet>
+          <group>
+             <field name="parentesco" placeholder="Parentesco familiar con el paciente" help="Parentesco con el paciente"></field>
+          </group>
+        
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+   <!-- Tree view -->
+   <record id="familiar_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">paciente.familiar</field>
+    <field name="arch" type="xml">
+      <tree>
+          <field name="parentesco"></field>
+      </tree>
+    </field>
+  </record>
+</odoo>

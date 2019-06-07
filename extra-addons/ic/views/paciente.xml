@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+  <record id="paciente_accion" model="ir.actions.act_window">
+    <field name="name">Control de pacientes</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">paciente.paciente</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form,graph,pivot</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para ingresar un nuevo paciente a la UCI
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="paciente_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">paciente.paciente</field>
+    <field name="arch" type="xml">
+      
+      <form string="Pacientes">
+        <sheet>
+
+          <group string="Responsable del ingreso">
+            <field name="responsable" string="Responsable de la admisión" placeholder="Responsable de la admisión del paciente" readonly="1"></field>    
+          </group>
+          <group name="top">
+       
+            <group name="left" string="Datos personales">
+                <field name="foto" widget="image" class="oe_avatar"></field>
+                <field name="nombre_completo" string="Nombre completo del paciente" help="Nombre completo del paciente" placeholder="Nombre completo del paciente" default_focus="1"></field> 
+                <field name="nacionalidad" string="Nacionalidad" placeholder="Nacionalidad del paciente"></field>
+                <field name="ci" string="Cédula de identidad" placeholder="Cédula de identidad"></field>
+                <field name="fecha_nacimiento" string="Fecha de nacimiento" help="Fecha de nacimiento del paciente" widget='date' placeholder="Fecha de nacimiento"></field>
+                <field name="edad" string="Edad" placeholder="Edad del paciente" readonly="1"></field>
+                <field name="sexo" string="Sexo" placeholder="Sexo del paciente" widget="radio"></field>
+                <field name="color_piel" string="Color de piel" placeholder="Color de piel del paciente" widget="radio"></field>
+                <field name="familiares" widget="many2many_tags" placeholder="Familiares encargados"></field>
+                <field name="pais" help="País de origen" placeholder="País de origen del paciente">></field>
+                <field name="estado" placeholder="Estado del país"></field>
+                <field name="ciudad" placeholder="Ciudad de origen"></field>
+                <field name="lugar_nacimiento" placeholder="Lugar de nacimiento"></field>
+                <field name="direccion" placeholder="Dirección de residencia actual"></field>
+            </group>
+
+            <group name="right" string="Datos hospitalarios">
+                <field name="historia" placeholder="Número de la Historia Clínica"></field>
+                <field name="fecha_ingreso_hospital" string="Fecha de ingreso al Hospital" help="Fecha de ingreso al Hospital" placeholder="Fecha de ingreso al Hospital" widget='date'></field>
+                <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI" help="Fecha de ingreso a UCI" placeholder="Fecha de ingreso a UCI" widget='date'></field>
+                <field name="estadia_hospitalaria" string="Estadía Hospitalaria" help="Tiempo en el Hospital" placeholder="Tiempo de estadía en el HUAPA" readonly="1"></field>
+                <field name="examen_fisico_HUAPA" string="Examen físico del HUAPA" help="Examen realizado en el HUAPA" placeholder="Examen físico del HUAPA"></field>
+                <field name="examen_fisico_UCI" string="Examen físico de UCI" help="Examen realizado en la UCI" placeholder="Examen físico de la UCI"></field>
+                <field name="antecedentes" string="Antecedentes del paciente" placeholder="Antecedentes del paciente"></field>
+                <field name="tipo_admision" help="¿Urgente o Electiva?" widget="radio"></field>
+                <field name="migracion" help="¿El paciente proviene de una migración?" widget="radio"></field>
+                <field name="ventilacion_mecanica" help="¿El paciente requiere conexión al Ventilador Mecánico?" widget="radio"></field>
+                <field name="procesos_invasivos" help="¿El paciente presenta intubaciones u algún proceso invasivo?" widget="radio"></field>
+                
+            </group>
+          </group>
+
+          <group name="diagnosticos" string="Diagnóstico">
+            <field name="diagnostico_HUAPA" string="Diagnóstico de ingreso al HUAPA" help="Diagnóstico de ingreso al HUAPA" placeholder="Diagnóstico del HUAPA"></field>
+            <field name="diagnostico_UCI" string="Diagnóstico de ingreso a UCI" help="Diagnóstico de ingreso a UCI" placeholder="Diagnóstico de la UCI"></field>
+          </group>     
+        </sheet> 
+      </form> 
+    </field>
+  </record>
+
+   <!-- Tree view -->
+  <record id="paciente_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">paciente.paciente</field>
+    <field name="arch" type="xml">
+      <tree decoration-warning="estadia_hospitalaria>=6" decoration-danger="estadia_hospitalaria>=12">
+            <field name="responsable"></field>
+            <field name="nombre_completo"></field>
+            <field name="sexo"></field>
+            <field name="edad"></field>
+            <field name="fecha_ingreso_hospital"></field>
+            <field name="fecha_ingreso_uci"></field>
+            <field name="estadia_hospitalaria"></field>
+      </tree>
+    </field>
+  </record>
+  
+ <!--Search -->
+  <record id="admision_search_view" model="ir.ui.view">
+    <field name="name">Vista search</field>
+    <field name="model">paciente.paciente</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="historia"></field>
+        <filter string="Pacientes con historia clínica" domain="[('historia','!=','')]"></filter>
+        <filter string="Pacientes sin historia clínica" domain="[('historia','=','')]"></filter>
+      </search>
+    </field>
+  </record>
+
+  
+    <!-- Kanban views -->
+  <record id="paciente_kanban_view" model="ir.ui.view">
+    <field name="name">Vista kanban</field>
+    <field name="model">paciente.paciente</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_small_column">
+        <field name="color"></field>
+        <field name="nombre_completo"></field>
+        <field name="sexo"></field>
+        <field name="edad"></field>
+        <field name="fecha_ingreso_uci"></field>
+        <templates>
+          <t t-name="kanban-box">
+            <!-- Set the Kanban card color: -->
+            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+
+              <div class="o_dropdown_kanban dropdown">
+                <!-- Top-right drop down menu here -->
+                <a class="dropdown-toggle btn" data-toggle="dropdown">
+                  <span class="fa fa-bars fa-lg"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  
+                  <t t-if="widget.editable">
+                    <li><a type="edit">Editar</a></li>
+                  </t>
+
+                  <t t-if="widget.deletable">
+                    <li><a type="delete">Eliminar</a></li>
+                  </t>
+
+                  <li>
+                    <ul class="oe_kanban_colorpicker" data-field="color"></ul>
+                  </li>
+                  
+                </ul>
+              </div>
+
+              <div class="oe_kanban_content">
+                
+                <div>
+                  <label for="nombre_completo">Nombre del paciente:</label>
+                  <field name="nombre_completo"></field>
+                </div>
+
+                <div>
+                  <label for="edad">Edad: </label>
+                  <field name="edad"></field>
+                </div>
+
+                <div>
+                  <label for="fecha_ingreso_uci">Fecha de ingreso a UCI: </label>
+                  <field name="fecha_ingreso_uci"></field>
+                </div>
+
+                <div class="oe_kanban_footer">
+                  <div><!-- LEft hand footer-->
+                    
+                  </div>
+
+                  <div><!-- Right hand footer-->
+                    
+                  </div>
+
+                </div>
+              </div> <!--oe_kanban_content -->
+
+              <div class="oe_clear"></div>
+            </div> <!--kanban color -->
+              
+          </t>
+        </templates>
+      </kanban>
+    </field>
+
+  </record>
+  
+  <!-- Graph view -->
+  <record id="paciente_graph_view" model="ir.ui.view">
+    <field name="name">Vista Graph</field>
+    <field name="model">paciente.paciente</field>
+    <field name="arch" type="xml">
+      <graph type="bar"> 
+        <field name="estadia_hospitalaria" type="measure"></field>
+      </graph>
+    </field>
+  </record>
+
+   <!-- Pivot view -->
+  <record id="paciente_pivot_view" model="ir.ui.view">
+    <field name="name">Vista Pivot</field>
+    <field name="model">paciente.paciente</field>
+    <field name="arch" type="xml">
+      <pivot>
+        <field name="fecha_ingreso_uci" interval="day"></field>
+        <field name="estadia_hospitalaria" type="measure"></field>
+      </pivot>
+    </field>
+  </record>
+
+<!-- Menú -->
+<menuitem id="paciente_menu_root" 
+    name="Pacientes" 
+    sequence="1"
+    web_icon="ic,static/description/icon.png"
+    ></menuitem>
+  
+  <menuitem id="action_admision_menu" name="Nuevo ingreso" sequence="1" parent="paciente_menu_root" action="paciente_accion"></menuitem> 
+
+  <menuitem name="Familiares" id="familiares_menu" parent="paciente_menu_root" action="action_familiar"></menuitem>
+
+  <menuitem name="Examen físico" id="examen_menu" parent="paciente_menu_root" action="action_examenfisico"></menuitem>
+
+  <menuitem name="Orden médica" id="orden_medica_menu" parent="paciente_menu_root" action="orden_accion"></menuitem>
+
+ 
+</odoo>

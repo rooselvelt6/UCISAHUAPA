@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="action_examenfisico" model="ir.actions.act_window">
+    <field name="name">Examen Físico</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">paciente.examen_fisico</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para realizar el Examen Físico al paciente
+          </p>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="examenfisico_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">paciente.examen_fisico</field>
+    <field name="arch" type="xml">
+      <form string="Idea form">
+        <sheet>
+          <group>
+           <field placeholder="Resumen del examen Físico" name="resumen" help="Resumen del examen físico" autofocus="autofocus"></field>
+           <field placeholder="Examen de la piel" name="piel" help="Examen de Piel"></field>
+           <field placeholder="Examen cardiopulmonar" name="cardiopulmonar" help="Examen cardiopulmonar"></field>
+           <field placeholder="Examen de abdomen" name="abdomen" help="Examen abdominal"></field>
+           <field placeholder="Examen neurológico" name="neurologico" help="Examen Neurológico"></field>
+           <field placeholder="Examen urogenital" name="urogenital" help="Examen Urogenital"></field>
+           <field placeholder="Examen de las extremidades" name="extremidades" help="Examen de las Extremidades"></field>
+           <field placeholder="Examen de la cabeza" name="cabeza" help="Examen de la cabeza"></field>
+           <field placeholder="Examen de los oidos" name="oidos" help="Examen de oidos"></field>
+           <field placeholder="Examen de la boca" name="boca" help="Examen de la Boca"></field>
+           <field placeholder="Examen de los ojos" name="ojos" help="Examen de los ojos"></field>
+           <field placeholder="Examen de los genitales" name="genitales" help="Examen de los Genitales"></field>
+           <field placeholder="Examen de gases arteriales" name="gases_arteriales" help="Examen de los Gases Arteriales"></field>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+   <!-- Tree view -->
+   <record id="examenfisico_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">paciente.examen_fisico</field>
+    <field name="arch" type="xml">
+      <tree limit="10">
+        <field name="create_date"></field>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Kanban views -->
+  <record id="examenfisico_kanban_view" model="ir.ui.view">
+    <field name="name">Vista kanban</field>
+    <field name="model">paciente.examen_fisico</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_small_column">
+        <field name="color"></field>
+        <field name="kanban_state"></field>
+       
+        <field name="resumen"></field>
+        <templates>
+          <t t-name="kanban-box">
+            <!-- Set the Kanban card color: -->
+            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+
+              <div class="o_dropdown_kanban dropdown">
+                <!-- Top-right drop down menu here -->
+                <a class="dropdown-toggle btn" data-toggle="dropdown">
+                  <span class="fa fa-bars fa-lg"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  
+                  <t t-if="widget.editable">
+                    <li><a type="edit">Editar</a></li>
+                  </t>
+
+                  <t t-if="widget.deletable">
+                    <li><a type="delete">Eliminar</a></li>
+                  </t>
+
+                  <li>
+                    <ul class="oe_kanban_colorpicker" data-field="color"></ul>
+                  </li>
+                  
+                </ul>
+              </div>
+
+              <div class="oe_kanban_content">
+                
+                <div>
+                  <strong>
+                    <field name="create_date"></field>
+                  </strong>
+                </div>
+                
+                <div>
+                  <field name="resumen"></field>
+                </div>
+
+                <div class="oe_kanban_footer">
+                  <div><!-- LEft hand footer-->
+                    
+                  </div>
+
+                  <div><!-- Right hand footer-->
+                    <field name="kanban_state" widget="kanban_state_selection"></field>
+                  </div>
+
+                </div>
+              </div> <!--oe_kanban_content -->
+
+              <div class="oe_clear"></div>
+            </div> <!--kanban color -->
+              
+          </t>
+        </templates>
+      </kanban>
+    </field>
+
+  </record>
+</odoo>

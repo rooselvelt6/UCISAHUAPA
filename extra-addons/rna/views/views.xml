@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+  <record id="form_rna" model="ir.ui.view">
+      <field name="name">Formulario RNA</field>
+      <field name="model">paciente.paciente</field>
+      <field name="inherit_id" ref="ic.paciente_form_view"></field>
+      <field name="arch" type="xml">
+
+        <field name="estadia_hospitalaria" position="before">
+          <field name="tiempo_estadia" placeholder="Predicción del tiempo de estadía" readonly="1"></field>
+        </field>
+
+        <field name="tiempo_estadia" position="before">
+          <field name="percepciones" placeholder="Percepciones del entorno" readonly="1"></field>
+        </field>
+      </field>
+    </record> 
+
+    <record id="tree_rna" model="ir.ui.view">
+      <field name="name">RNA Tree</field>
+      <field name="model">paciente.paciente</field>
+      <field name="inherit_id" ref="ic.paciente_tree_view"></field>
+      <field name="arch" type="xml">
+        <field name="estadia_hospitalaria" position="after">
+          <field name="tiempo_estadia"></field>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>

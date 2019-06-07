@@ -1,9 +1,5 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-""" Debo actualizar el proyecto a rutas automáticas de python """
-import numpy as np
-import os
-import webbrowser
 from datetime import datetime
 from decimal import Decimal
 from keras import backend as K
@@ -15,9 +11,12 @@ from keras.utils import plot_model
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.python import debug as tf_debug
+import numpy as np
+import os
+import webbrowser
 
 class RNA():
-	""" Perceptron multicapa para la predicción de la estadía de un paciente en la UCI del SAHUAPA """
+	
 	def __init__(self):
 		""" Constructor """
 		try:
@@ -170,7 +169,8 @@ class RNA():
 		print("===================================================================")
 		print("                   FASE DE PRUEBA DEL MODELO                       ")
 		print("===================================================================")
-		print("Loss: {0}, MAE: {1}".format(loss, mae))
+		# Reducir a 4 decimales
+		print("Loss: {0:.4f}, MAE: {1:.4f}".format(loss, mae))
 		print("===================================================================")
 
 	def _predecir(self, atributos, modelo):

@@ -2,8 +2,8 @@
 
 from odoo import models, fields, api
 
-# class egreso(models.Model):
-#     _name = 'egreso.egreso'
+# class ic(models.Model):
+#     _name = 'ic.ic'
 
 #     name = fields.Char()
 #     value = fields.Integer()

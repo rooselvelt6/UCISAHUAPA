@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-
-# Prueba.
 from ..Deep.rna import RNA
-
-#from ..Deep.mlp import Agente
 from odoo import models, fields, api
 from os import system
 from sklearn.preprocessing import MinMaxScaler
