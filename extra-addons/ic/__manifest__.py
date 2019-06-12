@@ -33,6 +33,7 @@
         'views/familiar.xml',
         'views/examen_fisico.xml',
         'views/orden_medica.xml',
+        'views/apache2.xml', # Indice APACHE II
         'reports/reporte_paciente.xml',
     ],
     # only loaded in demonstration mode

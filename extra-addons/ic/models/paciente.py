@@ -13,7 +13,10 @@ class Paciente(models.Model):
 
 	_order = 'nombre_completo asc'
 
-	active = fields.Boolean(string='Active', default=True)
+	active = fields.Boolean(
+		string='Active', 
+		default=True
+	)
 
 	color = fields.Integer('Color')
 
@@ -29,27 +32,65 @@ class Paciente(models.Model):
 
 	# Identificador de la historia clínica
 
-	historia = fields.Char(string="Número de historia clínica", translate=True, size=7)
+	historia = fields.Char(
+		string="Número de historia clínica", 
+		translate=True, 
+		size=7
+	)
 
 	# Datos personales
 
-	foto  = fields.Binary(string="Imagen del paciente", help='Imagen del paciente', attachment=True)
+	foto  = fields.Binary(
+		string="Imagen del paciente", 
+		help='Imagen del paciente', 
+		attachment=True
+	)
 
-	nombre_completo = fields.Char(string='Nombre completo del paciente', translate=True, help='Nombre completo del paciente', required=True)
+	nombre_completo = fields.Char(
+		string='Nombre completo del paciente', 
+		translate=True, 
+		help='Nombre completo del paciente', 
+		required=True, 
+		size=50
+	)
 
-	nacionalidad = fields.Selection([(0,"V"),(1,"E")], string="Nacionalidad", default=0)
+	nacionalidad = fields.Selection(
+		[(0,"V"),(1,"E")], 
+		string="Nacionalidad", default=0
+	)
 
-	ci = fields.Char(string='Cédula de identidad', size=9, help='Cédula de identidad', required=True)
+	ci = fields.Char(
+		string='Cédula de identidad', 
+		size=9, 
+		help='Cédula de identidad', 
+		required=True
+	)
 	
-	fecha_nacimiento  = fields.Date(string='Fecha de nacimiento', help='Fecha de nacimiento', required=True)
+	fecha_nacimiento  = fields.Date(
+		string='Fecha de nacimiento', 
+		help='Fecha de nacimiento', 
+		required=True
+	)
 	
 	# Edad se calcula con la fecha de nacimiento
 
-	edad = fields.Char(string='Edad del paciente', calculate="_calcularEdad", store=True)
+	edad = fields.Char(
+		string='Edad del paciente', 
+		calculate="_calcularEdad", 
+		store=True
+	)
 	
-	sexo = fields.Selection([(0,"Femenino"),(1,"Masculino")], default=0, string="Sexo")
+	sexo = fields.Selection(
+		[(0,"Femenino"),(1,"Masculino")], 
+		default=0, 
+		string="Sexo"
+	)
 	
-	color_piel = fields.Selection([(0,"Morena"),(1,"Blanca")], string="Color de piel del paciente", default=0)
+	color_piel = fields.Selection(
+		[(0,"Morena"),(1,"Blanca")],
+		string="Color de piel del paciente", 
+		default=0
+	)
 
 	familiares = fields.Many2many(
 	    'paciente.familiar',
@@ -59,39 +100,108 @@ class Paciente(models.Model):
 
 	# Ubicación física y dirección
 
-	pais = fields.Many2one('res.country', string='Pais de origen del paciente', required=True)
+	pais = fields.Many2one(
+		'res.country', 
+		string='Pais de origen del paciente', 
+		required=True
+	)
 
-	estado = fields.Many2one('res.country.state', string="Estado")
+	estado = fields.Many2one(
+		'res.country.state', 
+		string="Estado"
+	)
 
-	ciudad = fields.Many2one("res.city", string="Ciudad de origen", help='Ciudad de origen', required=True)
+	ciudad = fields.Many2one(
+		"res.city", 
+		string="Ciudad de origen", 
+		help='Ciudad de origen', 
+		required=True
+	)
 
-	lugar_nacimiento = fields.Text(string="Lugar de nacimiento", translate=True, help='Lugar de nacimiento', default="Cumaná, estado Sucre.")
+	lugar_nacimiento = fields.Text(
+		string="Lugar de nacimiento", 
+		translate=True, 
+		help='Lugar de nacimiento', 
+		default="Cumaná, estado Sucre."
+	)
 
-	direccion = fields.Text(string="Dirección de hábitación actual", translate=True, help='Dirección actual')
+	direccion = fields.Text(
+		string="Dirección de hábitación actual", 
+		translate=True, 
+		help='Dirección actual'
+	)
 
 	# Datos del ingreso al HUAPA Y UCI
 
-	fecha_ingreso_hospital  = fields.Date(string='Fecha de ingreso al HUAPA', help='Fecha de ingreso al hospital', required=True)
+	fecha_ingreso_hospital  = fields.Date(
+		string='Fecha de ingreso al HUAPA', 
+		help='Fecha de ingreso al hospital', 
+		required=True
+	)
 	
-	fecha_ingreso_uci = fields.Date(string="Fecha de ingreso a la UCI", help='¿Cuando ingreso a la UCI ?', required=True)
+	fecha_ingreso_uci = fields.Date(
+		string="Fecha de ingreso a la UCI", 
+		help='¿Cuando ingreso a la UCI ?', 
+		required=True
+	)
 
-	estadia_hospitalaria = fields.Integer(calculate="_calcularEstadiaH", store=True, string="Estadía Hospitalaría General", help="Diferencia entre la fecha de ingreso al HUAPA e ingreso a la UCI")
+	estadia_hospitalaria = fields.Integer(
+		calculate="_calcularEstadiaH", 
+		store=True, 
+		string="Estadía Hospitalaría General", 
+		help="Diferencia entre la fecha de ingreso al HUAPA e ingreso a la UCI"
+	)
 
-	antecedentes = fields.Text(string="Antecedentes del paciente", help='Antecedentes del paciente', default="")
+	antecedentes = fields.Text(
+		string="Antecedentes del paciente", 
+		help='Antecedentes del paciente', 
+		default=""
+	)
 
-	resumen_ingreso  = fields.Html(string='Resumen general de ingreso', translate=True, help='Resumen de ingreso del paciente', sanitize=True)
+	resumen_ingreso = fields.Html(
+		string='Resumen general de ingreso', 
+		translate=True, 
+		help='Resumen de ingreso del paciente', 
+		sanitize=True
+	)
 
-	diagnostico_HUAPA = fields.Html(string="Diagnóstico de ingreso al HUAPA", translate=True, help='Diagnóstico de ingreso al HUAPA', sanitize=True)
+	diagnostico_HUAPA = fields.Html(
+		string="Diagnóstico de ingreso al HUAPA", 
+		translate=True, 
+		help='Diagnóstico de ingreso al HUAPA', 
+		sanitize=True
+	)
 
-	diagnostico_UCI = fields.Html(string="Diagnóstico de ingreso a UCI", translate=True, help='Diagnóstico de ingreso a UCI', required=True, sanitize=True)
+	diagnostico_UCI = fields.Html(
+		string="Diagnóstico de ingreso a UCI", 
+		translate=True, 
+		help='Diagnóstico de ingreso a UCI', 
+		required=True, 
+		sanitize=True
+	)
 
 	tipo_admision = fields.Selection([(0,"Electiva"), (1,"Urgente")], string="Tipo de admisión", default=0)
 
-	migracion = fields.Selection([(0,"No"), (1,"Si")], string="Proviene de migración", default=0, help="¿El paciente ha sido migrado de otro centro de salud ?")
+	migracion = fields.Selection(
+		[(0,"No"), (1,"Si")], 
+		string="Proviene de migración", 
+		default=0, 
+		help="¿El paciente ha sido migrado de otro centro de salud ?"
+	)
 
-	ventilacion_mecanica = fields.Selection([(0,"No"), (1,"Si")], string="Ventilador Mecánico", default=0, help="¿El paciente requiere el Ventilador Mecánico?")
+	ventilacion_mecanica = fields.Selection(
+		[(0,"No"), (1,"Si")], 
+		string="Ventilador Mecánico", 
+		default=0, 
+		help="¿El paciente requiere el Ventilador Mecánico?"
+	)
 	
-	procesos_invasivos = fields.Selection([(0,"No"), (1,"Si")], string="Procesos invasivos", default=0, help='¿El paciente ha sido sometido a procesos invasivos?')
+	procesos_invasivos = fields.Selection(
+		[(0,"No"), (1,"Si")], 
+		string="Procesos invasivos", 
+		default=0, 
+		help='¿El paciente ha sido sometido a procesos invasivos?'
+	)
 
 	examen_fisico_HUAPA = fields.Many2one(
 	    'paciente.examen_fisico',

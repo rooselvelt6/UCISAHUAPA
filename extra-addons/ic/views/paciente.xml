@@ -58,8 +58,12 @@
                 <field name="migracion" help="¿El paciente proviene de una migración?" widget="radio"></field>
                 <field name="ventilacion_mecanica" help="¿El paciente requiere conexión al Ventilador Mecánico?" widget="radio"></field>
                 <field name="procesos_invasivos" help="¿El paciente presenta intubaciones u algún proceso invasivo?" widget="radio"></field>
-                
+
             </group>
+          </group>
+
+          <group string="Resumen de ingreso a UCI">
+            <field name="resumen_ingreso" placeholder="Resumen de ingreso a la UCI"></field>
           </group>
 
           <group name="diagnosticos" string="Diagnóstico">
@@ -211,11 +215,20 @@
   
   <menuitem id="action_admision_menu" name="Nuevo ingreso" sequence="1" parent="paciente_menu_root" action="paciente_accion"></menuitem> 
 
-  <menuitem name="Familiares" id="familiares_menu" parent="paciente_menu_root" action="action_familiar"></menuitem>
-
-  <menuitem name="Examen físico" id="examen_menu" parent="paciente_menu_root" action="action_examenfisico"></menuitem>
+  
 
   <menuitem name="Orden médica" id="orden_medica_menu" parent="paciente_menu_root" action="orden_accion"></menuitem>
+
+  <menuitem name="APACHE II" id="escala_apache2_menu" parent="paciente_menu_root" action="apache2_action"></menuitem>
+
+ <menuitem name="Configuración" id="menu_config" parent="paciente_menu_root"></menuitem>
+
+ <menuitem name="Familiares" id="familiares_menu" parent="menu_config" action="action_familiar"></menuitem>
+
+ <menuitem name="Examen físico" id="examen_menu" parent="menu_config" action="action_examenfisico"></menuitem>
+
+
+
 
  
 </odoo>

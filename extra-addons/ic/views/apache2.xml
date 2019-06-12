@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- CADA ID ES UNICO Y SIEMPRE EN MINUSCULA-->
+<odoo>
+
+  <record id="apache2_action" model="ir.actions.act_window">
+    <field name="name">APACHE II</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">apache2.apache2</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">kanban,tree,form,graph,pivot</field>
+    <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click para realizar un nuevo cálculo de APACHE II.
+          </p>
+    </field>
+  </record>
+  
+  
+   <!-- Tree view -->
+  <record id="apache2_tree_view" model="ir.ui.view">
+    <field name="name">Vista Tree</field>
+    <field name="model">apache2.apache2</field>
+    <field name="arch" type="xml">
+      <tree>
+            <field name="fecha_actual"></field>
+            <field name="paciente_admitido"></field>
+            <field name="aps"></field>
+            <field name="apache"></field>
+            <field name="mortalidad"></field>
+      </tree>
+    </field>
+  </record>
+   <!-- Form view -->
+  <record id="apache2_form_view" model="ir.ui.view">
+    <field name="name">Vista Form</field>
+    <field name="model">apache2.apache2</field>
+    <field name="arch" type="xml">
+      <form string="APACHE_II">
+        <sheet>
+              <field name="aps" widget="percentpie"> </field>
+              <field name="apache" widget="percentpie"> </field>
+              <field name="mortalidad" widget="percentpie"> 
+              </field>
+              <!-- Datos del paciente -->
+              <group>
+                <field name="paciente_admitido" placeholder="Nombre del paciente admitido"></field>
+                <field name="edad" string="Edad del paciente" placeholder="Edad del paciente"></field>
+                <field name="fecha_actual" string="Fecha de cálculo" placeholder="Fecha de cálculo"></field>
+              </group>
+
+        <group colspan="4">
+            <group>
+              <separator string="Escala Coma Glasgow"></separator>
+              <field name="apertura_ocular" help='Apertura ocular.' widget="radio"></field>
+              <field name="respuesta_verbal" help='Respuesta verbal.' widget="radio"></field>
+              <field name="respuesta_motora" help='Respuesta motora.' widget="radio"></field>
+              <separator string="Puntaje enfermedad crónica"></separator>
+              <field name="enfermedad_cronica" widget="radio"></field>
+            </group>
+            <group string="Variables fisiológicas">
+              <field string="Temperatura" name="temperatura" placeholder="Temperatura" help="Temperatura rectal (Axial +0.5°C)"></field>
+               <field name="pam" help="Presión arterial media (mmHg)" placeholder="Presión arterial media (PAM)"></field>
+               <field name="fc" help="Frecuencia cardíaca (Respuesta ventricular)"></field>
+               <field name="fr" help="Frecuencia respiratoria (No ventilado o ventilado)"></field>
+               <field name="ph" help="pH arterial (Preferido)"></field>
+               <field name="hco3" help="HCO3 Sérico(Venoso mEq/l)"></field>
+               <field name="na" help="Sodio Sérico (mEq/l)"></field>
+               <field name="k" help="Potasio Sérico (mEq/l)"></field>
+               <field name="creatinina" help="Creatinina sérica (mg/dl)"></field>
+               <field name="fallo_renal" help="¿El paciente tiene fallas renales?"></field>
+               <field name="hematocrito" help="Hematocrito (%)"></field>
+               <field name="leucocitos" help="Leucocitos (Total/mm3 en miles)"></field>
+               <field name="fio2" help="Oxigenación FIO2"></field>
+               <field name="oxigenacion" help="Valor actual de Oxigenación"></field>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Search views -->
+  <record id="apache2_search_view" model="ir.ui.view">
+    <field name="name">Vista Search</field>
+    <field name="model">apache2.apache2</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="aps"></field>
+        <field name="apache"></field>
+        <field name="mortalidad"></field>
+        <filter string="Pacientes con fallas renales" domain="[('fallo_renal','=',True)]"></filter>
+        <filter string="Pacientes sin fallas renales" domain="[('fallo_renal','=',False)]"></filter>
+        <filter string="Pacientes graves" domain="[('apache','>=',40)]"></filter>
+      </search>
+    </field>
+  </record>
+
+ 
+  <!-- Graph view -->
+  <record id="apache2_graph_view" model="ir.ui.view">
+    <field name="name">Vista Graph</field>
+    <field name="model">apache2.apache2</field>
+    <field name="arch" type="xml">
+      <graph type="bar"> 
+        <field name="apache" type="measure"></field>
+        <field name="aps" type="measure"></field>
+        <field name="mortalidad"></field>
+      </graph>
+    </field>
+  </record>
+
+  <record id="apache_graph_view" model="ir.ui.view">
+    <field name="name">Vista Pivot</field>
+    <field name="model">apache2.apache2</field>
+    <field name="arch" type="xml">
+      <pivot>
+        <field name="paciente_admitido"></field>
+         <field name="apache" type="measure"></field>
+      </pivot>
+    </field>
+  </record>
+
+<!-- Kanban views -->
+  <record id="apache2_kanban_view" model="ir.ui.view">
+    <field name="name">Vista kanban</field>
+    <field name="model">apache2.apache2</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_small_column">
+        <field name="color"></field>
+
+        <field name="fecha_actual"></field>
+        <field name="paciente_admitido"></field>
+        <field name="aps"></field>
+        <field name="apache"></field>
+        <field name="mortalidad"></field>
+        
+        <templates>
+          <t t-name="kanban-box">
+            <!-- Set the Kanban card color: -->
+            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+
+              <div class="o_dropdown_kanban dropdown">
+                <!-- Top-right drop down menu here -->
+                <a class="dropdown-toggle btn" data-toggle="dropdown">
+                  <span class="fa fa-bars fa-lg"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                  
+                  <t t-if="widget.editable">
+                    <li><a type="edit">Editar</a></li>
+                  </t>
+
+                  <t t-if="widget.deletable">
+                    <li><a type="delete">Eliminar</a></li>
+                  </t>
+
+                  <li>
+                    <ul class="oe_kanban_colorpicker" data-field="color"></ul>
+                  </li>
+                  
+                </ul>
+              </div>
+
+              <div class="oe_kanban_content">
+                
+                <div>
+                  <label for="paciente_admitido">Paciente: </label>
+                  
+                    <field name="paciente_admitido"></field>
+                  
+                </div>
+
+                <div>
+                    <label for="fecha_actual">Fecha de cálculo: </label>
+                    <field name="fecha_actual"></field>
+                  
+                </div>
+
+                <div>
+                    <label for="aps">APS: </label>
+                    <field name="aps"></field>
+                  
+                </div>
+
+                <div>
+                    <label for="apache">APACHE II: </label>
+                    <field name="apache"></field>
+                  
+                </div>
+
+                <div>
+                    <label for="mortalidad">Mortalidad: </label>
+                    <field name="mortalidad"></field>
+                  
+                </div>
+                
+               
+
+                <div class="oe_kanban_footer">
+                  <div><!-- LEft hand footer-->
+                    
+                  </div>
+
+                  <div><!-- Right hand footer-->
+                  
+                  </div>
+
+                </div>
+              </div> <!--oe_kanban_content -->
+
+              <div class="oe_clear"></div>
+            </div> <!--kanban color -->
+              
+          </t>
+        </templates>
+      </kanban>
+    </field>
+
+  </record>
+  
+ 
+  <!-- Menú 
+  <menuitem id="apache_menu_root" 
+    name="APACHE II" 
+    sequence="1"
+    web_icon="sga2,static/description/icon.png"
+    ></menuitem>
+
+  <menuitem id="apache_menu_category" name="APACHE II" sequence="1" parent="apache_menu_root"></menuitem>
+  
+  <menuitem id="action_apache_menu" name="Nuevo" sequence="1" parent="apache_menu_root" action="apache_accion"></menuitem> 
+ -->
+</odoo>
