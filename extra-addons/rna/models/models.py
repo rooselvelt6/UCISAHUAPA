@@ -35,7 +35,7 @@ class Agente():
 										   write_graph=True, # Mostrar modelo gráfico
 										   histogram_freq=1, # Histograma
 										   write_images=True, # Imagen del entrenamiento
-										   log_dir="/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/rna/Tablero/{0}".format(datetime.now()) # Ruta
+										   log_dir="/home/rooselvelt/Escritorio/UDO/SAHUAPA/UCISAHUAPA/extra-addons/rna/Tensorboard/{0}".format(datetime.now()) # Ruta
 										   )
 		except Exception as e:
 			raise

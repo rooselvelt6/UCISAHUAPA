@@ -27,30 +27,38 @@
           <group string="Responsable del ingreso">
             <field name="responsable" string="Responsable de la admisión" placeholder="Responsable de la admisión del paciente" readonly="1"></field>    
           </group>
+
           <group name="top">
        
             <group name="left" string="Datos personales">
-                <field name="foto" widget="image" class="oe_avatar"></field>
-                <field name="nombre_completo" string="Nombre completo del paciente" help="Nombre completo del paciente" placeholder="Nombre completo del paciente" default_focus="1"></field> 
-                <field name="nacionalidad" string="Nacionalidad" placeholder="Nacionalidad del paciente"></field>
-                <field name="ci" string="Cédula de identidad" placeholder="Cédula de identidad"></field>
-                <field name="fecha_nacimiento" string="Fecha de nacimiento" help="Fecha de nacimiento del paciente" widget='date' placeholder="Fecha de nacimiento"></field>
-                <field name="edad" string="Edad" placeholder="Edad del paciente" readonly="1"></field>
-                <field name="sexo" string="Sexo" placeholder="Sexo del paciente" widget="radio"></field>
-                <field name="color_piel" string="Color de piel" placeholder="Color de piel del paciente" widget="radio"></field>
-                <field name="familiares" widget="many2many_tags" placeholder="Familiares encargados"></field>
-                <field name="pais" help="País de origen" placeholder="País de origen del paciente">></field>
-                <field name="estado" placeholder="Estado del país"></field>
-                <field name="ciudad" placeholder="Ciudad de origen"></field>
-                <field name="lugar_nacimiento" placeholder="Lugar de nacimiento"></field>
-                <field name="direccion" placeholder="Dirección de residencia actual"></field>
+                  
+                  <field name="foto" widget="image" class="oe_avatar"></field>
+
+                  <field name="nombre_completo" string="Nombre completo del paciente" help="Nombre completo del paciente" placeholder="Nombre completo del paciente" default_focus="1"></field> 
+                  <field name="nacionalidad" string="Nacionalidad" placeholder="Nacionalidad del paciente"></field>
+                  <field name="ci" string="Cédula de identidad" placeholder="Cédula de identidad"></field>
+                  <field name="fecha_nacimiento" string="Fecha de nacimiento" help="Fecha de nacimiento del paciente" widget='date' placeholder="Fecha de nacimiento"></field>
+                  <field name="edad" string="Edad" placeholder="Edad del paciente" readonly="1"></field>
+                  <field name="sexo" string="Sexo" placeholder="Sexo del paciente" widget="radio"></field>
+                  <field name="color_piel" string="Color de piel" placeholder="Color de piel del paciente" widget="radio"></field>
+                  <field name="familiares" widget="many2many_tags" placeholder="Familiares encargados"></field>
+                  
+                  <separator string="Ubicación física"></separator>
+                  <field name="pais" help="País de origen" placeholder="País de origen del paciente">></field>
+                  <field name="estado" placeholder="Estado del país"></field>
+                  <field name="ciudad" placeholder="Ciudad de origen"></field>
+                  <field name="lugar_nacimiento" placeholder="Lugar de nacimiento"></field>
+                  <field name="direccion" placeholder="Dirección de residencia actual"></field>
             </group>
 
-            <group name="right" string="Datos hospitalarios">
+            <group name="right">
+                <separator string="Historia clínica"></separator>
                 <field name="historia" placeholder="Número de la Historia Clínica"></field>
+                <separator string="Fechas de ingreso y estadía"></separator>
                 <field name="fecha_ingreso_hospital" string="Fecha de ingreso al Hospital" help="Fecha de ingreso al Hospital" placeholder="Fecha de ingreso al Hospital" widget='date'></field>
                 <field name="fecha_ingreso_uci" string="Fecha de ingreso a UCI" help="Fecha de ingreso a UCI" placeholder="Fecha de ingreso a UCI" widget='date'></field>
                 <field name="estadia_hospitalaria" string="Estadía Hospitalaria" help="Tiempo en el Hospital" placeholder="Tiempo de estadía en el HUAPA" readonly="1"></field>
+                <separator string="Examen físico del paciente"></separator>
                 <field name="examen_fisico_HUAPA" string="Examen físico del HUAPA" help="Examen realizado en el HUAPA" placeholder="Examen físico del HUAPA"></field>
                 <field name="examen_fisico_UCI" string="Examen físico de UCI" help="Examen realizado en la UCI" placeholder="Examen físico de la UCI"></field>
                 <field name="antecedentes" string="Antecedentes del paciente" placeholder="Antecedentes del paciente"></field>
@@ -61,15 +69,26 @@
 
             </group>
           </group>
+          <notebook>
 
-          <group string="Resumen de ingreso a UCI">
-            <field name="resumen_ingreso" placeholder="Resumen de ingreso a la UCI"></field>
-          </group>
+            <page string="Resumen de ingreso" name="Resumen de ingreso">
+              <group>
+                <field name="resumen_ingreso" placeholder="Resumen de ingreso a la UCI"></field>
+              </group>
+              
+            </page>
 
-          <group name="diagnosticos" string="Diagnóstico">
-            <field name="diagnostico_HUAPA" string="Diagnóstico de ingreso al HUAPA" help="Diagnóstico de ingreso al HUAPA" placeholder="Diagnóstico del HUAPA"></field>
-            <field name="diagnostico_UCI" string="Diagnóstico de ingreso a UCI" help="Diagnóstico de ingreso a UCI" placeholder="Diagnóstico de la UCI"></field>
-          </group>     
+            <!-- Página 2 -->
+            <page string="Diagnósticos" name="Diagnósticos">
+              <group>
+                <field name="diagnostico_HUAPA" string="Diagnóstico de ingreso al HUAPA" help="Diagnóstico de ingreso al HUAPA" placeholder="Diagnóstico del HUAPA"></field>
+                <field name="diagnostico_UCI" string="Diagnóstico de ingreso a UCI" help="Diagnóstico de ingreso a UCI" placeholder="Diagnóstico de la UCI"></field>
+              </group>
+              
+            </page>
+            
+            
+          </notebook>
         </sheet> 
       </form> 
     </field>
